@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 
+
 namespace Assets.Scripts.Player
 {
     public class Player : MonoBehaviour
     {
         public float speed = 12f;                  // How fast the tank moves forward and back.
-        public float turnSpeed = 180f;             // How fast the tank turns in degrees per 
+        public float turnSpeed = 180f;             // How fast the tank turns in degrees per
+        public float cameraTurnSpeed = 60f;
 
         public string MovementAxisName { get; set; } // The name of the input axis for moving forward and back.
         public string TurnAxisName { get; set; } // The name of the input axis for turning.
@@ -53,12 +55,13 @@ namespace Assets.Scripts.Player
         {
             var movement = transform.forward * MovementInputValue * speed * Time.deltaTime;
             RigidBody.MovePosition(RigidBody.position + movement);
+
         }
 
         private void Turn()
         {
-            float turn = TurnInputValue * turnSpeed * Time.deltaTime;
-            Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+            float playerTurn = TurnInputValue * turnSpeed * Time.deltaTime;
+            Quaternion turnRotation = Quaternion.Euler(0f, playerTurn, 0f);
             RigidBody.MoveRotation(RigidBody.rotation * turnRotation);
         }
 
