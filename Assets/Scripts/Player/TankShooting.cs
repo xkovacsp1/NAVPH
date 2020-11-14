@@ -7,7 +7,7 @@ namespace Assets.Scripts.Player
         public ShellPool shellPool;
         public Rigidbody shell;                   // Prefab of the shell.
         public Transform fireTransform;           // A child of the tank where the shells are spawned.
-        public float minLaunchForce = 15f;        // The force given to the shell if the fire button is not held.
+        public float  minLaunchForce = 15f;        // The force given to the shell if the fire button is not held.
         public float maxLaunchForce = 30f;        // The force given to the shell if the fire button is held for the max charge time
         public float maxChargeTime = 0.75f;       // How long the shell can charge for before it is fired at max force.
 
