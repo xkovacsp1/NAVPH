@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Camera
   - EnemyTiger
+  - TigerFire
   layers:
   - Default
   - TransparentFX

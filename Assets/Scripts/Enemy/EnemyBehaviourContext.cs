@@ -12,7 +12,8 @@ namespace Assets.Scripts.Enemy
 
         public void Act()
         {
-            //EnemyBehavior.Attack();
+
+            EnemyBehavior.Attack();
             EnemyBehavior.Move();
         }
     }

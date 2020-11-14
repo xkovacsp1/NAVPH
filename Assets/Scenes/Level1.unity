@@ -504,6 +504,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zPos: 20.18
   yPos: 0
-  maxXPos: 14.87
-  minXPos: -15.16
   enemyNumber: 6
