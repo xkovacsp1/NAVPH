@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Shell;
 using UnityEngine;
 
-namespace Assets.Scripts.Enemy
+namespace Assets.Scripts.Enemy.Strategy
 {
     public class EnemySoldier : MonoBehaviour, IEnemyBehaviour
     {
@@ -9,29 +9,33 @@ namespace Assets.Scripts.Enemy
         public readonly float LaunchForce = 20f;  //30f
         public float NextFire { get; set; } = 3.0f;
         public bool isActive = true;
-
+        public int rotationSpeed = 3;
         public int ReservedArea { get; set; }
-
+        public Transform Target { get; private set; }
         private Transform FireTransform { get; set; }
 
         private void Awake()
         {
-            var c = GetComponentsInChildren<Transform>();
+            Target = GameObject.FindWithTag("Player").transform; //target the player
             FireTransform = GetComponentsInChildren<Transform>()[51];
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.gameObject.CompareTag($"PlayerShell")) return;
+            if (!other.gameObject.CompareTag($"PlayerShell") && !other.gameObject.CompareTag($"Player")) return;
             Destroy(gameObject);
             EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
             isActive = false;
+
         }
 
 
         public void Move()
         {
             var rigidBody = GetComponent<Rigidbody>();
+            //look
+            rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation,
+                Quaternion.LookRotation(Target.position - rigidBody.position), rotationSpeed * Time.deltaTime);
             var movement = transform.forward * MovementSpeed * Time.deltaTime;
             rigidBody.MovePosition(rigidBody.position + movement);
         }
