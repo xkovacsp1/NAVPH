@@ -1297,7 +1297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zPos: 20.18
   yPos: 0
-  enemyNumber: 6
+  enemyNumber: 15
 --- !u!1 &1777740948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,7 +1368,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 5
+  m_Text: 0
 --- !u!222 &1777740951
 CanvasRenderer:
   m_ObjectHideFlags: 0

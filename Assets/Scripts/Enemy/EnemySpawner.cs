@@ -40,21 +40,34 @@ namespace Assets.Scripts.Enemy
                 var spawnPoint = SpawnPoints[index];
                 if (!spawnPoint.IsActive)
                 {
-                    var enemyTiger = Instantiate(Resources.Load("prefabs/EnemyTiger", typeof(GameObject)) as GameObject);
-                    enemyTiger.transform.rotation = gameObject.transform.rotation;
-                    enemyTiger.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
+                    var context =new EnemyBehaviourContext((Random.Next(0,2) == 0) ? GenerateEnemyTiger(spawnPoint) : GenerateEnemySoldier(spawnPoint));
+                  
                     SpawnPoints[index].IsActive = true;
-                    IEnemyBehaviour enemyBehavior = enemyTiger.AddComponent<TigerEnemy>(); 
-                    // set the reserved area
-                    enemyTiger.GetComponent<TigerEnemy>().ReservedArea = index;
-                    EnemyBehaviourContext context = new EnemyBehaviourContext(enemyBehavior);
                     EnemyBehaviors.Add(context);
                     enemyCount++;
                 }
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(2f);
             }
         }
 
+
+        public IEnemyBehaviour GenerateEnemyTiger(EnemySpawnPoint spawnPoint)
+        {
+            var enemyTiger = Instantiate(Resources.Load("prefabs/EnemyTiger", typeof(GameObject)) as GameObject);
+            enemyTiger.transform.rotation = gameObject.transform.rotation;
+            enemyTiger.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
+            return enemyTiger.AddComponent<TigerEnemy>();
+        }
+
+        public IEnemyBehaviour GenerateEnemySoldier(EnemySpawnPoint spawnPoint)
+        {
+            var enemySoldier = Instantiate(Resources.Load("prefabs/wehrmacht_b_prefab", typeof(GameObject)) as GameObject);
+            enemySoldier.transform.rotation = gameObject.transform.rotation;
+            enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
+            return enemySoldier.AddComponent<EnemySoldier>();
+
+
+        }
 
         public void Update()
         {
