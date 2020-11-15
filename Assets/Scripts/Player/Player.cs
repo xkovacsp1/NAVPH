@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace Assets.Scripts.Player
@@ -8,7 +9,8 @@ namespace Assets.Scripts.Player
         public float speed = 12f;                  // How fast the tank moves forward and back.
         public float turnSpeed = 180f;             // How fast the tank turns in degrees per
         public float cameraTurnSpeed = 60f;
-
+        public int health = 100;
+        public Text textHealth;
         public string MovementAxisName { get; set; } // The name of the input axis for moving forward and back.
         public string TurnAxisName { get; set; } // The name of the input axis for turning.
         public Rigidbody RigidBody { get; set; } // Reference used to move the tank.
@@ -32,6 +34,17 @@ namespace Assets.Scripts.Player
             RigidBody.isKinematic = true;
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+
+            if (other.gameObject.CompareTag($"EnemyTigerShell"))
+            {
+                health -= 10;
+            }
+
+        }
+
+
         private void Start()
         {
             MovementAxisName = "Vertical";
@@ -41,6 +54,7 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
+            textHealth.text = health.ToString();
             MovementInputValue = Input.GetAxis(MovementAxisName);
             TurnInputValue = Input.GetAxis(TurnAxisName);
         }

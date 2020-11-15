@@ -44,7 +44,7 @@ namespace Assets.Scripts.Enemy
                     enemyTiger.transform.rotation = gameObject.transform.rotation;
                     enemyTiger.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
                     SpawnPoints[index].IsActive = true;
-                    IEnemyBehaviour enemyBehavior = new TigerEnemy(enemyTiger);
+                    IEnemyBehaviour enemyBehavior = enemyTiger.AddComponent<TigerEnemy>(); // posli ako parameter index, dalej nevytvor tu gameobject ale posli parametre do constructora ako pozicie 
                     EnemyBehaviourContext context = new EnemyBehaviourContext(enemyBehavior);
                     EnemyBehaviors.Add(context);
                     enemyCount++;
@@ -58,6 +58,7 @@ namespace Assets.Scripts.Enemy
         {
             foreach (var enemy in EnemyBehaviors)
             {
+                // tu bude metoda handlecollisonj a vrati index areny pokial moze byt  vyprazdneny 
                 enemy.Act();
             }
         }

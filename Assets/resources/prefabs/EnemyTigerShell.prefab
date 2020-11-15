@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9081704079647063372}
   m_Layer: 0
   m_Name: EnemyTigerShell
-  m_TagString: Untagged
+  m_TagString: EnemyTigerShell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8972796557947266418}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.15
   m_Height: 0.55

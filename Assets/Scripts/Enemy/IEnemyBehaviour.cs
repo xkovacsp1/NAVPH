@@ -5,5 +5,6 @@
         {
             void Move();
             void Attack();
+            bool IsActive();
         }
     }

@@ -1,29 +1,42 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Enemy
 {
-    public class TigerEnemy : IEnemyBehaviour
+    public class TigerEnemy :MonoBehaviour, IEnemyBehaviour
     {
         //public float AttackTime { get; }
-        private GameObject GameObject { get; }
-        private float MovementSpeed { get; } = 2f;
-        private readonly float LaunchForce = 1500f;  //30f
-        private float NextFire { get;  set; } = 3.0f;
+        //private GameObject GameObject { get; }
+        public float MovementSpeed { get; } = 2f;
+        public readonly float LaunchForce = 1000f;  //30f
+        public float NextFire { get;  set; } = 3.0f;
+        public bool isActive=true;
         private List<Rigidbody> ShootedShells { get;  } = new List<Rigidbody>();
-        private Transform FireTransform { get; }
+        private Transform FireTransform { get; set; }
 
-        public TigerEnemy(GameObject gameObject)
+        private void Awake()
         {
-            this.GameObject = gameObject;
-            FireTransform = GameObject.GetComponentsInChildren<Transform>()[2];
-
+            FireTransform = /*GameObject.*/GetComponentsInChildren<Transform>()[2];
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag($"PlayerShell"))
+            {
+                Destroy(gameObject);
+                isActive = false;
+            }
+        }
+
+
         public void Move()
         {
-            var rigidBody = GameObject.GetComponent<Rigidbody>();
-            var movement = GameObject.transform.forward * MovementSpeed * Time.deltaTime;
+            var rigidBody = /*GameObject.*/GetComponent<Rigidbody>();
+            var movement = /*GameObject.*/transform.forward * MovementSpeed * Time.deltaTime;
             rigidBody.MovePosition(rigidBody.position + movement);
+            
         }
 
         public void Attack()
@@ -36,9 +49,10 @@ namespace Assets.Scripts.Enemy
                     .Instantiate(Resources.Load("prefabs/EnemyTigerShell", typeof(GameObject)) as GameObject)
                     .GetComponent<Rigidbody>();
                 if (!enemyTigerShell) return;
-                var transform = enemyTigerShell.transform;
-                transform.rotation = FireTransform.rotation;
-                transform.position = FireTransform.position;
+                //var transform = enemyTigerShell.transform;
+                var transformShell = enemyTigerShell.transform;
+                transformShell.rotation = FireTransform.rotation;
+                transformShell.position = FireTransform.position;
                 ShootedShells.Add(enemyTigerShell);
             }
             //move all active shells
@@ -51,5 +65,9 @@ namespace Assets.Scripts.Enemy
 
         }
 
+        public bool IsActive()
+        {
+            return isActive;
+        }
     }
 }
