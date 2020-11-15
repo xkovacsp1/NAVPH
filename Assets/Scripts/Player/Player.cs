@@ -34,15 +34,15 @@ namespace Assets.Scripts.Player
             RigidBody.isKinematic = true;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
+        //private void OnTriggerEnter(Collider other)
+        //{
 
-            if (other.gameObject.CompareTag($"EnemyTigerShell"))
-            {
-                health -= 10;
-            }
+        //    if (other.gameObject.CompareTag($"EnemyTigerShell"))
+        //    {
+        //        health -= 10;
+        //    }
 
-        }
+        //}
 
 
         private void Start()

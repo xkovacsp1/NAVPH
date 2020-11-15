@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Shell;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Enemy
@@ -10,10 +10,10 @@ namespace Assets.Scripts.Enemy
         //public float AttackTime { get; }
         //private GameObject GameObject { get; }
         public float MovementSpeed { get; } = 2f;
-        public readonly float LaunchForce = 1000f;  //30f
+        public readonly float LaunchForce = 5000f;  //30f
         public float NextFire { get;  set; } = 3.0f;
         public bool isActive=true;
-        private List<Rigidbody> ShootedShells { get;  } = new List<Rigidbody>();
+        //private List<IShellBehaviour> ShootedShells { get;  } = new List<IShellBehaviour>();
         private Transform FireTransform { get; set; }
 
         private void Awake()
@@ -23,11 +23,9 @@ namespace Assets.Scripts.Enemy
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag($"PlayerShell"))
-            {
-                Destroy(gameObject);
-                isActive = false;
-            }
+            if (!other.gameObject.CompareTag($"PlayerShell")) return;
+            Destroy(gameObject);
+            isActive = false;
         }
 
 
@@ -45,23 +43,29 @@ namespace Assets.Scripts.Enemy
             if (Time.time > NextFire)
             {
                 NextFire = Time.time + Random.Range(1f, 3f);
-                var enemyTigerShell = Object
-                    .Instantiate(Resources.Load("prefabs/EnemyTigerShell", typeof(GameObject)) as GameObject)
-                    .GetComponent<Rigidbody>();
-                if (!enemyTigerShell) return;
+                var enemyTigerShellObject = Instantiate(Resources.Load("prefabs/EnemyTigerShell", typeof(GameObject)) as GameObject);
+                var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
+                if (!enemyTigerShellRigidBody) return;
                 //var transform = enemyTigerShell.transform;
-                var transformShell = enemyTigerShell.transform;
+                var transformShell = enemyTigerShellRigidBody.transform;
                 transformShell.rotation = FireTransform.rotation;
                 transformShell.position = FireTransform.position;
-                ShootedShells.Add(enemyTigerShell);
+                enemyTigerShellRigidBody.velocity= LaunchForce * Time.deltaTime * FireTransform.forward;
+               /* IShellBehaviour enemyTigerShell =*/ enemyTigerShellObject.AddComponent<TigerShellCollision>();
+                //ShootedShells.Add(enemyTigerShell);
             }
             //move all active shells
-            foreach (var shell in ShootedShells)
-            {
-                shell.velocity = LaunchForce * Time.deltaTime * FireTransform.forward;
-                //var movement = FireTransform.forward * LaunchForce * Time.deltaTime;
-                //shell.MovePosition(shell.position + movement);
-            }
+            //foreach (var shell in ShootedShells)
+            //{
+               
+            //    if (shell.IsActive())
+            //    {
+            //        var rigidBody = shell.GetGameObject().GetComponent<Rigidbody>();
+            //        rigidBody.velocity = LaunchForce * Time.deltaTime * FireTransform.forward;
+            //        //var movement = FireTransform.forward * LaunchForce * Time.deltaTime;
+            //        //shell.MovePosition(shell.position + movement);
+            //    }
+            //}
 
         }
 

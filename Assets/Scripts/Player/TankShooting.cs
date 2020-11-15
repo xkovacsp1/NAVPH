@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Shell;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
     public class TankShooting : MonoBehaviour
     {
-        public ShellPool shellPool;
-        public Rigidbody shell;                   // Prefab of the shell.
+        //public ShellPool shellPool;
+        //public Rigidbody shell;                   // Prefab of the shell.
         public Transform fireTransform;           // A child of the tank where the shells are spawned.
         public float  minLaunchForce = 15f;        // The force given to the shell if the fire button is not held.
         public float maxLaunchForce = 30f;        // The force given to the shell if the fire button is held for the max charge time
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Player
         public float CurrentLaunchForce { get; set; }
         public float ChargeSpeed { get; set; }
         public bool Fired { get; set; }
-
+        
         private void OnEnable()
         {
             // When the tank is turned on, reset the launch force and the UI
@@ -68,15 +69,20 @@ namespace Assets.Scripts.Player
             Fired = true;
 
             // Create an instance of the shell and store a reference to it's rigidbody.
-            //Rigidbody shellInstance =
-            //    Instantiate(shell, fireTransform.position, fireTransform.rotation);
-            Rigidbody shellInstance = shellPool.Instantiate(fireTransform.position, fireTransform.rotation).GetComponent<Rigidbody>();
-            
+            //GameObject shellInstance =
+            //   Instantiate(shell, fireTransform.position, fireTransform.rotation);
+            //GameObject shellInstance = shellPool.Instantiate(fireTransform.position, fireTransform.rotation);
+            var shellInstance = Instantiate(Resources.Load("prefabs/PlayerShell", typeof(GameObject)) as GameObject);
+            var shellRigidBody = shellInstance.GetComponent<Rigidbody>();
+            shellRigidBody.position = fireTransform.position;
+            shellRigidBody.rotation = fireTransform.rotation;
+
             // Set the shell's velocity to the launch force in the fire position's forward direction.
-            shellInstance.velocity = CurrentLaunchForce * fireTransform.forward;
+            shellRigidBody.velocity = CurrentLaunchForce * fireTransform.forward;
 
             // Reset the launch force.  This is a precaution in case of missing button events.
             CurrentLaunchForce = minLaunchForce;
+            shellInstance.AddComponent<PlayerShellCollision>();
         }
     }
 }
