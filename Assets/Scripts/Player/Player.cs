@@ -68,6 +68,17 @@ namespace Assets.Scripts.Player
         private void Move()
         {
             var movement = transform.forward * MovementInputValue * speed * Time.deltaTime;
+            //if (movement.z < -40.09f)
+            //    movement.z += 0.1f;
+
+            //if (movement.z > 39.64)
+            //    movement.z -= 0.1f;
+
+            //if (movement.x < -21.46)
+            //    movement.x += 0.1f;
+
+            //if (movement.x > 21.83f)
+            //    movement.x -= 0.1f;
             RigidBody.MovePosition(RigidBody.position + movement);
 
         }

@@ -9,7 +9,7 @@ namespace Assets.Scripts.Enemy
     {
         public List<EnemyBehaviourContext> EnemyBehaviors { get; } = new List<EnemyBehaviourContext>();
 
-        public List<EnemySpawnPoint> SpawnPoints { get; set; } = new List<EnemySpawnPoint>()
+        public static List<EnemySpawnPoint> SpawnPoints { get; set; } = new List<EnemySpawnPoint>()
         {
             {new EnemySpawnPoint(14.39f, false)},
             { new EnemySpawnPoint(9.27f, false)},
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Enemy
         public float yPos;
         //public float maxXPos = 14.87f;
         //public float minXPos = -15.16f;
-        public int enemyNumber = 6;
+        public int enemyNumber = 10;
         public Random Random { get; } = new Random();
 
         public void Start()
@@ -44,7 +44,9 @@ namespace Assets.Scripts.Enemy
                     enemyTiger.transform.rotation = gameObject.transform.rotation;
                     enemyTiger.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
                     SpawnPoints[index].IsActive = true;
-                    IEnemyBehaviour enemyBehavior = enemyTiger.AddComponent<TigerEnemy>(); // posli ako parameter index, dalej nevytvor tu gameobject ale posli parametre do constructora ako pozicie 
+                    IEnemyBehaviour enemyBehavior = enemyTiger.AddComponent<TigerEnemy>(); 
+                    // set the reserved area
+                    enemyTiger.GetComponent<TigerEnemy>().ReservedArea = index;
                     EnemyBehaviourContext context = new EnemyBehaviourContext(enemyBehavior);
                     EnemyBehaviors.Add(context);
                     enemyCount++;
@@ -58,7 +60,6 @@ namespace Assets.Scripts.Enemy
         {
             foreach (var enemy in EnemyBehaviors)
             {
-                // tu bude metoda handlecollisonj a vrati index areny pokial moze byt  vyprazdneny 
                 enemy.Act();
             }
         }

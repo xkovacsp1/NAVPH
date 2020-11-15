@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Shell;
+﻿using Assets.Scripts.Shell;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,9 +9,12 @@ namespace Assets.Scripts.Enemy
         //public float AttackTime { get; }
         //private GameObject GameObject { get; }
         public float MovementSpeed { get; } = 2f;
-        public readonly float LaunchForce = 5000f;  //30f
+        public readonly float LaunchForce = 30f;  //30f
         public float NextFire { get;  set; } = 3.0f;
         public bool isActive=true;
+
+        public int ReservedArea { get; set; }
+
         //private List<IShellBehaviour> ShootedShells { get;  } = new List<IShellBehaviour>();
         private Transform FireTransform { get; set; }
 
@@ -25,6 +27,7 @@ namespace Assets.Scripts.Enemy
         {
             if (!other.gameObject.CompareTag($"PlayerShell")) return;
             Destroy(gameObject);
+            EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
             isActive = false;
         }
 
@@ -50,9 +53,9 @@ namespace Assets.Scripts.Enemy
                 var transformShell = enemyTigerShellRigidBody.transform;
                 transformShell.rotation = FireTransform.rotation;
                 transformShell.position = FireTransform.position;
-                enemyTigerShellRigidBody.velocity= LaunchForce * Time.deltaTime * FireTransform.forward;
+                enemyTigerShellRigidBody.velocity= LaunchForce  * FireTransform.forward;
                /* IShellBehaviour enemyTigerShell =*/ enemyTigerShellObject.AddComponent<TigerShellCollision>();
-                //ShootedShells.Add(enemyTigerShell);
+                //ShootedShells.Add(enemyTigerShell);S
             }
             //move all active shells
             //foreach (var shell in ShootedShells)

@@ -8,8 +8,10 @@ namespace Assets.Scripts.Shell
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.gameObject.CompareTag($"EnemyTiger")) return;
-            Destroy(gameObject);
+            if (other.gameObject.CompareTag($"EnemyTiger") || other.gameObject.CompareTag($"Plane"))
+            {
+                Destroy(gameObject);
+            }
 
         }
         public void Damage(GameObject other)

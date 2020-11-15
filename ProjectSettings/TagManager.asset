@@ -9,6 +9,7 @@ TagManager:
   - TigerFire
   - EnemyTigerShell
   - PlayerShell
+  - Plane
   layers:
   - Default
   - TransparentFX
