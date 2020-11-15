@@ -9,7 +9,6 @@ namespace Assets.Scripts.Enemy
     public class EnemySpawner : MonoBehaviour
     {
         public List<EnemyBehaviourContext> EnemyBehaviors { get; } = new List<EnemyBehaviourContext>();
-
         public static List<EnemySpawnPoint> SpawnPoints { get; set; } = new List<EnemySpawnPoint>()
         {
             {new EnemySpawnPoint(14.39f, false)},
@@ -20,12 +19,17 @@ namespace Assets.Scripts.Enemy
             { new EnemySpawnPoint(-10.32f, false)}
         };
 
-        public float zPos = 20.18f;
+        public float zPos = 45f;
         public float yPos;
         //public float maxXPos = 14.87f;
         //public float minXPos = -15.16f;
         public int enemyNumber = 10;
         public Random Random { get; } = new Random();
+
+        public enum EnemyTypes
+        {
+            EnemyTiger,EnemySoldier,EnemyTruck
+        }
 
         public void Start()
         {
@@ -41,8 +45,24 @@ namespace Assets.Scripts.Enemy
                 var spawnPoint = SpawnPoints[index];
                 if (!spawnPoint.IsActive)
                 {
-                    var context =new EnemyBehaviourContext((Random.Next(0,2) == 0) ? GenerateEnemyTiger(spawnPoint) : GenerateEnemySoldier(spawnPoint));
-                  
+                    EnemyTypes randomEnemyType =(EnemyTypes) Random.Next(0,2);
+                    EnemyBehaviourContext context;
+                    switch (randomEnemyType)
+                    {
+                        //generate tiger
+                        case EnemyTypes.EnemyTiger:
+                            context = new EnemyBehaviourContext(GenerateEnemyTiger(spawnPoint));
+                            break;
+                        //generate soldier
+                        //case EnemyTypes.EnemySoldier:
+                        default:
+                            context = new EnemyBehaviourContext(GenerateEnemySoldier(spawnPoint));
+                            break;
+                        //generate enemy truck
+                        //default:
+                        //    context = new EnemyBehaviourContext(GenerateEnemyTruck(spawnPoint));
+                        //    break;
+                    }
                     SpawnPoints[index].IsActive = true;
                     EnemyBehaviors.Add(context);
                     enemyCount++;
@@ -50,7 +70,6 @@ namespace Assets.Scripts.Enemy
                 yield return new WaitForSeconds(2f);
             }
         }
-
 
         public IEnemyBehaviour GenerateEnemyTiger(EnemySpawnPoint spawnPoint)
         {
@@ -66,10 +85,15 @@ namespace Assets.Scripts.Enemy
             enemySoldier.transform.rotation = gameObject.transform.rotation;
             enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
             return enemySoldier.AddComponent<EnemySoldier>();
-
-
         }
 
+        public IEnemyBehaviour GenerateEnemyTruck(EnemySpawnPoint spawnPoint)
+        {
+            var enemySoldier = Instantiate(Resources.Load("prefabs/EnemyTruck", typeof(GameObject)) as GameObject);
+            enemySoldier.transform.rotation = gameObject.transform.rotation;
+            enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
+            return enemySoldier.AddComponent<EnemyTruck>();
+        }
         public void Update()
         {
             foreach (var enemy in EnemyBehaviors)

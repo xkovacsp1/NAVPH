@@ -606,6 +606,10 @@ PrefabInstance:
       propertyPath: textHealth
       value: 
       objectReference: {fileID: 1238153462}
+    - target: {fileID: 1837387316, guid: 445666718d8be644893d1b6b22d653da, type: 3}
+      propertyPath: turnSpeed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1837387317, guid: 445666718d8be644893d1b6b22d653da, type: 3}
       propertyPath: m_Size.z
       value: 3.6
@@ -1277,7 +1281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659068582}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.99, y: 0, z: 38.31}
+  m_LocalPosition: {x: -0.99, y: 0, z: 44.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1295,7 +1299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087b64c649d4b634e8da046f4d2ffca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zPos: 20.18
+  zPos: 35
   yPos: 0
   enemyNumber: 15
 --- !u!1 &1777740948
