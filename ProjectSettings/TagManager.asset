@@ -10,6 +10,8 @@ TagManager:
   - EnemyTigerShell
   - PlayerShell
   - Plane
+  - wehrmacht_b
+  - EnemySoldier
   layers:
   - Default
   - TransparentFX

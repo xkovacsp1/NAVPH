@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Shell;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Enemy.Strategy
@@ -15,14 +16,17 @@ namespace Assets.Scripts.Enemy.Strategy
         public Transform Target { get; private set; }
         public int ReservedArea { get; set; }
 
-        public float range = 35f; //Range within target will be detected
+        public float range = 20f; //Range within target will be detected
         public float stop;
         public float fireRange = 25f; //Range within target will be atacked
+
+        public NavMeshAgent Agent { get; private set; }
 
         private Transform FireTransform { get; set; }
 
         private void Awake()
         {
+            Agent = GetComponent<NavMeshAgent>();
             Target = GameObject.FindWithTag("Player").transform; //target the player
             FireTransform = GetComponentsInChildren<Transform>()[2];
         }
@@ -37,25 +41,28 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void Move()
         {
-            var rigidBody = GetComponent<Rigidbody>();
+            Agent.destination = Target.position;
+           /* var rigidBody = GetComponent<Rigidbody>();
             var distance = Vector3.Distance(rigidBody.position, Target.position);
             if (distance <= range)
             {
                 //look
-                rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation,
-                    Quaternion.LookRotation(Target.position - rigidBody.position), rotationSpeed * Time.deltaTime);
+                //rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation,
+                    //Quaternion.LookRotation(Target.position - rigidBody.position), rotationSpeed * Time.deltaTime);
                 //move
                 if (distance > stop)
                 {
-                    var movement = transform.forward * MovementSpeed * Time.deltaTime;
-                    rigidBody.MovePosition(rigidBody.position + movement);
+                    Agent.destination = Target.position;
+                    //var movement = transform.forward * MovementSpeed * Time.deltaTime;
+                    //rigidBody.MovePosition(rigidBody.position + movement);
+
                 }
             }
             else
             {
                 var movement = transform.forward * MovementSpeed * Time.deltaTime;
                 rigidBody.MovePosition(rigidBody.position + movement);
-            }
+            }*/
         }
 
         public void Attack()

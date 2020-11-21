@@ -81,7 +81,7 @@ namespace Assets.Scripts.Enemy
 
         public IEnemyBehaviour GenerateEnemySoldier(EnemySpawnPoint spawnPoint)
         {
-            var enemySoldier = Instantiate(Resources.Load("prefabs/wehrmacht_b_prefab", typeof(GameObject)) as GameObject);
+            var enemySoldier = Instantiate(Resources.Load("prefabs/EnemySoldier", typeof(GameObject)) as GameObject);
             enemySoldier.transform.rotation = gameObject.transform.rotation;
             enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
             return enemySoldier.AddComponent<EnemySoldier>();
