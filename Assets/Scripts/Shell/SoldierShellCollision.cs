@@ -2,14 +2,14 @@
 
 namespace Assets.Scripts.Shell
 {
-    public class SoldierShellCollision : MonoBehaviour, IShellBehaviour
+    public class SoldierShellCollision : MonoBehaviour
     {
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag($"Player"))
             {
-                Damage(other.gameObject);
+                other.GetComponent<Player.Player>().health -= 5;
                 Destroy(gameObject);
             }
             else if (other.gameObject.CompareTag($"Plane"))
@@ -18,9 +18,6 @@ namespace Assets.Scripts.Shell
             }
         }
 
-        public void Damage(GameObject other)
-        {
-            other.GetComponent<Player.Player>().health -= 5;
-        }
+     
     }
 }

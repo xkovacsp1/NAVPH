@@ -9,6 +9,7 @@ namespace Assets.Scripts.Player
         public float speed = 12f;                  // How fast the tank moves forward and back.
         public float turnSpeed = 180f;             // How fast the tank turns in degrees per
         public int health = 100;
+        public float damage = 10f;
         public Text textHealth;
         public string MovementAxisName { get; set; } // The name of the input axis for moving forward and back.
         public string TurnAxisName { get; set; } // The name of the input axis for turning.

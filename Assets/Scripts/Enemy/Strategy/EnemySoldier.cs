@@ -14,6 +14,7 @@ namespace Assets.Scripts.Enemy.Strategy
         public int ReservedArea { get; set; }
         public Transform Target { get; private set; }
         private Transform FireTransform { get; set; }
+        public Rigidbody RigidBody { get; set; }
 
         public float range = 20f; //Range within target will be detected
         public float stop;
@@ -23,6 +24,7 @@ namespace Assets.Scripts.Enemy.Strategy
 
         private void Awake()
         {
+            RigidBody = GetComponent<Rigidbody>();
             Agent = GetComponent<NavMeshAgent>();
             Target = GameObject.FindWithTag("Player").transform; //target the player
             FireTransform = GetComponentsInChildren<Transform>()[51];
@@ -64,8 +66,7 @@ namespace Assets.Scripts.Enemy.Strategy
         public void Attack()
         {
             // create shell
-            var rigidBody = GetComponent<Rigidbody>();
-            var distance = Vector3.Distance(rigidBody.position, Target.position);
+            var distance = Vector3.Distance(RigidBody.position, Target.position);
             if (distance <= fireRange && Time.time > NextFire)
             {
                 NextFire = Time.time + Random.Range(1f, 3f);
@@ -84,6 +85,11 @@ namespace Assets.Scripts.Enemy.Strategy
         public bool IsActive()
         {
             return isActive;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            
         }
     }
 }

@@ -31,5 +31,10 @@ namespace Assets.Scripts.Enemy.Strategy
         {
             return isActive;
         }
+
+        public void TakeDamage(float damage)
+        {
+            
+        }
     }
 }

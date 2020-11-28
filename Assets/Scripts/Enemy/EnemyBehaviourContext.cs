@@ -7,7 +7,7 @@ namespace Assets.Scripts.Enemy
 
         public EnemyBehaviourContext(IEnemyBehaviour enemyBehavior)
         {
-            this.EnemyBehavior = enemyBehavior;
+            EnemyBehavior = enemyBehavior;
         }
 
         public void Act()

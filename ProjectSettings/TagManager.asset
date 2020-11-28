@@ -12,6 +12,7 @@ TagManager:
   - Plane
   - wehrmacht_b
   - EnemySoldier
+  - TigerHealthBar
   layers:
   - Default
   - TransparentFX

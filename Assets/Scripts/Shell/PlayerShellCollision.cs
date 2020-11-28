@@ -1,21 +1,31 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Enemy;
+using UnityEngine;
 
 namespace Assets.Scripts.Shell
 {
-    public class PlayerShellCollision : MonoBehaviour, IShellBehaviour
+    public class PlayerShellCollision : MonoBehaviour
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag($"EnemyTiger") || other.gameObject.CompareTag($"EnemySoldier") || other.gameObject.CompareTag($"Plane"))
+            if (other.gameObject.CompareTag($"EnemyTiger") /*other.gameObject.CompareTag($"Plane")*/)
+            {
+                other.GetComponent<Enemy.Strategy.TigerEnemy>().TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
+                Destroy(gameObject);
+
+            }else if(other.gameObject.CompareTag($"EnemySoldier"))
+            {
+
+                Destroy(gameObject);
+
+            }
+            else if(other.gameObject.CompareTag($"Plane"))
             {
                 Destroy(gameObject);
+
             }
 
         }
-        public void Damage(GameObject other)
-        {
-           //bude to mozno velky switch
-
-        }
+     
+        
     }
 }

@@ -6,5 +6,6 @@
             void Move();
             void Attack();
             bool IsActive();
+            void TakeDamage(float damage);
         }
     }
