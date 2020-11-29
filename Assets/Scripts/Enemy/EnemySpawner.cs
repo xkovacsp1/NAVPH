@@ -51,12 +51,13 @@ namespace Assets.Scripts.Enemy
                     {
                         //generate tiger
                         case EnemyTypes.EnemyTiger:
-                            context = new EnemyBehaviourContext(GenerateEnemyTiger(spawnPoint));
+
+                            context = new EnemyBehaviourContext(GenerateEnemyTiger(spawnPoint, index));
                             break;
                         //generate soldier
                         //case EnemyTypes.EnemySoldier:
                         default:
-                            context = new EnemyBehaviourContext(GenerateEnemySoldier(spawnPoint));
+                            context = new EnemyBehaviourContext(GenerateEnemySoldier(spawnPoint, index));
                             break;
                         //generate enemy truck
                         //default:
@@ -71,29 +72,33 @@ namespace Assets.Scripts.Enemy
             }
         }
 
-        public IEnemyBehaviour GenerateEnemyTiger(EnemySpawnPoint spawnPoint)
+        public IEnemyBehaviour GenerateEnemyTiger(EnemySpawnPoint spawnPoint, int index)
         {
             var enemyTiger = Instantiate(Resources.Load("prefabs/EnemyTiger", typeof(GameObject)) as GameObject);
             enemyTiger.transform.rotation = gameObject.transform.rotation;
             enemyTiger.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
-            return enemyTiger.AddComponent<TigerEnemy>();
+            enemyTiger.AddComponent<TigerEnemy>();
+            enemyTiger.GetComponent<TigerEnemy>().ReservedArea = index;
+            return enemyTiger.GetComponent<TigerEnemy>();
         }
 
-        public IEnemyBehaviour GenerateEnemySoldier(EnemySpawnPoint spawnPoint)
+        public IEnemyBehaviour GenerateEnemySoldier(EnemySpawnPoint spawnPoint, int index)
         {
             var enemySoldier = Instantiate(Resources.Load("prefabs/EnemySoldier", typeof(GameObject)) as GameObject);
             enemySoldier.transform.rotation = gameObject.transform.rotation;
             enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
-            return enemySoldier.AddComponent<EnemySoldier>();
+            enemySoldier.AddComponent<EnemySoldier>();
+            enemySoldier.GetComponent<EnemySoldier>().ReservedArea = index;
+            return enemySoldier.GetComponent<EnemySoldier>();
         }
 
-        public IEnemyBehaviour GenerateEnemyTruck(EnemySpawnPoint spawnPoint)
-        {
-            var enemySoldier = Instantiate(Resources.Load("prefabs/EnemyTruck", typeof(GameObject)) as GameObject);
-            enemySoldier.transform.rotation = gameObject.transform.rotation;
-            enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
-            return enemySoldier.AddComponent<EnemyTruck>();
-        }
+        //public IEnemyBehaviour GenerateEnemyTruck(EnemySpawnPoint spawnPoint, int index)
+        //{
+        //    var enemySoldier = Instantiate(Resources.Load("prefabs/EnemyTruck", typeof(GameObject)) as GameObject);
+        //    enemySoldier.transform.rotation = gameObject.transform.rotation;
+        //    enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
+        //    return enemySoldier.AddComponent<EnemyTruck>();
+        //}
         public void Update()
         {
             foreach (var enemy in EnemyBehaviors)

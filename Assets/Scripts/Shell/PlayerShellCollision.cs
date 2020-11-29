@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Enemy;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Shell
 {
@@ -14,7 +13,7 @@ namespace Assets.Scripts.Shell
 
             }else if(other.gameObject.CompareTag($"EnemySoldier"))
             {
-
+                other.GetComponent<Enemy.Strategy.EnemySoldier>().TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
                 Destroy(gameObject);
 
             }

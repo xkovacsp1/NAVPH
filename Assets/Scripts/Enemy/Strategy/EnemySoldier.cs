@@ -22,8 +22,13 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public NavMeshAgent Agent { get; private set; }
 
+        public UnityEngine.UI.Image HealthBar { get; set; }
+        public float actualHealth = 100f;
+        public float startHealth = 100f;
+
         private void Awake()
         {
+            HealthBar = GetComponentsInChildren<UnityEngine.UI.Image>()[0];
             RigidBody = GetComponent<Rigidbody>();
             Agent = GetComponent<NavMeshAgent>();
             Target = GameObject.FindWithTag("Player").transform; //target the player
@@ -32,7 +37,7 @@ namespace Assets.Scripts.Enemy.Strategy
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.gameObject.CompareTag($"PlayerShell") && !other.gameObject.CompareTag($"Player")) return;
+            if (!other.gameObject.CompareTag($"Player")) return;
             Destroy(gameObject);
             EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
             isActive = false;
@@ -89,7 +94,15 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void TakeDamage(float damage)
         {
-            
+            actualHealth = actualHealth - damage;
+            HealthBar.fillAmount = actualHealth / startHealth;
+
+            if (actualHealth <= 0.0)
+            {
+                isActive = false;
+                EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
+                Destroy(gameObject);
+            }
         }
     }
 }

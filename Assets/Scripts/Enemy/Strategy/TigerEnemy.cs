@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Shell;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -31,8 +30,6 @@ namespace Assets.Scripts.Enemy.Strategy
 
         private void Awake()
         {
-            var c = GetComponentsInChildren<Transform>();
-            var g = transform.GetChild(2).GetChild(0);
             HealthBar = GetComponentsInChildren<UnityEngine.UI.Image>()[0];
             RigidBody = GetComponent<Rigidbody>();
             Agent = GetComponent<NavMeshAgent>();
