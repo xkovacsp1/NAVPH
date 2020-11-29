@@ -11,6 +11,14 @@ namespace Assets.Scripts.Player
         public int health = 100;
         public float damage = 10f;
         public Text textHealth;
+        public Text coinNumber;
+        public GameObject abilityScoreHeader;
+
+        public GameObject abilityTimeLeft;
+        public Text abilityTimeLeftText;
+        //public Text abilityTimeLeft;
+        public int numberOfCollectedCoins;
+
         public string MovementAxisName { get; set; } // The name of the input axis for moving forward and back.
         public string TurnAxisName { get; set; } // The name of the input axis for turning.
         public Rigidbody RigidBody { get; set; } // Reference used to move the tank.
@@ -55,6 +63,7 @@ namespace Assets.Scripts.Player
         private void Update()
         {
             textHealth.text = health.ToString();
+            coinNumber.text = numberOfCollectedCoins.ToString();
             MovementInputValue = Input.GetAxis(MovementAxisName);
             TurnInputValue = Input.GetAxis(TurnAxisName);
         }

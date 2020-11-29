@@ -1,19 +1,22 @@
 ﻿
+ using UnityEngine;
+
  namespace Assets.Scripts.PowerUps
  {
      public class PowerUpsBehaviourContext
      {
-         public IPowerUpsBehaviour EnemyBehavior { get; }
+         public IPowerUpsBehaviour PowerUpBehavior { get; set; }
 
-         public PowerUpsBehaviourContext(IPowerUpsBehaviour enemyBehavior)
+         public PowerUpsBehaviourContext(IPowerUpsBehaviour powerUpBehavior)
          {
-             EnemyBehavior = enemyBehavior;
+             PowerUpBehavior = powerUpBehavior;
          }
 
          public void Act()
          {
-             if (!EnemyBehavior.IsActive()) return;
-             EnemyBehavior.Move();
+             if (!PowerUpBehavior.IsActive()) return;
+             PowerUpBehavior.Move();
+             PowerUpBehavior.TakeEffect();
          }
      }
  }

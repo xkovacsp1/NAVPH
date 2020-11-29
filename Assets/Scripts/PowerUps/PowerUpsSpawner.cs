@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Enemy;
+using Assets.Scripts.PowerUps.Strategy;
 using UnityEngine;
 using Random = System.Random;
 
@@ -28,7 +28,7 @@ using Random = System.Random;
 
             public enum PowerUpTypes
             {
-                EnemyTiger,EnemySoldier,EnemyTruck
+                Coin,Drill,AmmoBox
             }
 
             public void Start()
@@ -38,34 +38,37 @@ using Random = System.Random;
 
             private IEnumerator MakeEnemies()
             {
-                var enemyCount = 0;
-                while (enemyCount < powerUpsNumber)
+                var powerUpCount = 0;
+                while (powerUpCount < powerUpsNumber)
                 {
                     var index = Random.Next(SpawnPoints.Count);
                     var spawnPoint = SpawnPoints[index];
+                    PowerUpsBehaviourContext context;
                     if (!spawnPoint.IsActive)
                     {
-                        //PowerUpTypes randomEnemyType =(PowerUpTypes) Random.Next(0,2);
-                        //switch (randomEnemyType)
-                    //{
-                    //    //generate tiger
-                    //    case PowerUpTypes.EnemyTiger:
-                    //        context = new EnemyBehaviourContext(GenerateEnemyTiger(spawnPoint));
-                    //        break;
-                    //    //generate soldier
-                    //    //case EnemyTypes.EnemySoldier:
-                    //    default:
-                    //        context = new EnemyBehaviourContext(GenerateEnemySoldier(spawnPoint));
-                    //        break;
-                    //    //generate enemy truck
-                    //    //default:
-                    //    //    context = new EnemyBehaviourContext(GenerateEnemyTruck(spawnPoint));
-                    //    //    break;
-                    //}
-                    var context = new PowerUpsBehaviourContext(GenerateCoin(spawnPoint));
+                        PowerUpTypes randomEnemyType =(PowerUpTypes) Random.Next(0,3);
+                        switch (randomEnemyType)
+                    {
+                        //generate Coin
+                        case PowerUpTypes.Coin:
+                            context = new PowerUpsBehaviourContext(GenerateCoin(spawnPoint));
+                            break;
+                        //generate soldier
+                        case PowerUpTypes.Drill:
+                            context = new PowerUpsBehaviourContext(GenerateDrill(spawnPoint));
+                            break;
+                        default:
+                            context = new PowerUpsBehaviourContext(GenerateAmmoBox(spawnPoint));
+                            break;
+                        //generate enemy truck
+                        //default:
+                        //    context = new EnemyBehaviourContext(GenerateEnemyTruck(spawnPoint));
+                        //    break;
+                    }
+                    //var context = new PowerUpsBehaviourContext(GenerateCoin(spawnPoint));
                     SpawnPoints[index].IsActive = true;
                     PowerUpsBehaviors.Add(context);
-                        enemyCount++;
+                    powerUpCount++;
                     }
                     yield return new WaitForSeconds(2f);
                 }
@@ -80,7 +83,24 @@ using Random = System.Random;
             return coin.AddComponent<Coin>();
         }
 
-            public void Update()
+        public IPowerUpsBehaviour GenerateDrill(PowerUpSpawnPoint spawnPoint)
+        {
+            var drill = Instantiate(Resources.Load("prefabs/Drill", typeof(GameObject)) as GameObject);
+            drill.transform.rotation = gameObject.transform.rotation;
+                                                                     // increase y psorion of drill
+            drill.transform.position = new Vector3(spawnPoint.XPos, yPos+0.5f, spawnPoint.ZPos);
+            return drill.AddComponent<Drill>();
+        }
+
+        public IPowerUpsBehaviour GenerateAmmoBox(PowerUpSpawnPoint spawnPoint)
+        {
+            var ammoBox = Instantiate(Resources.Load("prefabs/AmmoBox", typeof(GameObject)) as GameObject);
+            ammoBox.transform.rotation = gameObject.transform.rotation;
+            ammoBox.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
+            return ammoBox.AddComponent<AmmoBox>();
+        }
+
+        public void Update()
             {
                 foreach (var powerup in PowerUpsBehaviors)
                 {

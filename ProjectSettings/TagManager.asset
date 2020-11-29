@@ -13,6 +13,8 @@ TagManager:
   - wehrmacht_b
   - EnemySoldier
   - TigerHealthBar
+  - AbilityTimeLeft
+  - AbilityScoreHeader
   layers:
   - Default
   - TransparentFX

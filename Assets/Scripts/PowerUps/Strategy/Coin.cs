@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.PowerUps;
+﻿using Assets.Scripts.Player;
+using Assets.Scripts.PowerUps;
 using UnityEngine;
 
 
@@ -18,13 +19,15 @@ using UnityEngine;
             RigidBody = GetComponent<Rigidbody>();
         }
 
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    if (!other.gameObject.CompareTag($"Player")) return;
-        //    Destroy(gameObject);
-        //    EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
-        //    isActive = false;
-        //}
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.gameObject.CompareTag($"Player")) return;
+            other.GetComponent<Player>().numberOfCollectedCoins += 1;
+            Destroy(gameObject);
+            PowerUpsSpawner.SpawnPoints[ReservedArea].IsActive = false;
+            isActive = false;
+            
+        }
 
         public void Move()
         {
@@ -36,8 +39,13 @@ using UnityEngine;
             return isActive;
         }
 
-        public void TakeEffect()
+        public bool IsPowerUpActive()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void TakeEffect()
+        {
+           
         }
     }
