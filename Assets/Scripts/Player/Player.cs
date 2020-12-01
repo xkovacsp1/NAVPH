@@ -16,6 +16,7 @@ namespace Assets.Scripts.Player
 
         public GameObject abilityTimeLeft;
         public Text abilityTimeLeftText;
+        public Text abilityScoreHeaderText;
         //public Text abilityTimeLeft;
         public int numberOfCollectedCoins;
 
@@ -24,6 +25,8 @@ namespace Assets.Scripts.Player
         public Rigidbody RigidBody { get; set; } // Reference used to move the tank.
         public float MovementInputValue { get; set; } // The current value of the movement input.
         public float TurnInputValue { get; set; } // The current value of the turn input.
+
+        public bool ActivePowerUp { get; set; } = false;
 
         private void Awake()
         {

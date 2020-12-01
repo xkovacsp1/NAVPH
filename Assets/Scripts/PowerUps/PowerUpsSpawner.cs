@@ -23,7 +23,7 @@ using Random = System.Random;
             public float yPos;
             //public float maxXPos = 14.87f;
             //public float minXPos = -15.16f;
-            public int powerUpsNumber = 10;
+            public int powerUpsNumber = 15;
             public Random Random { get; } = new Random();
 
             public enum PowerUpTypes
@@ -46,7 +46,7 @@ using Random = System.Random;
                     PowerUpsBehaviourContext context;
                     if (!spawnPoint.IsActive)
                     {
-                        PowerUpTypes randomEnemyType =(PowerUpTypes) Random.Next(0,3);
+                        PowerUpTypes randomEnemyType =(PowerUpTypes) Random.Next(0,4);
                         switch (randomEnemyType)
                     {
                         //generate Coin
@@ -57,8 +57,11 @@ using Random = System.Random;
                         case PowerUpTypes.Drill:
                             context = new PowerUpsBehaviourContext(GenerateDrill(spawnPoint));
                             break;
-                        default:
+                        case PowerUpTypes.AmmoBox:
                             context = new PowerUpsBehaviourContext(GenerateAmmoBox(spawnPoint));
+                            break;
+                        default:
+                            context = new PowerUpsBehaviourContext(GenerateBarrel(spawnPoint));
                             break;
                         //generate enemy truck
                         //default:
@@ -98,6 +101,14 @@ using Random = System.Random;
             ammoBox.transform.rotation = gameObject.transform.rotation;
             ammoBox.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
             return ammoBox.AddComponent<AmmoBox>();
+        }
+
+        public IPowerUpsBehaviour GenerateBarrel(PowerUpSpawnPoint spawnPoint)
+        {
+            var ammoBox = Instantiate(Resources.Load("prefabs/Barrel", typeof(GameObject)) as GameObject);
+            ammoBox.transform.rotation = gameObject.transform.rotation;
+            ammoBox.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
+            return ammoBox.AddComponent<Barrel>();
         }
 
         public void Update()

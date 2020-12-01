@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yPos: 0
-  powerUpsNumber: 15
+  powerUpsNumber: 25
 --- !u!4 &669529767
 Transform:
   m_ObjectHideFlags: 0
@@ -751,6 +751,10 @@ PrefabInstance:
       propertyPath: abilityTimeLeftText
       value: 
       objectReference: {fileID: 1658331730}
+    - target: {fileID: 1837387316, guid: 445666718d8be644893d1b6b22d653da, type: 3}
+      propertyPath: abilityScoreHeaderText
+      value: 
+      objectReference: {fileID: 612772058}
     - target: {fileID: 1837387317, guid: 445666718d8be644893d1b6b22d653da, type: 3}
       propertyPath: m_Size.z
       value: 3.6
@@ -1637,7 +1641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: -173}
+  m_AnchoredPosition: {x: 300, y: -173}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2009454889

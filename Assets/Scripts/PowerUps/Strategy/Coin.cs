@@ -1,11 +1,9 @@
-﻿using Assets.Scripts.Player;
-using Assets.Scripts.PowerUps;
-using UnityEngine;
+﻿using UnityEngine;
 
-
+namespace Assets.Scripts.PowerUps.Strategy
+{
     public class Coin : MonoBehaviour, IPowerUpsBehaviour
     {
-        public float MovementSpeed { get; } = 2f;
         public bool isActive = true;
         public float rotationSpeed = 60f;
         public int ReservedArea { get; set; }
@@ -22,7 +20,7 @@ using UnityEngine;
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag($"Player")) return;
-            other.GetComponent<Player>().numberOfCollectedCoins += 1;
+            other.GetComponent<Player.Player>().numberOfCollectedCoins += 1;
             Destroy(gameObject);
             PowerUpsSpawner.SpawnPoints[ReservedArea].IsActive = false;
             isActive = false;
@@ -31,17 +29,12 @@ using UnityEngine;
 
         public void Move()
         {
-        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.World);
-    }
+            transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.World);
+        }
 
         public bool IsActive()
         {
             return isActive;
-        }
-
-        public bool IsPowerUpActive()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void TakeEffect()
@@ -49,3 +42,4 @@ using UnityEngine;
            
         }
     }
+}

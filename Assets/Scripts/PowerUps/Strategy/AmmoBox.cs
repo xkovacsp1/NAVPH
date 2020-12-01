@@ -9,10 +9,10 @@ namespace Assets.Scripts.PowerUps.Strategy
         public int ReservedArea { get; set; }
         public bool IsPowerUpActive { get; private set; }
         public float Timer { get; set; }
-        public float PowerUpDuration { get; } = 5.0f;
+        public float PowerUpDuration { get; } = 15.0f;
         public GameObject Player { get; set; }
         public Rigidbody RigidBody { get; set; }
-    
+        private float IncreasedDamage { get; set; }
 
         private void Awake()
         {
@@ -22,17 +22,28 @@ namespace Assets.Scripts.PowerUps.Strategy
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.gameObject.CompareTag($"Player")) return;
+            if (other.gameObject.CompareTag($"Player") && !other.GetComponent<Player.Player>().ActivePowerUp)
+            {
+                if (other.GetComponent<Player.Player>().ActivePowerUp)
+                {
+                    isActive = false;
+                    Destroy(gameObject);
+                    return;
+                }
 
-            other.GetComponent<Player.Player>().damage += other.GetComponent<Player.Player>().damage*0.25f;
-            other.GetComponent<Player.Player>().abilityScoreHeader.SetActive(true);
-            other.GetComponent<Player.Player>().abilityTimeLeft.SetActive(true);
-            IsPowerUpActive = true;
-            //Destroy(gameObject);      // nemozes odstranit lebo takeeffect neskor potrebuje
-            gameObject.SetActive(false);
-            //PowerUpsSpawner.SpawnPoints[ReservedArea].IsActive = false;
-            //isActive = false;
-            
+                var player = other.GetComponent<Player.Player>();
+                IncreasedDamage = player.damage * 0.25f;
+                player.damage += IncreasedDamage;
+                player.abilityScoreHeader.SetActive(true);
+                player.abilityTimeLeft.SetActive(true);
+                player.abilityScoreHeaderText.text = "Increased damage";
+                IsPowerUpActive = true;
+                player.ActivePowerUp = true;
+                //Destroy(gameObject);      // nemozes odstranit lebo takeeffect neskor potrebuje
+                gameObject.SetActive(false);
+                //PowerUpsSpawner.SpawnPoints[ReservedArea].IsActive = false;
+                //isActive = false;
+            }
         }
 
         public void Move()
@@ -49,19 +60,21 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (IsPowerUpActive)
             {
-                Player.GetComponent<Player.Player>().abilityTimeLeftText.text = Math.Round((5.0f - Timer)).ToString();
+                Player.GetComponent<Player.Player>().abilityTimeLeftText.text = Math.Round((PowerUpDuration - Timer)).ToString();
                 Timer += Time.deltaTime;
 
                 if (Timer > PowerUpDuration)
                 {
-                    Player.GetComponent<Player.Player>().abilityTimeLeftText.text = Math.Round((5.0f-Timer)).ToString();
+                    var player = Player.GetComponent<Player.Player>();
+                    player.abilityTimeLeftText.text = Math.Round((PowerUpDuration - Timer)).ToString();
                     IsPowerUpActive = false;
                     Destroy(gameObject);
                     PowerUpsSpawner.SpawnPoints[ReservedArea].IsActive = false;
                     isActive = false;
-                    Player.GetComponent<Player.Player>().abilityScoreHeader.SetActive(false);
-                    Player.GetComponent<Player.Player>().abilityTimeLeft.SetActive(false);
-                    Player.GetComponent<Player.Player>().damage -=Player.GetComponent<Player.Player>().damage * 0.25f;
+                    player.abilityScoreHeader.SetActive(false);
+                    player.abilityTimeLeft.SetActive(false);
+                    player.damage -= IncreasedDamage;
+                    player.ActivePowerUp = false;
                 }
             }
 
