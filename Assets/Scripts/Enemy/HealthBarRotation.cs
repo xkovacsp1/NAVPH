@@ -8,7 +8,7 @@ namespace Assets.Scripts.Enemy
 
         private void Awake()
         {
-            CameraToLookAt = GameObject.FindWithTag("Player").transform.GetChild(8).GetComponent<Camera>();
+            CameraToLookAt = GameObject.FindWithTag("Player").transform.GetChild(7).GetComponent<Camera>();
         }
 
         void Update()

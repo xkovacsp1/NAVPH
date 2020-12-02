@@ -37,13 +37,24 @@ namespace Assets.Scripts.Enemy.Strategy
             FireTransform = GetComponentsInChildren<Transform>()[2];
         }
 
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    if (!other.gameObject.CompareTag($"PlayerShell")) return;
-        //    Destroy(gameObject);
-        //    EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
-        //    isActive = false;
-        //}
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.gameObject.CompareTag($"Player")) return;
+
+
+            actualHealth = actualHealth - 10.0f;
+            HealthBar.fillAmount = actualHealth / startHealth;
+
+            // decrease player health
+            other.GetComponent<Player.Player>().health -= 30f;
+
+            if (actualHealth <= 0.0)
+            {
+                isActive = false;
+                EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
+                Destroy(gameObject);
+            }
+        }
 
         public void Move()
         {

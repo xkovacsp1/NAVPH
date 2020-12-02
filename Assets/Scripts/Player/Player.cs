@@ -8,7 +8,7 @@ namespace Assets.Scripts.Player
     {
         public float speed = 12f;                  // How fast the tank moves forward and back.
         public float turnSpeed = 180f;             // How fast the tank turns in degrees per
-        public int health = 100;
+        public float health = 100f;
         public float damage = 10f;
         public Text textHealth;
         public Text coinNumber;
@@ -45,15 +45,20 @@ namespace Assets.Scripts.Player
             RigidBody.isKinematic = true;
         }
 
-        //private void OnTriggerEnter(Collider other)
-        //{
+        private void OnTriggerEnter(Collider other)
+        {
 
-        //    if (other.gameObject.CompareTag($"EnemyTigerShell"))
-        //    {
-        //        health -= 10;
-        //    }
+            if (other.gameObject.CompareTag($"LeftWall") || other.gameObject.CompareTag($"RightWall"))
+            {
+                health -= 10;
 
-        //}
+                //if (health <= 0.0)
+                //{
+                //    Destroy(gameObject);
+                //}
+            }
+
+        }
 
 
         private void Start()

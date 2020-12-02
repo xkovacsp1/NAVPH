@@ -74,6 +74,7 @@ namespace Assets.Scripts.Player
             //GameObject shellInstance = shellPool.Instantiate(fireTransform.position, fireTransform.rotation);
             var shellInstance = Instantiate(Resources.Load("prefabs/PlayerShell", typeof(GameObject)) as GameObject);
             var shellRigidBody = shellInstance.GetComponent<Rigidbody>();
+            if (!shellRigidBody) return;
             shellRigidBody.position = fireTransform.position;
             shellRigidBody.rotation = fireTransform.rotation;
 
