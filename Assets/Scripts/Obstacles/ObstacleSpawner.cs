@@ -40,12 +40,12 @@ namespace Assets.Scripts.Obstacles
         {
             foreach (var spawPoint in SpawnPoints)
             {
-                ObstacleTypes randomObstacleType = (ObstacleTypes)Random.Next(0, 4);
+                ObstacleTypes randomObstacleType = (ObstacleTypes)Random.Next(0, 1);
                 switch (randomObstacleType)
                 {
                     //generate 
                     case ObstacleTypes.Rock:
-                        //GenerateCoin(spawPoint);
+                        GenerateBarrier(spawPoint);
                         break;
                     default:
                         break;
@@ -56,18 +56,16 @@ namespace Assets.Scripts.Obstacles
 
         }
 
-
+        void GenerateBarrier(ObstacleSpawnPoint spawnPoint)
+        {
+            var barrier = Instantiate(Resources.Load("prefabs/Barrier", typeof(GameObject)) as GameObject);
+            barrier.transform.rotation = gameObject.transform.rotation;
+            barrier.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
         }
 
-          
-        
     }
 
-   //void GenerateCoin(ObstacleSpawnPoint spawnPoint)
-   // {
-   //     var coin = Instantiate(Resources.Load("prefabs/Coin", typeof(GameObject)) as GameObject);
-   //     coin.transform.rotation = gameObject.transform.rotation;
-   //     coin.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
-   //     return coin.AddComponent<Coin>();
-   // }
+}
+
+
 
