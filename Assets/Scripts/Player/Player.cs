@@ -6,7 +6,7 @@ namespace Assets.Scripts.Player
 {
     public class Player : MonoBehaviour
     {
-        public float speed = 12f;                  // How fast the tank moves forward and back.
+        public float speed = 120f;                  // How fast the tank moves forward and back.
         public float turnSpeed = 180f;             // How fast the tank turns in degrees per
         public float health = 100f;
         public float damage = 10f;
@@ -48,10 +48,10 @@ namespace Assets.Scripts.Player
         private void OnTriggerEnter(Collider other)
         {
 
-            if (other.gameObject.CompareTag($"LeftWall"))
+            if (other.gameObject.CompareTag($"LeftWall") || other.gameObject.CompareTag($"RightWall"))
             {
                 health -= 10;
-                RigidBody.position += new Vector3(0.5f, 0.0f, 0.0f);
+                //RigidBody.position += new Vector3(0.5f, 0.0f, 0.0f);
                 //var movement = transform.forward * MovementInputValue * speed * Time.deltaTime;
                 //RigidBody.MovePosition(RigidBody.position - movement);
 
@@ -59,12 +59,16 @@ namespace Assets.Scripts.Player
                 //{
                 //    Destroy(gameObject);
                 //}
-            }else if (other.gameObject.CompareTag($"RightWall"))
+            }else if (other.gameObject.CompareTag($"Barrier"))
             {
-                health -= 10;
-                RigidBody.position -= new Vector3(0.5f, 0.0f, 0.0f);
-                //var movement = transform.forward * MovementInputValue * speed * Time.deltaTime;
 
+                health -= 5;
+
+            }
+            else if (other.gameObject.CompareTag($"EnemyTiger"))
+            {
+
+                health -= 20;
 
             }
 
@@ -113,18 +117,19 @@ namespace Assets.Scripts.Player
         private void Move()
         {
             //var movement = transform.forward  * MovementInputValue * speed * Time.deltaTime;
-            //RigidBody.velocity = transform.forward*MovementInputValue * speed * Time.deltaTime;
+            RigidBody.velocity = transform.forward*MovementInputValue * speed * Time.deltaTime;
 
 
 
-            Vector3 movement = new Vector3(0, 0, MovementInputValue * speed);
-            // Returns a copy of vector with its magnitude clamped to maxLength
-            movement = Vector3.ClampMagnitude(movement, speed);
+            //Vector3 movement = new Vector3(0, 0, MovementInputValue * speed);
+            //// Returns a copy of vector with its magnitude clamped to maxLength
+            //movement = Vector3.ClampMagnitude(movement, speed);
 
-            movement *= Time.deltaTime;
-            // Transforms direction from local space to world space.
-            movement = transform.TransformDirection(movement);
-            RigidBody.AddForce(movement);
+            //movement *= Time.deltaTime;
+            //// Transforms direction from local space to world space.
+            //movement = transform.TransformDirection(movement);
+            ////RigidBody.AddForce(movement);
+            //RigidBody.velocity = movement;
 
 
 
