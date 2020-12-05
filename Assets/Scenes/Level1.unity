@@ -1572,7 +1572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zPos: 35
   yPos: 0
-  enemyNumber: 15
+  enemyNumber: 1
 --- !u!1 &1777740948
 GameObject:
   m_ObjectHideFlags: 0

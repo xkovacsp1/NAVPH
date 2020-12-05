@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -55,20 +56,40 @@ namespace Assets.Scripts.Player
                 //var movement = transform.forward * MovementInputValue * speed * Time.deltaTime;
                 //RigidBody.MovePosition(RigidBody.position - movement);
 
-                //if (health <= 0.0)
-                //{
-                //    Destroy(gameObject);
-                //}
+                if (health <= 0.0)
+                {
+                   
+                    SceneManager.LoadScene(2);
+
+
+
+                }
             }else if (other.gameObject.CompareTag($"Barrier"))
             {
 
                 health -= 5;
+                if (health <= 0.0)
+                {
+                   
+                    SceneManager.LoadScene(2);
+
+
+
+                }
 
             }
             else if (other.gameObject.CompareTag($"EnemyTiger"))
             {
 
                 health -= 20;
+                if (health <= 0.0)
+                {
+                 
+                    SceneManager.LoadScene(2);
+
+
+
+                }
 
             }
 
