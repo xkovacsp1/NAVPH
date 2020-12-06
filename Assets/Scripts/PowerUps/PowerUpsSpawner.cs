@@ -9,7 +9,7 @@ using Random = System.Random;
         public class PowerUpsSpawner : MonoBehaviour
         {
             public List<PowerUpsBehaviourContext> PowerUpsBehaviors { get; } = new List<PowerUpsBehaviourContext>();
-            public static List<PowerUpSpawnPoint> SpawnPoints { get; set; } = new List<PowerUpSpawnPoint>()
+            public List<PowerUpSpawnPoint> SpawnPoints { get; set; } = new List<PowerUpSpawnPoint>()
             {
                 {new PowerUpSpawnPoint(14.39f,40.0f, false)},
                 { new PowerUpSpawnPoint(9.27f,30.0f, false)},
@@ -26,7 +26,12 @@ using Random = System.Random;
             public int powerUpsNumber = 15;
             public Random Random { get; } = new Random();
 
-            public enum PowerUpTypes
+            public GameObject ammoBoxPrefab;
+            public GameObject barrelPrefab;
+            public GameObject coinPrefab;
+            public GameObject drillPrefab;
+
+        public enum PowerUpTypes
             {
                 Coin,Drill,AmmoBox
             }
@@ -80,7 +85,7 @@ using Random = System.Random;
 
         public IPowerUpsBehaviour GenerateCoin(PowerUpSpawnPoint spawnPoint)
         {
-            var coin = Instantiate(Resources.Load("prefabs/Coin", typeof(GameObject)) as GameObject);
+            var coin = Instantiate(coinPrefab);
             coin.transform.rotation = gameObject.transform.rotation;
             coin.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
             return coin.AddComponent<Coin>();
@@ -88,7 +93,7 @@ using Random = System.Random;
 
         public IPowerUpsBehaviour GenerateDrill(PowerUpSpawnPoint spawnPoint)
         {
-            var drill = Instantiate(Resources.Load("prefabs/Drill", typeof(GameObject)) as GameObject);
+            var drill = Instantiate(drillPrefab);
             drill.transform.rotation = gameObject.transform.rotation;
                                                                      // increase y psorion of drill
             drill.transform.position = new Vector3(spawnPoint.XPos, yPos+0.5f, spawnPoint.ZPos);
@@ -97,7 +102,7 @@ using Random = System.Random;
 
         public IPowerUpsBehaviour GenerateAmmoBox(PowerUpSpawnPoint spawnPoint)
         {
-            var ammoBox = Instantiate(Resources.Load("prefabs/AmmoBox", typeof(GameObject)) as GameObject);
+            var ammoBox = Instantiate(ammoBoxPrefab);
             ammoBox.transform.rotation = gameObject.transform.rotation;
             ammoBox.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
             return ammoBox.AddComponent<AmmoBox>();
@@ -105,10 +110,10 @@ using Random = System.Random;
 
         public IPowerUpsBehaviour GenerateBarrel(PowerUpSpawnPoint spawnPoint)
         {
-            var ammoBox = Instantiate(Resources.Load("prefabs/Barrel", typeof(GameObject)) as GameObject);
-            ammoBox.transform.rotation = gameObject.transform.rotation;
-            ammoBox.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
-            return ammoBox.AddComponent<Barrel>();
+            var barrel = Instantiate(barrelPrefab);
+            barrel.transform.rotation = gameObject.transform.rotation;
+            barrel.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
+            return barrel.AddComponent<Barrel>();
         }
 
         public void Update()

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Shell
         {
             if (other.gameObject.CompareTag($"EnemyTiger") /*other.gameObject.CompareTag($"Plane")*/)
             {
-                other.GetComponent<Enemy.Strategy.TigerEnemy>().TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
+                other.GetComponent<Enemy.Strategy.EnemyTiger>().TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
                 Destroy(gameObject);
 
             }else if(other.gameObject.CompareTag($"EnemySoldier"))

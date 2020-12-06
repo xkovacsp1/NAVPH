@@ -7,8 +7,8 @@ namespace Assets.Scripts.Player
 {
     public class Player : MonoBehaviour
     {
-        public float speed = 120f;                  // How fast the tank moves forward and back.
-        public float turnSpeed = 180f;             // How fast the tank turns in degrees per
+        public float speed = 120f; // How fast the tank moves forward and back.
+        public float turnSpeed = 180f; // How fast the tank turns in degrees per
         public float health = 100f;
         public float damage = 10f;
         public Text textHealth;
@@ -17,7 +17,9 @@ namespace Assets.Scripts.Player
 
         public GameObject abilityTimeLeft;
         public Text abilityTimeLeftText;
+
         public Text abilityScoreHeaderText;
+
         //public Text abilityTimeLeft;
         public int numberOfCollectedCoins;
 
@@ -28,7 +30,7 @@ namespace Assets.Scripts.Player
         public float TurnInputValue { get; set; } // The current value of the turn input.
 
         public bool ActivePowerUp { get; set; } = false;
-        private bool moving=false;
+
         private void Awake()
         {
             RigidBody = GetComponent<Rigidbody>();
@@ -41,14 +43,8 @@ namespace Assets.Scripts.Player
             TurnInputValue = 0f;
         }
 
-        private void OnDisable()
-        {
-           // RigidBody.isKinematic = true;
-        }
-
         private void OnTriggerEnter(Collider other)
         {
-
             if (other.gameObject.CompareTag($"LeftWall") || other.gameObject.CompareTag($"RightWall"))
             {
                 health -= 10;
@@ -58,41 +54,25 @@ namespace Assets.Scripts.Player
 
                 if (health <= 0.0)
                 {
-                   
                     SceneManager.LoadScene(2);
-
-
-
                 }
-            }else if (other.gameObject.CompareTag($"Barrier"))
+            }
+            else if (other.gameObject.CompareTag($"Barrier"))
             {
-
                 health -= 5;
                 if (health <= 0.0)
                 {
-                   
                     SceneManager.LoadScene(2);
-
-
-
                 }
-
             }
             else if (other.gameObject.CompareTag($"EnemyTiger"))
             {
-
                 health -= 20;
                 if (health <= 0.0)
                 {
-                 
                     SceneManager.LoadScene(2);
-
-
-
                 }
-
             }
-
         }
 
 
@@ -107,7 +87,7 @@ namespace Assets.Scripts.Player
         {
             textHealth.text = health.ToString();
             coinNumber.text = numberOfCollectedCoins.ToString();
-           
+
             MovementInputValue = Input.GetAxis(MovementAxisName);
             //if (MovementInputValue > 0.0f)
             //{
@@ -138,8 +118,7 @@ namespace Assets.Scripts.Player
         private void Move()
         {
             //var movement = transform.forward  * MovementInputValue * speed * Time.deltaTime;
-            RigidBody.velocity = transform.forward*MovementInputValue * speed * Time.deltaTime;
-
+            RigidBody.velocity = transform.forward * MovementInputValue * speed * Time.deltaTime;
 
 
             //Vector3 movement = new Vector3(0, 0, MovementInputValue * speed);
@@ -151,9 +130,6 @@ namespace Assets.Scripts.Player
             //movement = transform.TransformDirection(movement);
             ////RigidBody.AddForce(movement);
             //RigidBody.velocity = movement;
-
-
-
 
 
             //if (movement.z < -40.09f)
@@ -168,7 +144,6 @@ namespace Assets.Scripts.Player
             //if (movement.x > 21.83f)
             //    movement.x -= 0.1f;
             //RigidBody.MovePosition(RigidBody.position + movement);
-
         }
 
         private void Turn()
@@ -177,6 +152,5 @@ namespace Assets.Scripts.Player
             Quaternion turnRotation = Quaternion.Euler(0f, playerTurn, 0f);
             RigidBody.MoveRotation(RigidBody.rotation * turnRotation);
         }
-
     }
 }

@@ -16,6 +16,8 @@ namespace Assets.Scripts.Player
         public float CurrentLaunchForce { get; set; }
         public float ChargeSpeed { get; set; }
         public bool Fired { get; set; }
+
+        public GameObject playerShell;
         
         private void OnEnable()
         {
@@ -72,7 +74,7 @@ namespace Assets.Scripts.Player
             //GameObject shellInstance =
             //   Instantiate(shell, fireTransform.position, fireTransform.rotation);
             //GameObject shellInstance = shellPool.Instantiate(fireTransform.position, fireTransform.rotation);
-            var shellInstance = Instantiate(Resources.Load("prefabs/PlayerShell", typeof(GameObject)) as GameObject);
+            var shellInstance = Instantiate(playerShell);
             var shellRigidBody = shellInstance.GetComponent<Rigidbody>();
             if (!shellRigidBody) return;
             shellRigidBody.position = fireTransform.position;

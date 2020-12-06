@@ -13,9 +13,10 @@ namespace Assets.Scripts.PowerUps.Strategy
         public GameObject Player { get; set; }
         public Rigidbody RigidBody { get; set; }
         private float IncreasedDamage { get; set; }
-
+        public PowerUpsSpawner Spawner { get; set; }
         private void Awake()
         {
+            Spawner= GameObject.FindWithTag("PowerUpSpawner").GetComponent<PowerUpsSpawner>();
             Player = GameObject.FindWithTag("Player");
             RigidBody = GetComponent<Rigidbody>();
         }
@@ -69,7 +70,7 @@ namespace Assets.Scripts.PowerUps.Strategy
                     player.abilityTimeLeftText.text = Math.Round((PowerUpDuration - Timer)).ToString();
                     IsPowerUpActive = false;
                     Destroy(gameObject);
-                    PowerUpsSpawner.SpawnPoints[ReservedArea].IsActive = false;
+                    Spawner.SpawnPoints[ReservedArea].IsActive = false;
                     isActive = false;
                     player.abilityScoreHeader.SetActive(false);
                     player.abilityTimeLeft.SetActive(false);

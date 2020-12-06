@@ -23,11 +23,14 @@ namespace Assets.Scripts.Enemy.Strategy
         public NavMeshAgent Agent { get; private set; }
 
         public UnityEngine.UI.Image HealthBar { get; set; }
-        public float actualHealth = 100f;
+        public float ActualHealth { get; private set; } = 100f;
         public float startHealth = 100f;
+        public EnemySpawner Spawner { get; set; }
+        public GameObject enemySoldierShellPrefab;
 
         private void Awake()
         {
+            Spawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
             HealthBar = GetComponentsInChildren<UnityEngine.UI.Image>()[0];
             RigidBody = GetComponent<Rigidbody>();
             Agent = GetComponent<NavMeshAgent>();
@@ -39,7 +42,7 @@ namespace Assets.Scripts.Enemy.Strategy
         {
             if (!other.gameObject.CompareTag($"Player")) return;
             Destroy(gameObject);
-            EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
+            Spawner.SpawnPoints[ReservedArea].IsActive = false;
             isActive = false;
         }
 
@@ -76,7 +79,7 @@ namespace Assets.Scripts.Enemy.Strategy
             {
                 NextFire = Time.time + Random.Range(1f, 3f);
                 var enemyTigerShellObject =
-                    Instantiate(Resources.Load("prefabs/EnemyTigerShell", typeof(GameObject)) as GameObject);
+                    Instantiate(enemySoldierShellPrefab);
                 var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
                 if (!enemyTigerShellRigidBody) return;
                 var transformShell = enemyTigerShellRigidBody.transform;
@@ -94,13 +97,13 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void TakeDamage(float damage)
         {
-            actualHealth = actualHealth - damage;
-            HealthBar.fillAmount = actualHealth / startHealth;
+            ActualHealth = ActualHealth - damage;
+            HealthBar.fillAmount = ActualHealth / startHealth;
 
-            if (actualHealth <= 0.0)
+            if (ActualHealth <= 0.0)
             {
                 isActive = false;
-                EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
+                Spawner.SpawnPoints[ReservedArea].IsActive = false;
                 Destroy(gameObject);
             }
         }

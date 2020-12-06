@@ -7,13 +7,12 @@ namespace Assets.Scripts.PowerUps.Strategy
         public bool isActive = true;
         public float rotationSpeed = 60f;
         public int ReservedArea { get; set; }
-        
-     
         public Rigidbody RigidBody { get; set; }
-    
+        public PowerUpsSpawner Spawner { get; set; }
 
         private void Awake()
         {
+            Spawner = GameObject.FindWithTag("PowerUpSpawner").GetComponent<PowerUpsSpawner>();
             RigidBody = GetComponent<Rigidbody>();
         }
 
@@ -22,7 +21,7 @@ namespace Assets.Scripts.PowerUps.Strategy
             if (!other.gameObject.CompareTag($"Player")) return;
             other.GetComponent<Player.Player>().numberOfCollectedCoins += 1;
             Destroy(gameObject);
-            PowerUpsSpawner.SpawnPoints[ReservedArea].IsActive = false;
+            Spawner.SpawnPoints[ReservedArea].IsActive = false;
             isActive = false;
             
         }

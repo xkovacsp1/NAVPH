@@ -18,6 +18,8 @@ TagManager:
   - LeftWall
   - RightWall
   - Barrier
+  - EnemySpawner
+  - PowerUpSpawner
   layers:
   - Default
   - TransparentFX

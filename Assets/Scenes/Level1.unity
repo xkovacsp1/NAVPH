@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 669529765}
   m_Layer: 0
   m_Name: PowerUpSpawner
-  m_TagString: Untagged
+  m_TagString: PowerUpSpawner
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -413,6 +413,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yPos: 0
   powerUpsNumber: 25
+  ammoBoxPrefab: {fileID: 391081111845221762, guid: 8f1bc50ff14e0bb4f9f7a6dcb298284b, type: 3}
+  barrelPrefab: {fileID: 1984084043255329447, guid: 0b81359c00c5dc848a7268072656941d, type: 3}
+  coinPrefab: {fileID: 254767797730731415, guid: a6c4426cf68e42846a005f814a152556, type: 3}
+  drillPrefab: {fileID: 1000012695253110, guid: f5a2d19d564785d45a6207078113bcaa, type: 3}
 --- !u!4 &669529767
 Transform:
   m_ObjectHideFlags: 0
@@ -630,6 +634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yPos: 0
+  barrierPrefab: {fileID: 1130903760990390358, guid: 26b9e72a58cb4df4e95e4ec380c7c26e, type: 3}
 --- !u!4 &738414065
 Transform:
   m_ObjectHideFlags: 0
@@ -1539,7 +1544,7 @@ GameObject:
   - component: {fileID: 1659068584}
   m_Layer: 0
   m_Name: EnemySpawner
-  m_TagString: Untagged
+  m_TagString: EnemySpawner
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1572,7 +1577,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zPos: 35
   yPos: 0
-  enemyNumber: 1
+  enemyNumber: 5
+  enemyTigerPrefab: {fileID: 8707066839897533035, guid: ddec54a4bb142764ea48c9d2036eeb3c, type: 3}
+  enemySoldierPrefab: {fileID: 8562448540609540937, guid: 084a60667e8774740aa7e73459cd2e89, type: 3}
+  enemyTruckPrefab: {fileID: 6555205776605643802, guid: a5bd5cab4afeaea41a9a50f818ed4624, type: 3}
 --- !u!1 &1777740948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,5 +1952,9 @@ PrefabInstance:
       propertyPath: speed
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 5675031825545566030, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
+      propertyPath: playerShell
+      value: 
+      objectReference: {fileID: 9152627324826179341, guid: 70bf1b24b44c5854380489555c0172b8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}

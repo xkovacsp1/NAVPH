@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemy.Strategy
 {
@@ -7,12 +8,18 @@ namespace Assets.Scripts.Enemy.Strategy
         public float MovementSpeed { get; } = 7f;
         public bool isActive = true;
         public int ReservedArea { get; set; }
+        public EnemySpawner Spawner { get; set; }
+
+        private void Awake()
+        {
+            Spawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag($"PlayerShell")) return;
             Destroy(gameObject);
-            EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
+            Spawner.SpawnPoints[ReservedArea].IsActive = false;
             isActive = false;
         }
 

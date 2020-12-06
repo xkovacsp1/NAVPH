@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Enemy.Strategy
 {
-    public class TigerEnemy : MonoBehaviour, IEnemyBehaviour
+    public class EnemyTiger : MonoBehaviour, IEnemyBehaviour
     {
         //public float AttackTime { get; }
         public float MovementSpeed { get; } = 5f;
@@ -25,11 +25,15 @@ namespace Assets.Scripts.Enemy.Strategy
         private Transform FireTransform { get; set; }
         public Rigidbody RigidBody { get; set; }
         public UnityEngine.UI.Image HealthBar { get; set; }
-        public float actualHealth = 100f;
+        public float ActualHealth { get; private set; } = 100f;
         public float startHealth = 100f;
+        public EnemySpawner Spawner { get; set; }
+
+        public GameObject enemyTigerShellPrefab;
 
         private void Awake()
         {
+            Spawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
             HealthBar = GetComponentsInChildren<UnityEngine.UI.Image>()[0];
             RigidBody = GetComponent<Rigidbody>();
             Agent = GetComponent<NavMeshAgent>();
@@ -42,16 +46,17 @@ namespace Assets.Scripts.Enemy.Strategy
             if (!other.gameObject.CompareTag($"Player")) return;
 
 
-            actualHealth = actualHealth - 10.0f;
-            HealthBar.fillAmount = actualHealth / startHealth;
+            ActualHealth = ActualHealth - 10.0f;
+            HealthBar.fillAmount = ActualHealth / startHealth;
 
             // decrease player health
             other.GetComponent<Player.Player>().health -= 30f;
 
-            if (actualHealth <= 0.0)
+            if (ActualHealth <= 0.0)
             {
                 isActive = false;
-                EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
+                //EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
+                Spawner.SpawnPoints[ReservedArea].IsActive = false;
                 Destroy(gameObject);
             }
         }
@@ -92,7 +97,7 @@ namespace Assets.Scripts.Enemy.Strategy
             {
                 NextFire = Time.time + Random.Range(1f, 3f);
                 var enemyTigerShellObject =
-                    Instantiate(Resources.Load("prefabs/EnemyTigerShell", typeof(GameObject)) as GameObject);
+                    Instantiate(enemyTigerShellPrefab);
                 var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
                 if (!enemyTigerShellRigidBody) return;
                 var transformShell = enemyTigerShellRigidBody.transform;
@@ -110,13 +115,14 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void TakeDamage(float damage)
         {
-            actualHealth = actualHealth - damage;
-            HealthBar.fillAmount = actualHealth / startHealth;
+            ActualHealth = ActualHealth - damage;
+            HealthBar.fillAmount = ActualHealth / startHealth;
 
-            if (actualHealth <= 0.0)
+            if (ActualHealth <= 0.0)
             {
                 isActive = false;
-                EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
+                Spawner.SpawnPoints[ReservedArea].IsActive = false;
+                //EnemySpawner.SpawnPoints[ReservedArea].IsActive = false;
                 Destroy(gameObject);
             }
         }

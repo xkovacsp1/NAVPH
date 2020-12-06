@@ -6,7 +6,7 @@ namespace Assets.Scripts.Obstacles
     public class ObstacleSpawner : MonoBehaviour
     {
 
-        public static List<ObstacleSpawnPoint> SpawnPoints { get; set; } = new List<ObstacleSpawnPoint>()
+        public List<ObstacleSpawnPoint> SpawnPoints { get; set; } = new List<ObstacleSpawnPoint>()
         {
             {new ObstacleSpawnPoint(14.39f, 35.0f)},
             {new ObstacleSpawnPoint(9.27f, 25.0f)},
@@ -23,6 +23,7 @@ namespace Assets.Scripts.Obstacles
         //public float minXPos = -15.16f;
         //public int obstacleNumber = 15;
         public Random Random { get; } = new Random();
+        public GameObject barrierPrefab;
 
         public enum ObstacleTypes
         {
@@ -58,7 +59,7 @@ namespace Assets.Scripts.Obstacles
 
         void GenerateBarrier(ObstacleSpawnPoint spawnPoint)
         {
-            var barrier = Instantiate(Resources.Load("prefabs/Barrier", typeof(GameObject)) as GameObject);
+            var barrier = Instantiate(barrierPrefab);
             barrier.transform.rotation = gameObject.transform.rotation;
             barrier.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
         }
