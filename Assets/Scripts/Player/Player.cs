@@ -51,27 +51,32 @@ namespace Assets.Scripts.Player
                 //RigidBody.position += new Vector3(0.5f, 0.0f, 0.0f);
                 //var movement = transform.forward * MovementInputValue * speed * Time.deltaTime;
                 //RigidBody.MovePosition(RigidBody.position - movement);
-
-                if (health <= 0.0)
-                {
-                    SceneManager.LoadScene(2);
-                }
             }
             else if (other.gameObject.CompareTag($"Barrier"))
             {
                 health -= 5;
-                if (health <= 0.0)
-                {
-                    SceneManager.LoadScene(2);
-                }
+              
+            }
+            else if (other.gameObject.CompareTag($"Rock"))
+            {
+                health -= 10;
+            
+            }
+            else if (other.gameObject.CompareTag($"Mine"))
+            {
+                health -= 20;
+                Destroy(other.gameObject);
+              
             }
             else if (other.gameObject.CompareTag($"EnemyTiger"))
             {
                 health -= 20;
-                if (health <= 0.0)
-                {
-                    SceneManager.LoadScene(2);
-                }
+              
+            }
+            // Die
+            if (health <= 0.0)
+            {
+                SceneManager.LoadScene(sceneBuildIndex: 2);
             }
         }
 

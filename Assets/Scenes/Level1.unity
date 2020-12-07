@@ -633,8 +633,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40a2aa39ab8e3f418d8432600b491ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yPos: 0
   barrierPrefab: {fileID: 1130903760990390358, guid: 26b9e72a58cb4df4e95e4ec380c7c26e, type: 3}
+  rockPrefab: {fileID: 8094551303255797877, guid: ae7830d3f3728b34cbd282c6504e1d28, type: 3}
+  minePrefab: {fileID: 5583880941574827321, guid: 8e7f3185cf67b1d4fbf438250bad2a09, type: 3}
 --- !u!4 &738414065
 Transform:
   m_ObjectHideFlags: 0
