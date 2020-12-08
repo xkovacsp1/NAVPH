@@ -6,7 +6,7 @@ namespace Assets.Scripts.Shell
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag($"EnemyTiger") /*other.gameObject.CompareTag($"Plane")*/)
+            if (other.gameObject.CompareTag($"EnemyTiger"))
             {
                 other.GetComponent<Enemy.Strategy.EnemyTiger>().TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
                 Destroy(gameObject);

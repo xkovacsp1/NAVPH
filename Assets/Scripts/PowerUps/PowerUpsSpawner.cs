@@ -19,10 +19,8 @@ using Random = System.Random;
                 { new PowerUpSpawnPoint(-10.32f,-10.0f, false)}
             };
 
-            //public float zPos = 45f;
+       
             public float yPos;
-            //public float maxXPos = 14.87f;
-            //public float minXPos = -15.16f;
             public int powerUpsNumber = 15;
             public Random Random { get; } = new Random();
 
@@ -58,7 +56,6 @@ using Random = System.Random;
                         case PowerUpTypes.Coin:
                             context = new PowerUpsBehaviourContext(GenerateCoin(spawnPoint));
                             break;
-                        //generate soldier
                         case PowerUpTypes.Drill:
                             context = new PowerUpsBehaviourContext(GenerateDrill(spawnPoint));
                             break;
@@ -68,13 +65,8 @@ using Random = System.Random;
                         default:
                             context = new PowerUpsBehaviourContext(GenerateBarrel(spawnPoint));
                             break;
-                        //generate enemy truck
-                        //default:
-                        //    context = new EnemyBehaviourContext(GenerateEnemyTruck(spawnPoint));
-                        //    break;
                     }
-                    //var context = new PowerUpsBehaviourContext(GenerateCoin(spawnPoint));
-                    SpawnPoints[index].IsActive = true;
+                        SpawnPoints[index].IsActive = true;
                     PowerUpsBehaviors.Add(context);
                     powerUpCount++;
                     }
@@ -95,7 +87,7 @@ using Random = System.Random;
         {
             var drill = Instantiate(drillPrefab);
             drill.transform.rotation = gameObject.transform.rotation;
-                                                                     // increase y psorion of drill
+                                                                     // increase y position of drill
             drill.transform.position = new Vector3(spawnPoint.XPos, yPos+0.5f, spawnPoint.ZPos);
             return drill.AddComponent<Drill>();
         }

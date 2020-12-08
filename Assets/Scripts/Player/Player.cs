@@ -7,8 +7,8 @@ namespace Assets.Scripts.Player
 {
     public class Player : MonoBehaviour
     {
-        public float speed = 120f; // How fast the tank moves forward and back.
-        public float turnSpeed = 180f; // How fast the tank turns in degrees per
+        public float speed = 120f; 
+        public float turnSpeed = 180f; 
         public float health = 100f;
         public float damage = 10f;
         public Text textHealth;
@@ -20,14 +20,13 @@ namespace Assets.Scripts.Player
 
         public Text abilityScoreHeaderText;
 
-        //public Text abilityTimeLeft;
         public int numberOfCollectedCoins;
 
-        public string MovementAxisName { get; set; } // The name of the input axis for moving forward and back.
-        public string TurnAxisName { get; set; } // The name of the input axis for turning.
-        public Rigidbody RigidBody { get; set; } // Reference used to move the tank.
-        public float MovementInputValue { get; set; } // The current value of the movement input.
-        public float TurnInputValue { get; set; } // The current value of the turn input.
+        public string MovementAxisName { get; set; }
+        public string TurnAxisName { get; set; }
+        public Rigidbody RigidBody { get; set; }
+        public float MovementInputValue { get; set; }
+        public float TurnInputValue { get; set; } 
 
         public bool ActivePowerUp { get; set; } = false;
 
@@ -38,7 +37,6 @@ namespace Assets.Scripts.Player
 
         private void OnEnable()
         {
-            //RigidBody.isKinematic = false;
             MovementInputValue = 0f;
             TurnInputValue = 0f;
         }
@@ -48,9 +46,6 @@ namespace Assets.Scripts.Player
             if (other.gameObject.CompareTag($"LeftWall") || other.gameObject.CompareTag($"RightWall"))
             {
                 health -= 10;
-                //RigidBody.position += new Vector3(0.5f, 0.0f, 0.0f);
-                //var movement = transform.forward * MovementInputValue * speed * Time.deltaTime;
-                //RigidBody.MovePosition(RigidBody.position - movement);
             }
             else if (other.gameObject.CompareTag($"Barrier"))
             {
@@ -76,7 +71,9 @@ namespace Assets.Scripts.Player
             // Die
             if (health <= 0.0)
             {
+                PlayerPrefs.SetInt("CollectedCoins", numberOfCollectedCoins);
                 SceneManager.LoadScene(sceneBuildIndex: 2);
+               
             }
         }
 
@@ -94,61 +91,18 @@ namespace Assets.Scripts.Player
             coinNumber.text = numberOfCollectedCoins.ToString();
 
             MovementInputValue = Input.GetAxis(MovementAxisName);
-            //if (MovementInputValue > 0.0f)
-            //{
-            //    moving = true;
-            //}else if (MovementInputValue < 0.0f)
-            //{
-
-            //    moving = false;
-            //}
             TurnInputValue = Input.GetAxis(TurnAxisName);
         }
 
         private void FixedUpdate()
         {
-            //  if (moving)
-            //  {
-            //     Move(); 
-            //  }
-            //  else
-            // {
-
-            // RigidBody.velocity = Vector3.zero;
-            // }
             Move();
             Turn();
         }
 
         private void Move()
         {
-            //var movement = transform.forward  * MovementInputValue * speed * Time.deltaTime;
             RigidBody.velocity = transform.forward * MovementInputValue * speed * Time.deltaTime;
-
-
-            //Vector3 movement = new Vector3(0, 0, MovementInputValue * speed);
-            //// Returns a copy of vector with its magnitude clamped to maxLength
-            //movement = Vector3.ClampMagnitude(movement, speed);
-
-            //movement *= Time.deltaTime;
-            //// Transforms direction from local space to world space.
-            //movement = transform.TransformDirection(movement);
-            ////RigidBody.AddForce(movement);
-            //RigidBody.velocity = movement;
-
-
-            //if (movement.z < -40.09f)
-            //    movement.z += 0.1f;
-
-            //if (movement.z > 39.64)
-            //    movement.z -= 0.1f;
-
-            //if (movement.x < -21.46)
-            //    movement.x += 0.1f;
-
-            //if (movement.x > 21.83f)
-            //    movement.x -= 0.1f;
-            //RigidBody.MovePosition(RigidBody.position + movement);
         }
 
         private void Turn()
