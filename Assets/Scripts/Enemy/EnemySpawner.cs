@@ -103,7 +103,7 @@ namespace Assets.Scripts.Enemy
         //    enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
         //    return enemySoldier.AddComponent<EnemyTruck>();
         //}
-        public void Update()
+        public void FixedUpdate()
         {
             foreach (var enemy in EnemyBehaviors)
             {

@@ -512,7 +512,6 @@ MonoBehaviour:
   powerUpsNumber: 25
   ammoBoxPrefab: {fileID: 391081111845221762, guid: 8f1bc50ff14e0bb4f9f7a6dcb298284b, type: 3}
   barrelPrefab: {fileID: 1984084043255329447, guid: 0b81359c00c5dc848a7268072656941d, type: 3}
-  coinPrefab: {fileID: 254767797730731415, guid: a6c4426cf68e42846a005f814a152556, type: 3}
   drillPrefab: {fileID: 1000012695253110, guid: f5a2d19d564785d45a6207078113bcaa, type: 3}
 --- !u!4 &669529767
 Transform:
@@ -1719,6 +1718,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeForArena: 10
   timeLeftText: {fileID: 1254146005}
+  coinPrefab: {fileID: 254767797730731415, guid: a6c4426cf68e42846a005f814a152556, type: 3}
+  coinNumber: 15
 --- !u!1 &1658331728
 GameObject:
   m_ObjectHideFlags: 0

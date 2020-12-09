@@ -26,12 +26,11 @@ using Random = System.Random;
 
             public GameObject ammoBoxPrefab;
             public GameObject barrelPrefab;
-            public GameObject coinPrefab;
             public GameObject drillPrefab;
 
         public enum PowerUpTypes
             {
-                Coin,Drill,AmmoBox
+                Drill,AmmoBox
             }
 
             public void Start()
@@ -49,13 +48,9 @@ using Random = System.Random;
                     PowerUpsBehaviourContext context;
                     if (!spawnPoint.IsActive)
                     {
-                        PowerUpTypes randomEnemyType =(PowerUpTypes) Random.Next(0,4);
+                        PowerUpTypes randomEnemyType =(PowerUpTypes) Random.Next(0,3);
                         switch (randomEnemyType)
                     {
-                        //generate Coin
-                        case PowerUpTypes.Coin:
-                            context = new PowerUpsBehaviourContext(GenerateCoin(spawnPoint));
-                            break;
                         case PowerUpTypes.Drill:
                             context = new PowerUpsBehaviourContext(GenerateDrill(spawnPoint));
                             break;
@@ -75,13 +70,13 @@ using Random = System.Random;
             }
 
 
-        public IPowerUpsBehaviour GenerateCoin(PowerUpSpawnPoint spawnPoint)
-        {
-            var coin = Instantiate(coinPrefab);
-            coin.transform.rotation = gameObject.transform.rotation;
-            coin.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
-            return coin.AddComponent<Coin>();
-        }
+        //public IPowerUpsBehaviour GenerateCoin(PowerUpSpawnPoint spawnPoint)
+        //{
+        //    var coin = Instantiate(coinPrefab);
+        //    coin.transform.rotation = gameObject.transform.rotation;
+        //    coin.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
+        //    return coin.AddComponent<Coin>();
+        //}
 
         public IPowerUpsBehaviour GenerateDrill(PowerUpSpawnPoint spawnPoint)
         {
@@ -108,7 +103,7 @@ using Random = System.Random;
             return barrel.AddComponent<Barrel>();
         }
 
-        public void Update()
+        public void FixedUpdate()
             {
                 foreach (var powerup in PowerUpsBehaviors)
                 {
