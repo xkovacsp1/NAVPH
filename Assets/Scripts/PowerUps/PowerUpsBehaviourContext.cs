@@ -15,8 +15,8 @@
          public void Act()
          {
              if (!PowerUpBehavior.IsActive()) return;
-             PowerUpBehavior.Move();
-             PowerUpBehavior.TakeEffect();
+             PowerUpBehavior?.Move();
+             PowerUpBehavior?.TakeEffect();
          }
      }
  }

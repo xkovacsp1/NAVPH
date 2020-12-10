@@ -13,8 +13,8 @@ namespace Assets.Scripts.Enemy
         public void Act()
         {
             if (!EnemyBehavior.IsActive()) return;
-            EnemyBehavior.Attack();
-            EnemyBehavior.Move();
+            EnemyBehavior?.Attack();
+            EnemyBehavior?.Move();
         }
     }
 }

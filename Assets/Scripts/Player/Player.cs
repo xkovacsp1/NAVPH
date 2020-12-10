@@ -87,8 +87,11 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
-            textHealth.text = health.ToString();
-            coinNumber.text = numberOfCollectedCoins.ToString();
+            if (textHealth && coinNumber)
+            {
+                textHealth.text = health.ToString();
+                coinNumber.text = numberOfCollectedCoins.ToString();
+            }
 
             MovementInputValue = Input.GetAxis(MovementAxisName);
             TurnInputValue = Input.GetAxis(TurnAxisName);

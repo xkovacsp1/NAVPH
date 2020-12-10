@@ -69,26 +69,27 @@ using Random = System.Random;
                 }
             }
 
-
-        //public IPowerUpsBehaviour GenerateCoin(PowerUpSpawnPoint spawnPoint)
-        //{
-        //    var coin = Instantiate(coinPrefab);
-        //    coin.transform.rotation = gameObject.transform.rotation;
-        //    coin.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
-        //    return coin.AddComponent<Coin>();
-        //}
-
-        public IPowerUpsBehaviour GenerateDrill(PowerUpSpawnPoint spawnPoint)
+            public IPowerUpsBehaviour GenerateDrill(PowerUpSpawnPoint spawnPoint)
         {
+            if (!drillPrefab)
+            {
+                return null;
+            }
+
             var drill = Instantiate(drillPrefab);
             drill.transform.rotation = gameObject.transform.rotation;
-                                                                     // increase y position of drill
-            drill.transform.position = new Vector3(spawnPoint.XPos, yPos+0.5f, spawnPoint.ZPos);
+            // increase y position of drill
+            drill.transform.position = new Vector3(spawnPoint.XPos, yPos + 0.5f, spawnPoint.ZPos);
             return drill.AddComponent<Drill>();
         }
 
         public IPowerUpsBehaviour GenerateAmmoBox(PowerUpSpawnPoint spawnPoint)
         {
+            if (!ammoBoxPrefab)
+            {
+                return null;
+            }
+
             var ammoBox = Instantiate(ammoBoxPrefab);
             ammoBox.transform.rotation = gameObject.transform.rotation;
             ammoBox.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
@@ -97,6 +98,11 @@ using Random = System.Random;
 
         public IPowerUpsBehaviour GenerateBarrel(PowerUpSpawnPoint spawnPoint)
         {
+            if (!barrelPrefab)
+            {
+                return null;
+            }
+
             var barrel = Instantiate(barrelPrefab);
             barrel.transform.rotation = gameObject.transform.rotation;
             barrel.transform.position = new Vector3(spawnPoint.XPos, yPos, spawnPoint.ZPos);
@@ -107,6 +113,10 @@ using Random = System.Random;
             {
                 foreach (var powerup in PowerUpsBehaviors)
                 {
+                    if (powerup.PowerUpBehavior == null)
+                    {
+                        continue;
+                    }
                     powerup.Act();
                 }
             }

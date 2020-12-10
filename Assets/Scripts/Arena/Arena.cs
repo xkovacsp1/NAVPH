@@ -46,9 +46,11 @@ namespace Assets.Scripts.Arena
                 var spawnPoint = SpawnPoints[index];
                 if (!spawnPoint.IsActive)
                 {
-                    GenerateCoin(spawnPoint);
-                    SpawnPoints[index].IsActive = true;
-                    coinCount++;
+                    if (GenerateCoin(spawnPoint))
+                    {
+                        SpawnPoints[index].IsActive = true;
+                        coinCount++;
+                    }
                 }
                 yield return new WaitForSeconds(2f);
             }
@@ -58,12 +60,18 @@ namespace Assets.Scripts.Arena
 
         }
 
-        public void GenerateCoin(PowerUpSpawnPoint spawnPoint)
+        public bool GenerateCoin(PowerUpSpawnPoint spawnPoint)
         {
+            if (coinPrefab == null)
+            {
+                return false;
+            }
+
             var coin = Instantiate(coinPrefab);
             coin.transform.rotation = gameObject.transform.rotation;
             coin.transform.position = new Vector3(spawnPoint.XPos, 0, spawnPoint.ZPos);
             coin.AddComponent<Coin>();
+            return true;
         }
 
         private void Awake()

@@ -78,6 +78,11 @@ namespace Assets.Scripts.Enemy
 
         public IEnemyBehaviour GenerateEnemyTiger(EnemySpawnPoint spawnPoint, int index)
         {
+            if (!enemyTigerPrefab)
+            {
+                return null;
+            }
+
             var enemyTiger = Instantiate(enemyTigerPrefab);
             enemyTiger.transform.rotation = gameObject.transform.rotation;
             enemyTiger.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
@@ -88,6 +93,12 @@ namespace Assets.Scripts.Enemy
 
         public IEnemyBehaviour GenerateEnemySoldier(EnemySpawnPoint spawnPoint, int index)
         {
+            if (!enemySoldierPrefab)
+            {
+                return null;
+            }
+
+
             var enemySoldier = Instantiate(enemySoldierPrefab);
             enemySoldier.transform.rotation = gameObject.transform.rotation;
             enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
@@ -107,6 +118,10 @@ namespace Assets.Scripts.Enemy
         {
             foreach (var enemy in EnemyBehaviors)
             {
+                if (enemy.EnemyBehavior == null)
+                {
+                    continue;
+                }
                 enemy.Act();
             }
         }

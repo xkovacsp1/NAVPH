@@ -7,10 +7,10 @@
             public float ZPos { get; set; }
             
 
-            public ObstacleSpawnPoint(float xPos, float zPos)
+            public ObstacleSpawnPoint(float xPos)
             {
                 XPos = xPos;
-                ZPos = zPos;
+               
             }
         }
     }

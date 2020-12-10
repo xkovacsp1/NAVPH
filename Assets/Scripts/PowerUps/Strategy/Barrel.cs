@@ -41,10 +41,7 @@ namespace Assets.Scripts.PowerUps.Strategy
                 player.abilityScoreHeaderText.text = "Increased speed";
                 IsPowerUpActive = true;
                 player.ActivePowerUp = true;
-                //Destroy(gameObject);      // nemozes odstranit lebo takeeffect neskor potrebuje
                 gameObject.SetActive(false);
-                //PowerUpsSpawner.SpawnPoints[ReservedArea].IsActive = false;
-                //isActive = false;
             }
         }
 
