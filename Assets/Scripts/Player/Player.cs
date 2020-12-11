@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Globalization;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -89,7 +90,7 @@ namespace Assets.Scripts.Player
         {
             if (textHealth && coinNumber)
             {
-                textHealth.text = health.ToString();
+                textHealth.text = health.ToString(CultureInfo.CurrentCulture);
                 coinNumber.text = numberOfCollectedCoins.ToString();
             }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using UnityEngine;
 namespace Assets.Scripts.PowerUps.Strategy
 {
@@ -59,13 +60,13 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (IsPowerUpActive)
             {
-                Player.GetComponent<Player.Player>().abilityTimeLeftText.text = Math.Round((PowerUpDuration - Timer)).ToString();
+                Player.GetComponent<Player.Player>().abilityTimeLeftText.text = Math.Round((PowerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                 Timer += Time.deltaTime;
 
                 if (Timer > PowerUpDuration)
                 {
                     var player = Player.GetComponent<Player.Player>();
-                    player.abilityTimeLeftText.text = Math.Round((PowerUpDuration - Timer)).ToString();
+                    player.abilityTimeLeftText.text = Math.Round((PowerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                     IsPowerUpActive = false;
                     Destroy(gameObject);
                     Spawner.SpawnPoints[ReservedArea].IsActive = false;

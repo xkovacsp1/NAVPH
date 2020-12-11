@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Enemy.Strategy;
+using Assets.Scripts.Shared;
 using UnityEngine;
 using Random = System.Random;
 
@@ -9,14 +10,14 @@ namespace Assets.Scripts.Enemy
     public class EnemySpawner : MonoBehaviour
     {
         public List<EnemyBehaviourContext> EnemyBehaviors { get; } = new List<EnemyBehaviourContext>();
-        public List<EnemySpawnPoint> SpawnPoints { get; set; } = new List<EnemySpawnPoint>()
+        public List<SpawnPoint> SpawnPoints { get; set; } = new List<SpawnPoint>()
         {
-            {new EnemySpawnPoint(14.39f, false)},
-            { new EnemySpawnPoint(9.27f, false)},
-            { new EnemySpawnPoint(4.5f, false)},
-            {new EnemySpawnPoint(-0.45f, false)},
-            {new EnemySpawnPoint(-5.53f, false)},
-            { new EnemySpawnPoint(-10.32f, false)}
+            {new SpawnPoint(14.39f, false)},
+            { new SpawnPoint(9.27f, false)},
+            { new SpawnPoint(4.5f, false)},
+            {new SpawnPoint(-0.45f, false)},
+            {new SpawnPoint(-5.53f, false)},
+            { new SpawnPoint(-10.32f, false)}
         };
 
         public float zPos = 45f;
@@ -76,7 +77,7 @@ namespace Assets.Scripts.Enemy
             }
         }
 
-        public IEnemyBehaviour GenerateEnemyTiger(EnemySpawnPoint spawnPoint, int index)
+        public IEnemyBehaviour GenerateEnemyTiger(SpawnPoint spawnPoint, int index)
         {
             if (!enemyTigerPrefab)
             {
@@ -91,7 +92,7 @@ namespace Assets.Scripts.Enemy
             return enemyTiger.GetComponent<EnemyTiger>();
         }
 
-        public IEnemyBehaviour GenerateEnemySoldier(EnemySpawnPoint spawnPoint, int index)
+        public IEnemyBehaviour GenerateEnemySoldier(SpawnPoint spawnPoint, int index)
         {
             if (!enemySoldierPrefab)
             {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.PowerUps;
-using Assets.Scripts.PowerUps.Strategy;
+using System.Globalization;
+using Assets.Scripts.Shared;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,15 +18,24 @@ namespace Assets.Scripts.Arena
         public GameObject coinPrefab;
         public int coinNumber = 15;
         public Random Random { get; } = new Random();
-        public List<PowerUpSpawnPoint> SpawnPoints { get; set; } = new List<PowerUpSpawnPoint>()
+        public Renderer Plane { get; private set; }
+        public List<SpawnPoint> SpawnPoints { get; set; } = new List<SpawnPoint>()
         {
-            {new PowerUpSpawnPoint(14.39f,45.0f, false)},
-            { new PowerUpSpawnPoint(9.27f,35.0f, false)},
-            { new PowerUpSpawnPoint(4.5f, 25.0f,false)},
-            {new PowerUpSpawnPoint(-0.45f,15.0f, false)},
-            {new PowerUpSpawnPoint(-5.53f,0.0f, false)},
-            { new PowerUpSpawnPoint(-10.32f,-15.0f, false)}
+            {new SpawnPoint(14.39f,false)},
+            { new SpawnPoint(9.27f, false)},
+            { new SpawnPoint(4.5f,false)},
+            {new SpawnPoint(-0.45f, false)},
+            {new SpawnPoint(-5.53f, false)},
+            { new SpawnPoint(-10.32f, false)}
         };
+
+
+        private void Awake()
+        {
+            Plane = GameObject.FindWithTag("Plane").GetComponent<Renderer>();
+            Player = GameObject.FindWithTag("Player").GetComponent<Player.Player>();
+            timeLeftText.text = Math.Round(timeForArena).ToString(CultureInfo.CurrentCulture);
+        }
 
 
 
@@ -44,6 +53,8 @@ namespace Assets.Scripts.Arena
                 
                 var index = Random.Next(SpawnPoints.Count);
                 var spawnPoint = SpawnPoints[index];
+                var bounds = Plane.bounds;
+                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + 5f, bounds.extents.z - 5f);
                 if (!spawnPoint.IsActive)
                 {
                     if (GenerateCoin(spawnPoint))
@@ -60,7 +71,7 @@ namespace Assets.Scripts.Arena
 
         }
 
-        public bool GenerateCoin(PowerUpSpawnPoint spawnPoint)
+        public bool GenerateCoin(SpawnPoint spawnPoint)
         {
             if (coinPrefab == null)
             {
@@ -74,17 +85,10 @@ namespace Assets.Scripts.Arena
             return true;
         }
 
-        private void Awake()
-        {
-            Player = GameObject.FindWithTag("Player").GetComponent<Player.Player>();
-            timeLeftText.text = Math.Round(timeForArena).ToString();
-           
-        }
-
         public void Update()
         {
             timeForArena -= Time.deltaTime;
-            timeLeftText.text = Math.Round(timeForArena).ToString();
+            timeLeftText.text = Math.Round(timeForArena).ToString(CultureInfo.CurrentCulture);
 
             if (timeForArena <= 0f)
             {

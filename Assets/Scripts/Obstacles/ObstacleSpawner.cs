@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Shared;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,21 +8,21 @@ namespace Assets.Scripts.Obstacles
     public class ObstacleSpawner : MonoBehaviour
     {
 
-        public List<ObstacleSpawnPoint> SpawnPoints { get; set; } = new List<ObstacleSpawnPoint>()
+        public List<SpawnPoint> SpawnPoints { get; set; } = new List<SpawnPoint>()
         {
-            //{new ObstacleSpawnPoint(14.39f, 35.0f)},
-            //{new ObstacleSpawnPoint(9.27f, 25.0f)},
-            //{new ObstacleSpawnPoint(4.5f, 15.0f)},
-            //{new ObstacleSpawnPoint(-0.45f, 5.0f)},
-            //{new ObstacleSpawnPoint(-5.53f, -5.0f)},
-            //{new ObstacleSpawnPoint(-10.32f, -15.0f)}
+            //{new SpawnPoint(14.39f, 35.0f)},
+            //{new SpawnPoint(9.27f, 25.0f)},
+            //{new SpawnPoint(4.5f, 15.0f)},
+            //{new SpawnPoint(-0.45f, 5.0f)},
+            //{new SpawnPoint(-5.53f, -5.0f)},
+            //{new SpawnPoint(-10.32f, -15.0f)}
 
-            {new ObstacleSpawnPoint(14.39f)},
-            {new ObstacleSpawnPoint(9.27f)},
-            {new ObstacleSpawnPoint(4.5f)},
-            {new ObstacleSpawnPoint(-0.45f)},
-            {new ObstacleSpawnPoint(-5.53f)},
-            {new ObstacleSpawnPoint(-10.32f)}
+            {new SpawnPoint(14.39f,true)},
+            {new SpawnPoint(9.27f,true)},
+            {new SpawnPoint(4.5f,true)},
+            {new SpawnPoint(-0.45f,true)},
+            {new SpawnPoint(-5.53f,true)},
+            {new SpawnPoint(-10.32f,true)}
         };
 
 
@@ -51,25 +51,25 @@ namespace Assets.Scripts.Obstacles
 
         private void MakeObstacles()
         {
-            foreach (var spawPoint in SpawnPoints)
+            foreach (var spawnPoint in SpawnPoints)
             {
                 ObstacleTypes randomObstacleType = (ObstacleTypes)Random.Range(0, 3);
                 var bounds = Plane.bounds;
-                spawPoint.ZPos = Random.Range((-bounds.extents.x)+5f, bounds.extents.z - 5f);
+                spawnPoint.ZPos = Random.Range((-bounds.extents.x)+5f, bounds.extents.z - 5f);
                 switch (randomObstacleType)
                 {
                     //generate Barrel
                     case ObstacleTypes.Barrel:
-                        GenerateBarrier(spawPoint);
+                        GenerateBarrier(spawnPoint);
                         break;
 
                     //generate Rock
                     case ObstacleTypes.Rock:
-                        GenerateRock(spawPoint);
+                        GenerateRock(spawnPoint);
                         break;
                     //generate Mine
                     default:
-                        GenerateMine(spawPoint);
+                        GenerateMine(spawnPoint);
                         break;
 
                 }
@@ -78,7 +78,7 @@ namespace Assets.Scripts.Obstacles
 
         }
 
-        void GenerateBarrier(ObstacleSpawnPoint spawnPoint)
+        void GenerateBarrier(SpawnPoint spawnPoint)
         {
             if (!barrierPrefab)
             {
@@ -90,7 +90,7 @@ namespace Assets.Scripts.Obstacles
             barrier.transform.position = new Vector3(spawnPoint.XPos, YPos,spawnPoint.ZPos);
         }
 
-        void GenerateRock(ObstacleSpawnPoint spawnPoint)
+        void GenerateRock(SpawnPoint spawnPoint)
         {
             if (!rockPrefab)
             {
@@ -101,7 +101,7 @@ namespace Assets.Scripts.Obstacles
             rock.transform.position = new Vector3(spawnPoint.XPos, YPos, spawnPoint.ZPos);
         }
 
-        void GenerateMine(ObstacleSpawnPoint spawnPoint)
+        void GenerateMine(SpawnPoint spawnPoint)
         {
             if (!minePrefab)
             {
