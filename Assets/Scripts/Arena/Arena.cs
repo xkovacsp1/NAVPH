@@ -19,6 +19,7 @@ namespace Assets.Scripts.Arena
         public int coinNumber = 15;
         public Random Random { get; } = new Random();
         public Renderer Plane { get; private set; }
+        public float YPos { get; set; } = 0f;
 
         public List<SpawnPoint> coinSpawnAreas = new List<SpawnPoint>()
         {
@@ -29,6 +30,8 @@ namespace Assets.Scripts.Arena
             {new SpawnPoint(-5.53f, false)},
             {new SpawnPoint(-10.32f, false)}
         };
+
+        public float spawnAreasOffset = 5f;
 
 
         private void Awake()
@@ -54,7 +57,7 @@ namespace Assets.Scripts.Arena
                 var index = Random.Next(coinSpawnAreas.Count);
                 var spawnPoint = coinSpawnAreas[index];
                 var bounds = Plane.bounds;
-                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + 5f, bounds.extents.z - 5f);
+                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + spawnAreasOffset, bounds.extents.z - spawnAreasOffset);
                 if (!spawnPoint.isActive)
                 {
                     if (GenerateCoin(spawnPoint))
@@ -77,7 +80,7 @@ namespace Assets.Scripts.Arena
 
             var coin = Instantiate(coinPrefab);
             coin.transform.rotation = gameObject.transform.rotation;
-            coin.transform.position = new Vector3(spawnPoint.xPos, 0, spawnPoint.ZPos);
+            coin.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
             return true;
         }
 

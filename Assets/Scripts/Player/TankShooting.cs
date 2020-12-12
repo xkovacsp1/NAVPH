@@ -66,7 +66,7 @@ namespace Assets.Scripts.Player
             shellRigidBody.velocity = CurrentLaunchForce * fireTransform.forward;
 
             CurrentLaunchForce = minLaunchForce;
-            shellInstance.AddComponent<PlayerShellCollision>();
+            //shellInstance.AddComponent<PlayerShellCollision>();
         }
     }
 }

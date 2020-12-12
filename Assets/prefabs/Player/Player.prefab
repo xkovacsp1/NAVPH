@@ -1691,7 +1691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59bf8ab9b583e8e40832f39f0e017b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  speed: 500
   turnSpeed: 100
   health: 100
   damage: 10
@@ -1701,7 +1701,6 @@ MonoBehaviour:
   abilityTimeLeft: {fileID: 0}
   abilityTimeLeftText: {fileID: 0}
   abilityScoreHeaderText: {fileID: 0}
-  numberOfCollectedCoins: 0
 --- !u!54 &5675031825545566028
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1747,6 +1746,7 @@ MonoBehaviour:
   minLaunchForce: 15
   maxLaunchForce: 30
   maxChargeTime: 0.75
+  playerShell: {fileID: 9152627324826179341, guid: 70bf1b24b44c5854380489555c0172b8, type: 3}
 --- !u!1 &5675031825613747547
 GameObject:
   m_ObjectHideFlags: 0

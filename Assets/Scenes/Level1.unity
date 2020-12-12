@@ -521,6 +521,7 @@ MonoBehaviour:
     isActive: 0
   - xPos: -10.32
     isActive: 0
+  spawnAreasOffset: 5
   powerUpsNumber: 25
   ammoBoxPrefab: {fileID: 391081111845221762, guid: 8f1bc50ff14e0bb4f9f7a6dcb298284b, type: 3}
   barrelPrefab: {fileID: 1984084043255329447, guid: 0b81359c00c5dc848a7268072656941d, type: 3}
@@ -754,6 +755,7 @@ MonoBehaviour:
     isActive: 1
   - xPos: -10.32
     isActive: 1
+  spawnAreasOffset: 5
   barrierPrefab: {fileID: 1130903760990390358, guid: 26b9e72a58cb4df4e95e4ec380c7c26e, type: 3}
   rockPrefab: {fileID: 8094551303255797877, guid: ae7830d3f3728b34cbd282c6504e1d28, type: 3}
   minePrefab: {fileID: 5583880941574827321, guid: 8e7f3185cf67b1d4fbf438250bad2a09, type: 3}
@@ -1758,6 +1760,7 @@ MonoBehaviour:
     isActive: 0
   - xPos: -10.32
     isActive: 0
+  spawnAreasOffset: 5
 --- !u!1 &1658331728
 GameObject:
   m_ObjectHideFlags: 0

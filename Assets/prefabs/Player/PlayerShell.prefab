@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 817505678166813898}
   - component: {fileID: 4978834802598242278}
   - component: {fileID: 4978834802598242277}
+  - component: {fileID: 9188439156483575432}
   m_Layer: 0
   m_Name: PlayerShell
   m_TagString: PlayerShell
@@ -63,6 +64,19 @@ CapsuleCollider:
   m_Height: 0.55
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.2}
+--- !u!114 &9188439156483575432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9152627324826179341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721938360a66f5e449ee2704dd5754f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallExplosion: {fileID: 6174598575264138488, guid: 0793772e26c61154eba742949775f5b6, type: 3}
 --- !u!1001 &2287494723040050107
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ namespace Assets.Scripts.Obstacles
             {new SpawnPoint(-10.32f, true)}
         };
 
+        public float spawnAreasOffset = 5f;
 
         public float YPos { get; } = 0;
         public Renderer Plane { get; private set; }
@@ -49,7 +50,7 @@ namespace Assets.Scripts.Obstacles
             {
                 ObstacleTypes randomObstacleType = (ObstacleTypes) Random.Range(0, 3);
                 var bounds = Plane.bounds;
-                spawnPoint.ZPos = Random.Range((-bounds.extents.x) + 5f, bounds.extents.z - 5f);
+                spawnPoint.ZPos = Random.Range((-bounds.extents.x) + spawnAreasOffset, bounds.extents.z - spawnAreasOffset);
                 switch (randomObstacleType)
                 {
                     //generate Barrel

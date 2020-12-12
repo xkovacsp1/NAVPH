@@ -21,6 +21,8 @@ namespace Assets.Scripts.PowerUps
             {new SpawnPoint(-10.32f, false)}
         };
 
+        public float spawnAreasOffset = 5f;
+
 
         public float YPos { get; } = 0;
         public int powerUpsNumber = 15;
@@ -57,7 +59,7 @@ namespace Assets.Scripts.PowerUps
                 var index = Random.Next(spawnAreas.Count);
                 var spawnPoint = spawnAreas[index];
                 var bounds = Plane.bounds;
-                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + 5f, bounds.extents.z - 5f);
+                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + spawnAreasOffset, bounds.extents.z - spawnAreasOffset);
                 PowerUpsBehaviourContext context;
                 if (!spawnPoint.isActive)
                 {
