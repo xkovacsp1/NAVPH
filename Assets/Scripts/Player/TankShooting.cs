@@ -5,10 +5,10 @@ namespace Assets.Scripts.Player
 {
     public class TankShooting : MonoBehaviour
     {
-        public Transform fireTransform;           
-        public float  minLaunchForce = 15f;       
-        public float maxLaunchForce = 30f;      
-        public float maxChargeTime = 0.75f;     
+        public Transform fireTransform;
+        public float minLaunchForce = 15f;
+        public float maxLaunchForce = 30f;
+        public float maxChargeTime = 0.75f;
 
         public string FireButton { get; set; }
         public float CurrentLaunchForce { get; set; }
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Player
         public bool Fired { get; set; }
 
         public GameObject playerShell;
-        
+
         private void OnEnable()
         {
             CurrentLaunchForce = minLaunchForce;
@@ -24,33 +24,29 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
-          
             FireButton = "Fire";
             ChargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
         }
+
         private void Update()
         {
-          
             if (CurrentLaunchForce >= maxLaunchForce && !Fired)
             {
-              
                 CurrentLaunchForce = maxLaunchForce;
                 Fire();
             }
-         
+
             else if (Input.GetButtonDown(FireButton))
             {
-              
                 Fired = false;
                 CurrentLaunchForce = minLaunchForce;
             }
-         
+
             else if (Input.GetButton(FireButton) && !Fired)
             {
-               
                 CurrentLaunchForce += ChargeSpeed * Time.deltaTime;
             }
-           
+
             else if (Input.GetButtonUp(FireButton) && !Fired)
             {
                 Fire();
@@ -59,7 +55,6 @@ namespace Assets.Scripts.Player
 
         private void Fire()
         {
-           
             Fired = true;
 
             var shellInstance = Instantiate(playerShell);

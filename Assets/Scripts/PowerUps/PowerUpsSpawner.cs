@@ -11,15 +11,15 @@ namespace Assets.Scripts.PowerUps
     {
         public List<PowerUpsBehaviourContext> PowerUpsBehaviors { get; } = new List<PowerUpsBehaviourContext>();
 
-        public List<SpawnPoint> spawnAreas  = new List<SpawnPoint>()
-            {
-                {new SpawnPoint(14.39f, false)},
-                { new SpawnPoint(9.27f, false)},
-                { new SpawnPoint(4.5f, false)},
-                {new SpawnPoint(-0.45f, false)},
-                {new SpawnPoint(-5.53f, false)},
-                { new SpawnPoint(-10.32f, false)}
-            };
+        public List<SpawnPoint> spawnAreas = new List<SpawnPoint>()
+        {
+            {new SpawnPoint(14.39f, false)},
+            {new SpawnPoint(9.27f, false)},
+            {new SpawnPoint(4.5f, false)},
+            {new SpawnPoint(-0.45f, false)},
+            {new SpawnPoint(-5.53f, false)},
+            {new SpawnPoint(-10.32f, false)}
+        };
 
 
         public float YPos { get; } = 0;
@@ -39,12 +39,13 @@ namespace Assets.Scripts.PowerUps
 
         public enum PowerUpTypes
         {
-            Drill, AmmoBox
+            Drill,
+            AmmoBox
         }
 
         public void Start()
         {
-            if(spawnAreas.Count > 0)
+            if (spawnAreas.Count > 0)
                 StartCoroutine(MakeEnemies());
         }
 
@@ -60,7 +61,7 @@ namespace Assets.Scripts.PowerUps
                 PowerUpsBehaviourContext context;
                 if (!spawnPoint.isActive)
                 {
-                    PowerUpTypes randomEnemyType = (PowerUpTypes)Random.Next(0, 3);
+                    PowerUpTypes randomEnemyType = (PowerUpTypes) Random.Next(0, 3);
                     switch (randomEnemyType)
                     {
                         case PowerUpTypes.Drill:
@@ -73,15 +74,17 @@ namespace Assets.Scripts.PowerUps
                             context = new PowerUpsBehaviourContext(GenerateBarrel(spawnPoint));
                             break;
                     }
+
                     spawnAreas[index].isActive = true;
                     PowerUpsBehaviors.Add(context);
                     powerUpCount++;
                 }
+
                 yield return new WaitForSeconds(2f);
             }
         }
 
-        public IPowerUpsBehaviour GenerateDrill(SpawnPoint spawnPoint)
+        private IPowerUpsBehaviour GenerateDrill(SpawnPoint spawnPoint)
         {
             if (!drillPrefab)
             {
@@ -95,7 +98,7 @@ namespace Assets.Scripts.PowerUps
             return drill.GetComponent<Drill>();
         }
 
-        public IPowerUpsBehaviour GenerateAmmoBox(SpawnPoint spawnPoint)
+        private IPowerUpsBehaviour GenerateAmmoBox(SpawnPoint spawnPoint)
         {
             if (!ammoBoxPrefab)
             {
@@ -108,7 +111,7 @@ namespace Assets.Scripts.PowerUps
             return ammoBox.GetComponent<AmmoBox>();
         }
 
-        public IPowerUpsBehaviour GenerateBarrel(SpawnPoint spawnPoint)
+        private IPowerUpsBehaviour GenerateBarrel(SpawnPoint spawnPoint)
         {
             if (!barrelPrefab)
             {
@@ -129,6 +132,7 @@ namespace Assets.Scripts.PowerUps
                 {
                     continue;
                 }
+
                 powerup.Act();
             }
         }

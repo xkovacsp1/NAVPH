@@ -4,7 +4,6 @@ namespace Assets.Scripts.Arena
 {
     public class Coin : MonoBehaviour
     {
-  
         public float rotationSpeed = 60f;
         public Rigidbody RigidBody { get; set; }
         public int coinEffect = 1;
@@ -25,6 +24,5 @@ namespace Assets.Scripts.Arena
         {
             transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.World);
         }
-
     }
 }

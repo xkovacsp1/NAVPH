@@ -6,7 +6,7 @@ namespace Assets.Scripts.UI
 {
     public class UIHandler : MonoBehaviour
     {
-      public void StartGame()
+        public void StartGame()
         {
             SceneManager.LoadScene(sceneBuildIndex: 1);
         }
@@ -14,13 +14,11 @@ namespace Assets.Scripts.UI
 
         public void QuitButton()
         {
-
             Application.Quit();
         }
 
         public void ExitButton()
         {
-
             SceneManager.LoadScene(sceneBuildIndex: 0);
         }
     }

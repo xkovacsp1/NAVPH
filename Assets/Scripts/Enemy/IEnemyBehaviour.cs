@@ -1,11 +1,10 @@
-﻿
-    namespace Assets.Scripts.Enemy
+﻿namespace Assets.Scripts.Enemy
+{
+    public interface IEnemyBehaviour
     {
-        public interface IEnemyBehaviour
-        {
-            void Move();
-            void Attack();
-            bool IsActive();
-            void TakeDamage(float damage);
-        }
+        void Move();
+        void Attack();
+        bool IsActive();
+        void TakeDamage(float damage);
     }
+}

@@ -7,7 +7,6 @@ namespace Assets.Scripts.Enemy.Strategy
 {
     public class EnemyTiger : MonoBehaviour, IEnemyBehaviour
     {
-      
         public float launchForce = 30f; //30f
         public float nextFire = 5.0f;
         public bool IsAlive { get; private set; } = true;
@@ -15,6 +14,7 @@ namespace Assets.Scripts.Enemy.Strategy
         public int ReservedArea { get; set; }
         public float fireRange = 25f; //Range within target will be atacked
         public float collisionDamage = 30f;
+        public float fireDamage = 10f;
         public NavMeshAgent Agent { get; private set; }
 
         private Transform FireTransform { get; set; }

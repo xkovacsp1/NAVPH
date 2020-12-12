@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Enemy.Strategy;
+using UnityEngine;
 
 namespace Assets.Scripts.Shell
 {
@@ -8,13 +9,14 @@ namespace Assets.Scripts.Shell
         {
             if (other.gameObject.CompareTag($"Player"))
             {
-                other.GetComponent<Player.Player>().health -= 10f;
+                other.GetComponent<Player.Player>().health -=
+                    GameObject.FindWithTag("EnemyTiger").GetComponent<EnemyTiger>().fireDamage;
                 Destroy(gameObject);
-            }else if (other.gameObject.CompareTag($"Plane"))
+            }
+            else if (other.gameObject.CompareTag($"Plane"))
             {
                 Destroy(gameObject);
             }
         }
-      
     }
 }

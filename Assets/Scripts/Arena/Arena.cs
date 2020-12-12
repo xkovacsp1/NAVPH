@@ -19,16 +19,17 @@ namespace Assets.Scripts.Arena
         public int coinNumber = 15;
         public Random Random { get; } = new Random();
         public Renderer Plane { get; private set; }
+
         public List<SpawnPoint> coinSpawnAreas = new List<SpawnPoint>()
         {
-            {new SpawnPoint(14.39f,false)},
-            { new SpawnPoint(9.27f, false)},
-            { new SpawnPoint(4.5f,false)},
+            {new SpawnPoint(14.39f, false)},
+            {new SpawnPoint(9.27f, false)},
+            {new SpawnPoint(4.5f, false)},
             {new SpawnPoint(-0.45f, false)},
             {new SpawnPoint(-5.53f, false)},
-            { new SpawnPoint(-10.32f, false)}
+            {new SpawnPoint(-10.32f, false)}
         };
-       
+
 
         private void Awake()
         {
@@ -38,20 +39,18 @@ namespace Assets.Scripts.Arena
         }
 
 
-
         private void Start()
         {
-            if(coinSpawnAreas.Count > 0)
+            if (coinSpawnAreas.Count > 0)
                 StartCoroutine(GenerateCoins());
         }
 
 
-        private IEnumerator  GenerateCoins()
+        private IEnumerator GenerateCoins()
         {
             var coinCount = 0;
             while (coinCount < coinNumber)
             {
-                
                 var index = Random.Next(coinSpawnAreas.Count);
                 var spawnPoint = coinSpawnAreas[index];
                 var bounds = Plane.bounds;
@@ -64,12 +63,9 @@ namespace Assets.Scripts.Arena
                         coinCount++;
                     }
                 }
+
                 yield return new WaitForSeconds(2f);
             }
-
-           
-
-
         }
 
         public bool GenerateCoin(SpawnPoint spawnPoint)
@@ -96,9 +92,5 @@ namespace Assets.Scripts.Arena
                 SceneManager.LoadScene(sceneBuildIndex: 3);
             }
         }
-
-
-      
-
     }
 }

@@ -8,23 +8,20 @@ namespace Assets.Scripts.Shell
         {
             if (other.gameObject.CompareTag($"EnemyTiger"))
             {
-                other.GetComponent<Enemy.Strategy.EnemyTiger>().TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
+                other.GetComponent<Enemy.Strategy.EnemyTiger>()
+                    .TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
                 Destroy(gameObject);
-
-            }else if(other.gameObject.CompareTag($"EnemySoldier"))
-            {
-                other.GetComponent<Enemy.Strategy.EnemySoldier>().TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
-                Destroy(gameObject);
-
             }
-            else if(other.gameObject.CompareTag($"Plane"))
+            else if (other.gameObject.CompareTag($"EnemySoldier"))
+            {
+                other.GetComponent<Enemy.Strategy.EnemySoldier>()
+                    .TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
+                Destroy(gameObject);
+            }
+            else if (other.gameObject.CompareTag($"Plane"))
             {
                 Destroy(gameObject);
-
             }
-
         }
-     
-        
     }
 }

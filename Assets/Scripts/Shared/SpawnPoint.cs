@@ -1,12 +1,11 @@
-﻿
-    namespace Assets.Scripts.Shared
+﻿namespace Assets.Scripts.Shared
+{
+    [System.Serializable]
+    public class SpawnPoint
     {
-        [System.Serializable]
-        public class SpawnPoint
-        {
-            public float xPos;
-            public float ZPos { get; set; }
-            public bool isActive;
+        public float xPos;
+        public float ZPos { get; set; }
+        public bool isActive;
 
         public SpawnPoint(float xPosition, bool isActiveElement)
         {
@@ -14,9 +13,4 @@
             isActive = isActiveElement;
         }
     }
-
-
-
-    }
-
-
+}

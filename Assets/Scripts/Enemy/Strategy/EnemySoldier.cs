@@ -21,6 +21,7 @@ namespace Assets.Scripts.Enemy.Strategy
         public UnityEngine.UI.Image HealthBar { get; set; }
         public float ActualHealth { get; private set; }
         public float startHealth = 100f;
+        public float fireDamage = 5f;
         public EnemySpawner Spawner { get; set; }
         public GameObject enemySoldierShellPrefab;
 

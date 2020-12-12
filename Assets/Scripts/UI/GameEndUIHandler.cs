@@ -7,7 +7,6 @@ namespace Assets.Scripts.UI
 {
     public class GameEndUIHandler : MonoBehaviour
     {
-
         public Text collectedCoins;
         public Text highestNUmberOfCollectedCoins;
 
@@ -31,13 +30,11 @@ namespace Assets.Scripts.UI
 
         public void QuitButton()
         {
-
             Application.Quit();
         }
 
         public void ExitButton()
         {
-
             SceneManager.LoadScene(sceneBuildIndex: 0);
         }
     }

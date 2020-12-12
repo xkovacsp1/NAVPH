@@ -40,7 +40,6 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void TakeDamage(float damage)
         {
-            
         }
     }
 }

@@ -5,17 +5,16 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Obstacles
 {
-    [System.Serializable]
     public class ObstacleSpawner : MonoBehaviour
     {
         public List<SpawnPoint> spawnAreas = new List<SpawnPoint>()
         {
-        {new SpawnPoint(14.39f,true)},
-        {new SpawnPoint(9.27f,true)},
-        {new SpawnPoint(4.5f,true)},
-        {new SpawnPoint(-0.45f,true)},
-        {new SpawnPoint(-5.53f,true)},
-        {new SpawnPoint(-10.32f,true)}
+            {new SpawnPoint(14.39f, true)},
+            {new SpawnPoint(9.27f, true)},
+            {new SpawnPoint(4.5f, true)},
+            {new SpawnPoint(-0.45f, true)},
+            {new SpawnPoint(-5.53f, true)},
+            {new SpawnPoint(-10.32f, true)}
         };
 
 
@@ -25,9 +24,11 @@ namespace Assets.Scripts.Obstacles
         public GameObject barrierPrefab;
         public GameObject rockPrefab;
         public GameObject minePrefab;
+
         public enum ObstacleTypes
         {
-            Barrel,Rock
+            Barrel,
+            Rock
         }
 
         private void Awake()
@@ -40,16 +41,15 @@ namespace Assets.Scripts.Obstacles
         {
             if (spawnAreas.Count > 0)
                 MakeObstacles();
-          
         }
 
         private void MakeObstacles()
         {
             foreach (var spawnPoint in spawnAreas)
             {
-                ObstacleTypes randomObstacleType = (ObstacleTypes)Random.Range(0, 3);
+                ObstacleTypes randomObstacleType = (ObstacleTypes) Random.Range(0, 3);
                 var bounds = Plane.bounds;
-                spawnPoint.ZPos = Random.Range((-bounds.extents.x)+5f, bounds.extents.z - 5f);
+                spawnPoint.ZPos = Random.Range((-bounds.extents.x) + 5f, bounds.extents.z - 5f);
                 switch (randomObstacleType)
                 {
                     //generate Barrel
@@ -65,14 +65,11 @@ namespace Assets.Scripts.Obstacles
                     default:
                         GenerateMine(spawnPoint);
                         break;
-
                 }
-
             }
-
         }
 
-        void GenerateBarrier(SpawnPoint spawnPoint)
+        private void GenerateBarrier(SpawnPoint spawnPoint)
         {
             if (!barrierPrefab)
             {
@@ -81,34 +78,31 @@ namespace Assets.Scripts.Obstacles
 
             var barrier = Instantiate(barrierPrefab);
             barrier.transform.rotation = gameObject.transform.rotation;
-            barrier.transform.position = new Vector3(spawnPoint.xPos, YPos,spawnPoint.ZPos);
+            barrier.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
         }
 
-        void GenerateRock(SpawnPoint spawnPoint)
+        private void GenerateRock(SpawnPoint spawnPoint)
         {
             if (!rockPrefab)
             {
                 return;
             }
+
             var rock = Instantiate(rockPrefab);
             rock.transform.rotation = gameObject.transform.rotation;
             rock.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
         }
 
-        void GenerateMine(SpawnPoint spawnPoint)
+        private void GenerateMine(SpawnPoint spawnPoint)
         {
             if (!minePrefab)
             {
                 return;
             }
+
             var mine = Instantiate(minePrefab);
             mine.transform.rotation = gameObject.transform.rotation;
             mine.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
         }
-
     }
-
 }
-
-
-

@@ -1,5 +1,4 @@
-﻿
-namespace Assets.Scripts.Enemy
+﻿namespace Assets.Scripts.Enemy
 {
     public class EnemyBehaviourContext
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using UnityEngine;
+
 namespace Assets.Scripts.PowerUps.Strategy
 {
     public class Barrel : MonoBehaviour, IPowerUpsBehaviour
@@ -61,13 +62,15 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (IsPowerUpActive)
             {
-                Player.GetComponent<Player.Player>().abilityTimeLeftText.text = Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
+                Player.GetComponent<Player.Player>().abilityTimeLeftText.text =
+                    Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                 Timer += Time.deltaTime;
 
                 if (Timer > powerUpDuration)
                 {
                     var player = Player.GetComponent<Player.Player>();
-                    player.abilityTimeLeftText.text = Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
+                    player.abilityTimeLeftText.text =
+                        Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                     IsPowerUpActive = false;
                     Destroy(gameObject);
                     Spawner.spawnAreas[ReservedArea].isActive = false;
@@ -78,8 +81,6 @@ namespace Assets.Scripts.PowerUps.Strategy
                     player.ActivePowerUp = false;
                 }
             }
-
-
         }
     }
 }
