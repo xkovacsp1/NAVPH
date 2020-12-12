@@ -19,7 +19,7 @@ namespace Assets.Scripts.Arena
         public int coinNumber = 15;
         public Random Random { get; } = new Random();
         public Renderer Plane { get; private set; }
-        public List<SpawnPoint> SpawnPoints { get; set; } = new List<SpawnPoint>()
+        public List<SpawnPoint> coinSpawnAreas = new List<SpawnPoint>()
         {
             {new SpawnPoint(14.39f,false)},
             { new SpawnPoint(9.27f, false)},
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Arena
             {new SpawnPoint(-5.53f, false)},
             { new SpawnPoint(-10.32f, false)}
         };
-
+       
 
         private void Awake()
         {
@@ -41,7 +41,8 @@ namespace Assets.Scripts.Arena
 
         private void Start()
         {
-            StartCoroutine(GenerateCoins());
+            if(coinSpawnAreas.Count > 0)
+                StartCoroutine(GenerateCoins());
         }
 
 
@@ -51,15 +52,15 @@ namespace Assets.Scripts.Arena
             while (coinCount < coinNumber)
             {
                 
-                var index = Random.Next(SpawnPoints.Count);
-                var spawnPoint = SpawnPoints[index];
+                var index = Random.Next(coinSpawnAreas.Count);
+                var spawnPoint = coinSpawnAreas[index];
                 var bounds = Plane.bounds;
                 spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + 5f, bounds.extents.z - 5f);
-                if (!spawnPoint.IsActive)
+                if (!spawnPoint.isActive)
                 {
                     if (GenerateCoin(spawnPoint))
                     {
-                        SpawnPoints[index].IsActive = true;
+                        coinSpawnAreas[index].isActive = true;
                         coinCount++;
                     }
                 }
@@ -80,8 +81,7 @@ namespace Assets.Scripts.Arena
 
             var coin = Instantiate(coinPrefab);
             coin.transform.rotation = gameObject.transform.rotation;
-            coin.transform.position = new Vector3(spawnPoint.XPos, 0, spawnPoint.ZPos);
-            coin.AddComponent<Coin>();
+            coin.transform.position = new Vector3(spawnPoint.xPos, 0, spawnPoint.ZPos);
             return true;
         }
 
@@ -92,7 +92,7 @@ namespace Assets.Scripts.Arena
 
             if (timeForArena <= 0f)
             {
-                PlayerPrefs.SetInt("CollectedCoins", Player.numberOfCollectedCoins);
+                PlayerPrefs.SetInt("CollectedCoins", Player.NumberOfCollectedCoins);
                 SceneManager.LoadScene(sceneBuildIndex: 3);
             }
         }

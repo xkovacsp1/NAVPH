@@ -5,24 +5,17 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Obstacles
 {
+    [System.Serializable]
     public class ObstacleSpawner : MonoBehaviour
     {
-
-        public List<SpawnPoint> SpawnPoints { get; set; } = new List<SpawnPoint>()
+        public List<SpawnPoint> spawnAreas = new List<SpawnPoint>()
         {
-            //{new SpawnPoint(14.39f, 35.0f)},
-            //{new SpawnPoint(9.27f, 25.0f)},
-            //{new SpawnPoint(4.5f, 15.0f)},
-            //{new SpawnPoint(-0.45f, 5.0f)},
-            //{new SpawnPoint(-5.53f, -5.0f)},
-            //{new SpawnPoint(-10.32f, -15.0f)}
-
-            {new SpawnPoint(14.39f,true)},
-            {new SpawnPoint(9.27f,true)},
-            {new SpawnPoint(4.5f,true)},
-            {new SpawnPoint(-0.45f,true)},
-            {new SpawnPoint(-5.53f,true)},
-            {new SpawnPoint(-10.32f,true)}
+        {new SpawnPoint(14.39f,true)},
+        {new SpawnPoint(9.27f,true)},
+        {new SpawnPoint(4.5f,true)},
+        {new SpawnPoint(-0.45f,true)},
+        {new SpawnPoint(-5.53f,true)},
+        {new SpawnPoint(-10.32f,true)}
         };
 
 
@@ -45,13 +38,14 @@ namespace Assets.Scripts.Obstacles
 
         public void Start()
         {
-            MakeObstacles();
+            if (spawnAreas.Count > 0)
+                MakeObstacles();
           
         }
 
         private void MakeObstacles()
         {
-            foreach (var spawnPoint in SpawnPoints)
+            foreach (var spawnPoint in spawnAreas)
             {
                 ObstacleTypes randomObstacleType = (ObstacleTypes)Random.Range(0, 3);
                 var bounds = Plane.bounds;
@@ -87,7 +81,7 @@ namespace Assets.Scripts.Obstacles
 
             var barrier = Instantiate(barrierPrefab);
             barrier.transform.rotation = gameObject.transform.rotation;
-            barrier.transform.position = new Vector3(spawnPoint.XPos, YPos,spawnPoint.ZPos);
+            barrier.transform.position = new Vector3(spawnPoint.xPos, YPos,spawnPoint.ZPos);
         }
 
         void GenerateRock(SpawnPoint spawnPoint)
@@ -98,7 +92,7 @@ namespace Assets.Scripts.Obstacles
             }
             var rock = Instantiate(rockPrefab);
             rock.transform.rotation = gameObject.transform.rotation;
-            rock.transform.position = new Vector3(spawnPoint.XPos, YPos, spawnPoint.ZPos);
+            rock.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
         }
 
         void GenerateMine(SpawnPoint spawnPoint)
@@ -109,7 +103,7 @@ namespace Assets.Scripts.Obstacles
             }
             var mine = Instantiate(minePrefab);
             mine.transform.rotation = gameObject.transform.rotation;
-            mine.transform.position = new Vector3(spawnPoint.XPos, YPos, spawnPoint.ZPos);
+            mine.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
         }
 
     }

@@ -4,8 +4,9 @@ namespace Assets.Scripts.PowerUps.Strategy
 {
     public class Drill : MonoBehaviour, IPowerUpsBehaviour
     {
-        public bool isActive = true;
+        public bool IsAlive { get; private set; } = true;
         public float rotationSpeed = 60f;
+        public float powerUpEffect=10f;
         public int ReservedArea { get; set; }
         public Rigidbody RigidBody { get; set; }
         public PowerUpsSpawner Spawner { get; set; }
@@ -19,10 +20,10 @@ namespace Assets.Scripts.PowerUps.Strategy
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag($"Player")) return;
-            other.GetComponent<Player.Player>().health += 10;
+            other.GetComponent<Player.Player>().health += powerUpEffect;
             Destroy(gameObject);
-            Spawner.SpawnPoints[ReservedArea].IsActive = false;
-            isActive = false;
+            Spawner.spawnAreas[ReservedArea].isActive = false;
+            IsAlive = false;
             
         }
 
@@ -33,7 +34,7 @@ namespace Assets.Scripts.PowerUps.Strategy
 
         public bool IsActive()
         {
-            return isActive;
+            return IsAlive;
         }
 
         public void TakeEffect()

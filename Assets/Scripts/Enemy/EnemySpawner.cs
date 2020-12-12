@@ -10,18 +10,24 @@ namespace Assets.Scripts.Enemy
     public class EnemySpawner : MonoBehaviour
     {
         public List<EnemyBehaviourContext> EnemyBehaviors { get; } = new List<EnemyBehaviourContext>();
-        public List<SpawnPoint> SpawnPoints { get; set; } = new List<SpawnPoint>()
+        public List<SpawnPoint> spawnAreas  = new List<SpawnPoint>()
         {
             {new SpawnPoint(14.39f, false)},
             { new SpawnPoint(9.27f, false)},
             { new SpawnPoint(4.5f, false)},
             {new SpawnPoint(-0.45f, false)},
-            {new SpawnPoint(-5.53f, false)},
-            { new SpawnPoint(-10.32f, false)}
+           {new SpawnPoint(-5.53f, false)},
+           { new SpawnPoint(-10.32f, false)}
         };
 
+
+        //public List<SpawnPoint> SpawnPoints { get; set; } = new List<SpawnPoint>();
+
+
         public float zPos = 45f;
-        public float yPos;
+
+        public float YPos { get; set; } = 0f;
+
         //public float maxXPos = 14.87f;
         //public float minXPos = -15.16f;
         public int enemyNumber = 10;
@@ -38,7 +44,8 @@ namespace Assets.Scripts.Enemy
 
         public void Start()
         {
-            StartCoroutine(MakeEnemies());
+            if (spawnAreas.Count > 0)
+                StartCoroutine(MakeEnemies());
         }
 
         private IEnumerator MakeEnemies()
@@ -46,9 +53,9 @@ namespace Assets.Scripts.Enemy
             var enemyCount = 0;
             while (enemyCount < enemyNumber)
             {
-                var index = Random.Next(SpawnPoints.Count);
-                var spawnPoint = SpawnPoints[index];
-                if (!spawnPoint.IsActive)
+                var index = Random.Next(spawnAreas.Count);
+                var spawnPoint = spawnAreas[index];
+                if (!spawnPoint.isActive)
                 {
                     EnemyTypes randomEnemyType =(EnemyTypes) Random.Next(0,2);
                     EnemyBehaviourContext context;
@@ -69,7 +76,7 @@ namespace Assets.Scripts.Enemy
                         //    context = new EnemyBehaviourContext(GenerateEnemyTruck(spawnPoint));
                         //    break;
                     }
-                    SpawnPoints[index].IsActive = true;
+                    spawnAreas[index].isActive = true;
                     EnemyBehaviors.Add(context);
                     enemyCount++;
                 }
@@ -86,8 +93,7 @@ namespace Assets.Scripts.Enemy
 
             var enemyTiger = Instantiate(enemyTigerPrefab);
             enemyTiger.transform.rotation = gameObject.transform.rotation;
-            enemyTiger.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
-            //enemyTiger.AddComponent<EnemyTiger>();
+            enemyTiger.transform.position = new Vector3(spawnPoint.xPos, YPos, zPos);
             enemyTiger.GetComponent<EnemyTiger>().ReservedArea = index;
             return enemyTiger.GetComponent<EnemyTiger>();
         }
@@ -102,7 +108,7 @@ namespace Assets.Scripts.Enemy
 
             var enemySoldier = Instantiate(enemySoldierPrefab);
             enemySoldier.transform.rotation = gameObject.transform.rotation;
-            enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
+            enemySoldier.transform.position = new Vector3(spawnPoint.xPos, YPos, zPos);
             enemySoldier.AddComponent<EnemySoldier>();
             enemySoldier.GetComponent<EnemySoldier>().ReservedArea = index;
             return enemySoldier.GetComponent<EnemySoldier>();
@@ -112,7 +118,7 @@ namespace Assets.Scripts.Enemy
         //{
         //    var enemySoldier = Instantiate(Resources.Load(enemyTruckPrefab);
         //    enemySoldier.transform.rotation = gameObject.transform.rotation;
-        //    enemySoldier.transform.position = new Vector3(spawnPoint.XPos, yPos, zPos);
+        //    enemySoldier.transform.position = new Vector3(spawnPoint.xPos, yPos, zPos);
         //    return enemySoldier.AddComponent<EnemyTruck>();
         //}
         public void FixedUpdate()

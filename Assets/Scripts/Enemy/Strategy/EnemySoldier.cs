@@ -6,24 +6,20 @@ namespace Assets.Scripts.Enemy.Strategy
 {
     public class EnemySoldier : MonoBehaviour, IEnemyBehaviour
     {
-        public float MovementSpeed { get; } = 2f;
-        public readonly float LaunchForce = 20f; //30f
-        public float NextFire { get; set; } = 3.0f;
-        public bool isActive = true;
-        public int rotationSpeed = 3;
+        public float launchForce = 20f;
+        public float nextFire = 3.0f;
+        public bool IsAlive { get; set; } = true;
         public int ReservedArea { get; set; }
         public Transform Target { get; private set; }
         private Transform FireTransform { get; set; }
         public Rigidbody RigidBody { get; set; }
 
-        public float range = 20f; //Range within target will be detected
-        public float stop;
-        public float fireRange = 15f; //Range within target will be atacked
+        public float fireRange = 15f; //Range within target will be attacked
 
         public NavMeshAgent Agent { get; private set; }
 
         public UnityEngine.UI.Image HealthBar { get; set; }
-        public float ActualHealth { get; private set; } = 100f;
+        public float ActualHealth { get; private set; }
         public float startHealth = 100f;
         public EnemySpawner Spawner { get; set; }
         public GameObject enemySoldierShellPrefab;
@@ -36,48 +32,29 @@ namespace Assets.Scripts.Enemy.Strategy
             Agent = GetComponent<NavMeshAgent>();
             Target = GameObject.FindWithTag("Player").transform; //target the player
             FireTransform = GetComponentsInChildren<Transform>()[51];
+            ActualHealth = startHealth;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag($"Player")) return;
             Destroy(gameObject);
-            Spawner.SpawnPoints[ReservedArea].IsActive = false;
-            isActive = false;
+            Spawner.spawnAreas[ReservedArea].isActive = false;
+            IsAlive = false;
         }
 
         public void Move()
         {
             Agent.destination = Target.position;
-            /*var rigidBody = GetComponent<Rigidbody>();
-            var distance = Vector3.Distance(rigidBody.position, Target.position);
-            if (distance <= range)
-            {
-                //look
-                //rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation,
-                   // Quaternion.LookRotation(Target.position - rigidBody.position), rotationSpeed * Time.deltaTime);
-                //move   - maybe this stop in redundant
-                if (distance > stop)
-                {
-                    Agent.destination = Target.position;
-                    // var movement = transform.forward * MovementSpeed * Time.deltaTime;
-                    // rigidBody.MovePosition(rigidBody.position + movement);
-                }
-            }
-            else
-            {
-                var movement = transform.forward * MovementSpeed * Time.deltaTime;
-                rigidBody.MovePosition(rigidBody.position + movement);
-            }*/
         }
 
         public void Attack()
         {
             // create shell
             var distance = Vector3.Distance(RigidBody.position, Target.position);
-            if (distance <= fireRange && Time.time > NextFire)
+            if (distance <= fireRange && Time.time > nextFire)
             {
-                NextFire = Time.time + Random.Range(1f, 3f);
+                nextFire = Time.time + Random.Range(1f, 3f);
                 var enemyTigerShellObject =
                     Instantiate(enemySoldierShellPrefab);
                 var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
@@ -85,14 +62,14 @@ namespace Assets.Scripts.Enemy.Strategy
                 var transformShell = enemyTigerShellRigidBody.transform;
                 transformShell.rotation = FireTransform.rotation;
                 transformShell.position = FireTransform.position;
-                enemyTigerShellRigidBody.velocity = LaunchForce * FireTransform.forward;
+                enemyTigerShellRigidBody.velocity = launchForce * FireTransform.forward;
                 enemyTigerShellObject.AddComponent<SoldierShellCollision>();
             }
         }
 
         public bool IsActive()
         {
-            return isActive;
+            return IsAlive;
         }
 
         public void TakeDamage(float damage)
@@ -102,8 +79,8 @@ namespace Assets.Scripts.Enemy.Strategy
 
             if (ActualHealth <= 0.0)
             {
-                isActive = false;
-                Spawner.SpawnPoints[ReservedArea].IsActive = false;
+                IsAlive = false;
+                Spawner.spawnAreas[ReservedArea].isActive = false;
                 Destroy(gameObject);
             }
         }

@@ -5,16 +5,17 @@ namespace Assets.Scripts.PowerUps.Strategy
 {
     public class AmmoBox : MonoBehaviour, IPowerUpsBehaviour
     {
-        public bool isActive = true;
+        public bool IsAlive { get; private set; } = true;
         public float rotationSpeed = 60f;
         public int ReservedArea { get; set; }
         public bool IsPowerUpActive { get; private set; }
         public float Timer { get; set; }
-        public float PowerUpDuration { get; } = 15.0f;
+        public float powerUpDuration  = 15.0f;
         public GameObject Player { get; set; }
         public Rigidbody RigidBody { get; set; }
         private float IncreasedDamage { get; set; }
         public PowerUpsSpawner Spawner { get; set; }
+        public float powerUpEffect = 0.25f;
         private void Awake()
         {
             Spawner= GameObject.FindWithTag("PowerUpSpawner").GetComponent<PowerUpsSpawner>();
@@ -28,13 +29,13 @@ namespace Assets.Scripts.PowerUps.Strategy
             {
                 if (other.GetComponent<Player.Player>().ActivePowerUp)
                 {
-                    isActive = false;
+                    IsAlive = false;
                     Destroy(gameObject);
                     return;
                 }
 
                 var player = other.GetComponent<Player.Player>();
-                IncreasedDamage = player.damage * 0.25f;
+                IncreasedDamage = player.damage * powerUpEffect;
                 player.damage += IncreasedDamage;
                 player.abilityScoreHeader.SetActive(true);
                 player.abilityTimeLeft.SetActive(true);
@@ -52,24 +53,24 @@ namespace Assets.Scripts.PowerUps.Strategy
 
         public bool IsActive()
         {
-            return isActive;
+            return IsAlive;
         }
 
         public void TakeEffect()
         {
             if (IsPowerUpActive)
             {
-                Player.GetComponent<Player.Player>().abilityTimeLeftText.text = Math.Round((PowerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
+                Player.GetComponent<Player.Player>().abilityTimeLeftText.text = Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                 Timer += Time.deltaTime;
 
-                if (Timer > PowerUpDuration)
+                if (Timer > powerUpDuration)
                 {
                     var player = Player.GetComponent<Player.Player>();
-                    player.abilityTimeLeftText.text = Math.Round((PowerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
+                    player.abilityTimeLeftText.text = Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                     IsPowerUpActive = false;
                     Destroy(gameObject);
-                    Spawner.SpawnPoints[ReservedArea].IsActive = false;
-                    isActive = false;
+                    Spawner.spawnAreas[ReservedArea].isActive = false;
+                    IsAlive = false;
                     player.abilityScoreHeader.SetActive(false);
                     player.abilityTimeLeft.SetActive(false);
                     player.damage -= IncreasedDamage;

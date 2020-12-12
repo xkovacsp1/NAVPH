@@ -10,7 +10,8 @@ namespace Assets.Scripts.PowerUps
     public class PowerUpsSpawner : MonoBehaviour
     {
         public List<PowerUpsBehaviourContext> PowerUpsBehaviors { get; } = new List<PowerUpsBehaviourContext>();
-        public List<SpawnPoint> SpawnPoints { get; set; } = new List<SpawnPoint>()
+
+        public List<SpawnPoint> spawnAreas  = new List<SpawnPoint>()
             {
                 {new SpawnPoint(14.39f, false)},
                 { new SpawnPoint(9.27f, false)},
@@ -43,7 +44,8 @@ namespace Assets.Scripts.PowerUps
 
         public void Start()
         {
-            StartCoroutine(MakeEnemies());
+            if(spawnAreas.Count > 0)
+                StartCoroutine(MakeEnemies());
         }
 
         private IEnumerator MakeEnemies()
@@ -51,12 +53,12 @@ namespace Assets.Scripts.PowerUps
             var powerUpCount = 0;
             while (powerUpCount < powerUpsNumber)
             {
-                var index = Random.Next(SpawnPoints.Count);
-                var spawnPoint = SpawnPoints[index];
+                var index = Random.Next(spawnAreas.Count);
+                var spawnPoint = spawnAreas[index];
                 var bounds = Plane.bounds;
                 spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + 5f, bounds.extents.z - 5f);
                 PowerUpsBehaviourContext context;
-                if (!spawnPoint.IsActive)
+                if (!spawnPoint.isActive)
                 {
                     PowerUpTypes randomEnemyType = (PowerUpTypes)Random.Next(0, 3);
                     switch (randomEnemyType)
@@ -71,7 +73,7 @@ namespace Assets.Scripts.PowerUps
                             context = new PowerUpsBehaviourContext(GenerateBarrel(spawnPoint));
                             break;
                     }
-                    SpawnPoints[index].IsActive = true;
+                    spawnAreas[index].isActive = true;
                     PowerUpsBehaviors.Add(context);
                     powerUpCount++;
                 }
@@ -89,8 +91,8 @@ namespace Assets.Scripts.PowerUps
             var drill = Instantiate(drillPrefab);
             drill.transform.rotation = gameObject.transform.rotation;
             // increase y position of drill
-            drill.transform.position = new Vector3(spawnPoint.XPos, YPos + 0.5f, spawnPoint.ZPos);
-            return drill.AddComponent<Drill>();
+            drill.transform.position = new Vector3(spawnPoint.xPos, YPos + 0.5f, spawnPoint.ZPos);
+            return drill.GetComponent<Drill>();
         }
 
         public IPowerUpsBehaviour GenerateAmmoBox(SpawnPoint spawnPoint)
@@ -102,8 +104,8 @@ namespace Assets.Scripts.PowerUps
 
             var ammoBox = Instantiate(ammoBoxPrefab);
             ammoBox.transform.rotation = gameObject.transform.rotation;
-            ammoBox.transform.position = new Vector3(spawnPoint.XPos, YPos, spawnPoint.ZPos);
-            return ammoBox.AddComponent<AmmoBox>();
+            ammoBox.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
+            return ammoBox.GetComponent<AmmoBox>();
         }
 
         public IPowerUpsBehaviour GenerateBarrel(SpawnPoint spawnPoint)
@@ -115,8 +117,8 @@ namespace Assets.Scripts.PowerUps
 
             var barrel = Instantiate(barrelPrefab);
             barrel.transform.rotation = gameObject.transform.rotation;
-            barrel.transform.position = new Vector3(spawnPoint.XPos, YPos, spawnPoint.ZPos);
-            return barrel.AddComponent<Barrel>();
+            barrel.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
+            return barrel.GetComponent<Barrel>();
         }
 
         public void FixedUpdate()

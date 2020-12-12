@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Enemy.Strategy
 {
@@ -19,7 +18,7 @@ namespace Assets.Scripts.Enemy.Strategy
         {
             if (!other.gameObject.CompareTag($"PlayerShell")) return;
             Destroy(gameObject);
-            Spawner.SpawnPoints[ReservedArea].IsActive = false;
+            Spawner.spawnAreas[ReservedArea].isActive = false;
             isActive = false;
         }
 

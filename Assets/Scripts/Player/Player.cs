@@ -21,7 +21,7 @@ namespace Assets.Scripts.Player
 
         public Text abilityScoreHeaderText;
 
-        public int numberOfCollectedCoins;
+        public int NumberOfCollectedCoins { get; set; }
 
         public string MovementAxisName { get; set; }
         public string TurnAxisName { get; set; }
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Player
             // Die
             if (health <= 0.0)
             {
-                PlayerPrefs.SetInt("CollectedCoins", numberOfCollectedCoins);
+                PlayerPrefs.SetInt("CollectedCoins", NumberOfCollectedCoins);
                 SceneManager.LoadScene(sceneBuildIndex: 2);
                
             }
@@ -91,7 +91,7 @@ namespace Assets.Scripts.Player
             if (textHealth && coinNumber)
             {
                 textHealth.text = health.ToString(CultureInfo.CurrentCulture);
-                coinNumber.text = numberOfCollectedCoins.ToString();
+                coinNumber.text = NumberOfCollectedCoins.ToString();
             }
 
             MovementInputValue = Input.GetAxis(MovementAxisName);
