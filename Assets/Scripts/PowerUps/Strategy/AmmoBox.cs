@@ -18,6 +18,9 @@ namespace Assets.Scripts.PowerUps.Strategy
         public PowerUpsSpawner Spawner { get; set; }
         public float powerUpEffect = 0.25f;
 
+        public AudioClip collisionSound;
+
+
         private void Awake()
         {
             Spawner = GameObject.FindWithTag("PowerUpSpawner").GetComponent<PowerUpsSpawner>();
@@ -29,11 +32,18 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (other.gameObject.CompareTag($"Player") && !other.GetComponent<Player.Player>().ActivePowerUp)
             {
+
+                //??????why is there this
                 if (other.GetComponent<Player.Player>().ActivePowerUp)
                 {
                     IsAlive = false;
                     Destroy(gameObject);
                     return;
+                }
+
+                if (collisionSound)
+                {
+                    AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
                 }
 
                 var player = other.GetComponent<Player.Player>();

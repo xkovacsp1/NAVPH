@@ -144,3 +144,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionDamage: 20
+  smallExplosion: {fileID: 6174598575264138488, guid: 0793772e26c61154eba742949775f5b6, type: 3}

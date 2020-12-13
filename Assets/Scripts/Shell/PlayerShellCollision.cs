@@ -7,7 +7,7 @@ namespace Assets.Scripts.Shell
     {
         public GameObject smallExplosion;
         public Rigidbody ShellRigidBody { get; set; }
-
+        
         private void Awake()
         {
             ShellRigidBody= gameObject.GetComponent<Rigidbody>();
@@ -45,7 +45,6 @@ namespace Assets.Scripts.Shell
             explosionRigidBody.position = ShellRigidBody.position;
             explosionRigidBody.rotation = ShellRigidBody.rotation;
             explosion.GetComponent<ParticleSystem>().Play();
-
             Destroy(explosion.gameObject, explosion.GetComponent<ParticleSystem>().main.duration);
         }
 

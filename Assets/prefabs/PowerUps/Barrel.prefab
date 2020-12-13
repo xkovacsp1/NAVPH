@@ -335,5 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d012609b15af41579c7f9a98cbb53f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
   rotationSpeed: 60
+  powerUpDuration: 15
+  powerUpEffect: 0.25
+  collisionSound: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}

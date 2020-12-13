@@ -17,6 +17,8 @@ namespace Assets.Scripts.PowerUps.Strategy
         private float IncreasedSpeed { get; set; }
         public PowerUpsSpawner Spawner { get; set; }
         public float powerUpEffect = 0.25f;
+        public AudioClip collisionSound;
+
 
         private void Awake()
         {
@@ -35,7 +37,10 @@ namespace Assets.Scripts.PowerUps.Strategy
                     Destroy(gameObject);
                     return;
                 }
-
+                if (collisionSound)
+                {
+                    AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
+                }
                 var player = other.GetComponent<Player.Player>();
                 IncreasedSpeed = player.speed * powerUpEffect;
                 player.speed += IncreasedSpeed;

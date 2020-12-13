@@ -25,6 +25,8 @@ namespace Assets.Scripts.Enemy.Strategy
         public EnemySpawner Spawner { get; set; }
         public GameObject enemySoldierShellPrefab;
 
+        public AudioClip collisionSound;
+
         private void Awake()
         {
             Spawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
@@ -39,6 +41,12 @@ namespace Assets.Scripts.Enemy.Strategy
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag($"Player")) return;
+
+            if (collisionSound)
+            {
+                AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
+            }
+
             Destroy(gameObject);
             Spawner.spawnAreas[ReservedArea].isActive = false;
             IsAlive = false;

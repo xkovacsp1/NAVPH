@@ -10,7 +10,7 @@ namespace Assets.Scripts.PowerUps.Strategy
         public int ReservedArea { get; set; }
         public Rigidbody RigidBody { get; set; }
         public PowerUpsSpawner Spawner { get; set; }
-
+        public AudioClip collisionSound;
         private void Awake()
         {
             Spawner = GameObject.FindWithTag("PowerUpSpawner").GetComponent<PowerUpsSpawner>();
@@ -20,6 +20,12 @@ namespace Assets.Scripts.PowerUps.Strategy
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag($"Player")) return;
+
+            if (collisionSound)
+            {
+                AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
+            }
+
             other.GetComponent<Player.Player>().health += powerUpEffect;
             Destroy(gameObject);
             Spawner.spawnAreas[ReservedArea].isActive = false;

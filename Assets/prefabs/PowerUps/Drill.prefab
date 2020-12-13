@@ -174,8 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4527746629544b8db7818c416c58193f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
   rotationSpeed: 60
+  powerUpEffect: 10
+  collisionSound: {fileID: 8300000, guid: 5e1a9f876d3dafd47bc6b3dde25135fa, type: 3}
 --- !u!1 &1000013423646272
 GameObject:
   m_ObjectHideFlags: 0

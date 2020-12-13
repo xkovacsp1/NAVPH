@@ -725,6 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 60
   coinEffect: 1
+  collisionSound: {fileID: 8300000, guid: b1b9c1f0ea1fcae439ed1a4d44ff05fd, type: 3}
 --- !u!1 &262638372224327161
 GameObject:
   m_ObjectHideFlags: 0
