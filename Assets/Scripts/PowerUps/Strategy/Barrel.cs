@@ -31,12 +31,12 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (other.gameObject.CompareTag($"Player") && !other.GetComponent<Player.Player>().ActivePowerUp)
             {
-                if (other.GetComponent<Player.Player>().ActivePowerUp)
-                {
-                    IsAlive = false;
-                    Destroy(gameObject);
-                    return;
-                }
+                //if (other.GetComponent<Player.Player>().ActivePowerUp)
+                //{
+                //    IsAlive = false;
+                //    Destroy(gameObject);
+                //    return;
+                //}
                 if (collisionSound)
                 {
                     AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);

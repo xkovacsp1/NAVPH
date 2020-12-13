@@ -56,6 +56,7 @@ namespace Assets.Scripts.Player
             {
                 PlayerPrefs.SetInt("CollectedCoins", NumberOfCollectedCoins);
                 SceneManager.LoadScene(sceneBuildIndex: 2);
+                return;
             }
 
 

@@ -34,12 +34,12 @@ namespace Assets.Scripts.PowerUps.Strategy
             {
 
                 //??????why is there this
-                if (other.GetComponent<Player.Player>().ActivePowerUp)
-                {
-                    IsAlive = false;
-                    Destroy(gameObject);
-                    return;
-                }
+                //if (other.GetComponent<Player.Player>().ActivePowerUp)
+                //{
+                //    IsAlive = false;
+                //    Destroy(gameObject);
+                //    return;
+                //}
 
                 if (collisionSound)
                 {
