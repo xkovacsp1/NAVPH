@@ -1979,14 +1979,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f27e2794a3fa2f46b2f5cbb11c6cefb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
-  rotationSpeed: 3
-  range: 20
-  stop: 0
+  launchForce: 20
+  nextFire: 3
   fireRange: 15
-  actualHealth: 100
   startHealth: 100
-  enemySoldierShellPrefab: {fileID: 8972796557947266418, guid: 9327b622273f32a4cbd00c410297ad1b, type: 3}
+  fireDamage: 5
+  enemySoldierShellPrefab: {fileID: 7438506155107229631, guid: 7344385ce3882bd48b8a3e645f6436f2, type: 3}
 --- !u!1 &8563064411538487523
 GameObject:
   m_ObjectHideFlags: 0

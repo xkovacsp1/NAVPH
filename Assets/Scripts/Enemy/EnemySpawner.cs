@@ -21,6 +21,8 @@ namespace Assets.Scripts.Enemy
             {new SpawnPoint(-10.32f, false)}
         };
 
+        public float spawnIntervalLength = 2f;
+
         public float zPos = 45f;
         public float YPos { get; set; } = 0f;
         public int enemyNumber = 10;
@@ -77,7 +79,7 @@ namespace Assets.Scripts.Enemy
                     enemyCount++;
                 }
 
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(spawnIntervalLength);
             }
         }
 

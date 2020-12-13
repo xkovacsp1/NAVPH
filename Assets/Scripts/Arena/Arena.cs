@@ -32,6 +32,7 @@ namespace Assets.Scripts.Arena
         };
 
         public float spawnAreasOffset = 5f;
+        public float spawnIntervalLength = 2f;
 
 
         private void Awake()
@@ -67,7 +68,7 @@ namespace Assets.Scripts.Arena
                     }
                 }
 
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(spawnIntervalLength);
             }
         }
 

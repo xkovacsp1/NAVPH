@@ -23,6 +23,7 @@ TagManager:
   - Rock
   - Mine
   - SmallExplosion
+  - EnemySoldierShell
   layers:
   - Default
   - TransparentFX

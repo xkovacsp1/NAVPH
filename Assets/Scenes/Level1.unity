@@ -522,6 +522,7 @@ MonoBehaviour:
   - xPos: -10.32
     isActive: 0
   spawnAreasOffset: 5
+  spawnIntervalLength: 2
   powerUpsNumber: 25
   ammoBoxPrefab: {fileID: 391081111845221762, guid: 8f1bc50ff14e0bb4f9f7a6dcb298284b, type: 3}
   barrelPrefab: {fileID: 1984084043255329447, guid: 0b81359c00c5dc848a7268072656941d, type: 3}
@@ -1761,6 +1762,7 @@ MonoBehaviour:
   - xPos: -10.32
     isActive: 0
   spawnAreasOffset: 5
+  spawnIntervalLength: 2
 --- !u!1 &1658331728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1896,6 +1898,7 @@ MonoBehaviour:
     isActive: 0
   - xPos: -10.32
     isActive: 0
+  spawnIntervalLength: 2
   zPos: 35
   enemyNumber: 5
   enemyTigerPrefab: {fileID: 8707066839897533035, guid: ddec54a4bb142764ea48c9d2036eeb3c, type: 3}

@@ -22,7 +22,7 @@ namespace Assets.Scripts.PowerUps
         };
 
         public float spawnAreasOffset = 5f;
-
+        public float spawnIntervalLength = 2f;
 
         public float YPos { get; } = 0;
         public int powerUpsNumber = 15;
@@ -82,7 +82,7 @@ namespace Assets.Scripts.PowerUps
                     powerUpCount++;
                 }
 
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(spawnIntervalLength);
             }
         }
 
