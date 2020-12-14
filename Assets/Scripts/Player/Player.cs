@@ -23,14 +23,15 @@ namespace Assets.Scripts.Player
 
         public int NumberOfCollectedCoins { get; set; }
 
-        public string MovementAxisName { get; set; }
-        public string TurnAxisName { get; set; }
+        public string MovementAxisName { get; set; }="Vertical";
+        public string TurnAxisName { get; set; } = "Horizontal";
         public Rigidbody RigidBody { get; set; }
         public float MovementInputValue { get; set; }
         public float TurnInputValue { get; set; }
+        public string PauseButton { get; set; }="Pause";
 
         public bool ActivePowerUp { get; set; } = false;
-
+        
         private void Awake()
         {
             RigidBody = GetComponent<Rigidbody>();
@@ -42,15 +43,16 @@ namespace Assets.Scripts.Player
             TurnInputValue = 0f;
         }
 
-        private void Start()
-        {
-            MovementAxisName = "Vertical";
-            TurnAxisName = "Horizontal";
-        }
-
-
         private void Update()
         {
+
+            //pause game with player
+            if (Input.GetButtonDown(PauseButton))
+            {
+                Time.timeScale = Time.timeScale == 1.0f ? 0.0f : 1.0f;
+            }
+
+
             //Die
             if (health <= 0.0)
             {

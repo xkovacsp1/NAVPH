@@ -26,7 +26,7 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public GameObject enemyTigerShellPrefab;
         public GameObject fireExplosion;
-
+        public AudioClip collisionSound;
 
         private void Awake()
         {
@@ -44,10 +44,19 @@ namespace Assets.Scripts.Enemy.Strategy
             if (!other.gameObject.CompareTag($"Player")) return;
 
 
+
+            if (collisionSound)
+            {
+                AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
+            }
+
+
             ActualHealth = ActualHealth - 10.0f;
             HealthBar.fillAmount = ActualHealth / startHealth;
 
+
             // decrease player health
+            if (!other.GetComponent<Player.Player>()) return;
             other.GetComponent<Player.Player>().health -= collisionDamage;
 
             if (ActualHealth <= 0.0)
