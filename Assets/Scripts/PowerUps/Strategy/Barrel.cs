@@ -31,17 +31,14 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (other.gameObject.CompareTag($"Player") && !other.GetComponent<Player.Player>().ActivePowerUp)
             {
-                //if (other.GetComponent<Player.Player>().ActivePowerUp)
-                //{
-                //    IsAlive = false;
-                //    Destroy(gameObject);
-                //    return;
-                //}
+             
                 if (collisionSound)
                 {
                     AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
                 }
                 var player = other.GetComponent<Player.Player>();
+                if (!player) return;
+
                 IncreasedSpeed = player.speed * powerUpEffect;
                 player.speed += IncreasedSpeed;
                 player.abilityScoreHeader.SetActive(true);
@@ -67,6 +64,7 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (IsPowerUpActive)
             {
+                if (!Player.GetComponent<Player.Player>()) return;
                 Player.GetComponent<Player.Player>().abilityTimeLeftText.text =
                     Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                 Timer += Time.deltaTime;
@@ -74,6 +72,7 @@ namespace Assets.Scripts.PowerUps.Strategy
                 if (Timer > powerUpDuration)
                 {
                     var player = Player.GetComponent<Player.Player>();
+                    if (!player) return;
                     player.abilityTimeLeftText.text =
                         Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                     IsPowerUpActive = false;

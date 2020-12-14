@@ -18,6 +18,7 @@ namespace Assets.Scripts.Shell
         {
             if (other.gameObject.CompareTag($"Player"))
             {
+                if (!other.GetComponent<Player.Player>()) return;
                 other.GetComponent<Player.Player>().health -=
                     GameObject.FindWithTag("EnemyTiger").GetComponent<EnemyTiger>().fireDamage;
                 ShowExplosion();

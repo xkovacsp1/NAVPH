@@ -22,6 +22,7 @@ namespace Assets.Scripts.Arena
             {
                 AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
             }
+            if (!other.GetComponent<Player.Player>()) return;
             other.GetComponent<Player.Player>().NumberOfCollectedCoins += coinEffect;
             Destroy(gameObject);
         }

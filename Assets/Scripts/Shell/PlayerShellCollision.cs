@@ -18,6 +18,7 @@ namespace Assets.Scripts.Shell
         {
             if (other.gameObject.CompareTag($"EnemyTiger"))
             {
+                if (!other.GetComponent<Enemy.Strategy.EnemyTiger>()) return;
                 other.GetComponent<Enemy.Strategy.EnemyTiger>()
                     .TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
                 ShowExplosion();
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Shell
             }
             else if (other.gameObject.CompareTag($"EnemySoldier"))
             {
+                if (!other.GetComponent<Enemy.Strategy.EnemySoldier>()) return;
                 other.GetComponent<Enemy.Strategy.EnemySoldier>()
                     .TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
                 ShowExplosion();

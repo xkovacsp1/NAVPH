@@ -21,6 +21,7 @@ namespace Assets.Scripts.Obstacles.Strategy
                     CollisionSound.Play();
                 }
 
+                if (!other.GetComponent<Player.Player>()) return;
                 other.GetComponent<Player.Player>().health -= collisionDamage;
             }
         }

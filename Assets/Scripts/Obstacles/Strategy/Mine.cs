@@ -19,6 +19,7 @@ namespace Assets.Scripts.Obstacles.Strategy
         {
             if (other.gameObject.CompareTag($"Player"))
             {
+                if (!other.GetComponent<Player.Player>()) return;
                 other.GetComponent<Player.Player>().health -= collisionDamage;
                 ShowExplosion();
                 Destroy(gameObject);

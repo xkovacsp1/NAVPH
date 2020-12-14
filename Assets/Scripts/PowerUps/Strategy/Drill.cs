@@ -25,6 +25,7 @@ namespace Assets.Scripts.PowerUps.Strategy
             {
                 AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
             }
+            if (!other.GetComponent<Player.Player>()) return;
 
             other.GetComponent<Player.Player>().health += powerUpEffect;
             Destroy(gameObject);

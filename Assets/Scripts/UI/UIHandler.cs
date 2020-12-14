@@ -6,6 +6,8 @@ namespace Assets.Scripts.UI
 {
     public class UIHandler : MonoBehaviour
     {
+
+
         public void StartGame()
         {
             SceneManager.LoadScene(sceneBuildIndex: 1);

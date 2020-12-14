@@ -32,21 +32,15 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (other.gameObject.CompareTag($"Player") && !other.GetComponent<Player.Player>().ActivePowerUp)
             {
-
-                //??????why is there this
-                //if (other.GetComponent<Player.Player>().ActivePowerUp)
-                //{
-                //    IsAlive = false;
-                //    Destroy(gameObject);
-                //    return;
-                //}
-
                 if (collisionSound)
                 {
                     AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
                 }
 
                 var player = other.GetComponent<Player.Player>();
+                if (!player) return;
+
+
                 IncreasedDamage = player.damage * powerUpEffect;
                 player.damage += IncreasedDamage;
                 player.abilityScoreHeader.SetActive(true);
@@ -72,6 +66,7 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (IsPowerUpActive)
             {
+                if (!Player.GetComponent<Player.Player>()) return;
                 Player.GetComponent<Player.Player>().abilityTimeLeftText.text =
                     Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                 Timer += Time.deltaTime;
@@ -79,6 +74,8 @@ namespace Assets.Scripts.PowerUps.Strategy
                 if (Timer > powerUpDuration)
                 {
                     var player = Player.GetComponent<Player.Player>();
+                    if (!player) return;
+
                     player.abilityTimeLeftText.text =
                         Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                     IsPowerUpActive = false;
