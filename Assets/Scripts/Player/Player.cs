@@ -29,6 +29,7 @@ namespace Assets.Scripts.Player
         public float MovementInputValue { get; set; }
         public float TurnInputValue { get; set; }
         public string PauseButton { get; set; }="Pause";
+        public string CancelButton { get; set; } = "Cancel";
 
         public bool ActivePowerUp { get; set; } = false;
         
@@ -52,6 +53,11 @@ namespace Assets.Scripts.Player
                 Time.timeScale = Time.timeScale == 1.0f ? 0.0f : 1.0f;
             }
 
+            //exit to main menu
+            if (Input.GetButtonDown(CancelButton))
+            {
+                SceneManager.LoadScene(sceneBuildIndex: 0);
+            }
 
             //Die
             if (health <= 0.0)

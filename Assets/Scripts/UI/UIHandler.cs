@@ -19,9 +19,9 @@ namespace Assets.Scripts.UI
             Application.Quit();
         }
 
-        public void ExitButton()
+        public void HowToPlay()
         {
-            SceneManager.LoadScene(sceneBuildIndex: 0);
+            SceneManager.LoadScene(sceneBuildIndex: 4);
         }
     }
 }
