@@ -26,6 +26,9 @@ namespace Assets.Scripts.Enemy.Strategy
         public GameObject enemySoldierShellPrefab;
 
         public AudioClip collisionSound;
+        public GameObject fireExplosion;
+
+
 
         private void Awake()
         {
@@ -71,6 +74,9 @@ namespace Assets.Scripts.Enemy.Strategy
                 var transformShell = enemyTigerShellRigidBody.transform;
                 transformShell.rotation = FireTransform.rotation;
                 transformShell.position = FireTransform.position;
+
+                ShowFireExplosion();
+
                 enemyTigerShellRigidBody.velocity = launchForce * FireTransform.forward;
                 enemyTigerShellObject.AddComponent<SoldierShellCollision>();
             }
@@ -93,5 +99,19 @@ namespace Assets.Scripts.Enemy.Strategy
                 Destroy(gameObject);
             }
         }
+
+
+        private void ShowFireExplosion()
+        {
+            if (!fireExplosion) return;
+            var explosion = Instantiate(fireExplosion);
+            var explosionRigidBody = explosion.GetComponent<Rigidbody>();
+            explosionRigidBody.position = FireTransform.position;
+            explosionRigidBody.rotation = FireTransform.rotation;
+            explosion.GetComponentInChildren<ParticleSystem>().Play();
+            Destroy(explosion.GetComponentInChildren<ParticleSystem>(), explosion.GetComponentInChildren<ParticleSystem>().main.duration);
+        }
+
+
     }
 }

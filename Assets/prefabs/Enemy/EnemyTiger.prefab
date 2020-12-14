@@ -413,11 +413,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06df07789128a154eb9dc3de3cfb36c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
-  rotationSpeed: 3
-  range: 20
-  stop: 0
+  launchForce: 30
+  nextFire: 5
   fireRange: 25
-  actualHealth: 100
+  collisionDamage: 30
+  fireDamage: 10
   startHealth: 100
   enemyTigerShellPrefab: {fileID: 8972796557947266418, guid: 9327b622273f32a4cbd00c410297ad1b, type: 3}
+  fireExplosion: {fileID: 7277902209380964897, guid: 4bff2e13378a5eb4f8976fecd56fb61d, type: 3}

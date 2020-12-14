@@ -78,8 +78,8 @@ namespace Assets.Scripts.Player
             var explosionRigidBody = explosion.GetComponent<Rigidbody>();
             explosionRigidBody.position = fireTransform.position;
             explosionRigidBody.rotation = fireTransform.rotation;
-            explosion.GetComponent<ParticleSystem>().Play();
-            Destroy(explosion.gameObject, explosion.GetComponent<ParticleSystem>().main.duration);
+            explosion.GetComponentInChildren<ParticleSystem>().Play();
+            Destroy(explosion.GetComponentInChildren<ParticleSystem>(), explosion.GetComponentInChildren<ParticleSystem>().main.duration);
         }
 
 

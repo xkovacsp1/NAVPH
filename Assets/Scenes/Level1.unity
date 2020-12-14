@@ -2387,6 +2387,6 @@ PrefabInstance:
     - target: {fileID: 5675031825545566030, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
       propertyPath: fireExplosion
       value: 
-      objectReference: {fileID: 1764654978243476, guid: 6637f6efebd5b0d4eb939586be277cd9, type: 3}
+      objectReference: {fileID: 7277902209380964897, guid: 4bff2e13378a5eb4f8976fecd56fb61d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
