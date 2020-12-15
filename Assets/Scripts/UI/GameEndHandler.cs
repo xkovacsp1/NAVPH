@@ -5,7 +5,7 @@ using Application = UnityEngine.Application;
 
 namespace Assets.Scripts.UI
 {
-    public class GameEndUIHandler : MonoBehaviour
+    public class GameEndHandler : MonoBehaviour
     {
         public Text collectedCoins;
         public Text highestNUmberOfCollectedCoins;

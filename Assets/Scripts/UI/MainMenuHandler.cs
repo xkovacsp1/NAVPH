@@ -4,10 +4,8 @@ using Application = UnityEngine.Application;
 
 namespace Assets.Scripts.UI
 {
-    public class UIHandler : MonoBehaviour
+    public class MainMenuHandler : MonoBehaviour
     {
-
-
         public void StartGame()
         {
             SceneManager.LoadScene(sceneBuildIndex: 1);

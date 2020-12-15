@@ -6,7 +6,7 @@ namespace Assets.Scripts.UI
     public class HowToPlay : MonoBehaviour
     {
 
-        public void BactToMainMenu()
+        public void BackToMainMenu()
         {
             SceneManager.LoadScene(sceneBuildIndex: 0);
         }
