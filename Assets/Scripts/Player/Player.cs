@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Assets.Scripts.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,15 +13,6 @@ namespace Assets.Scripts.Player
         public float turnSpeed = 180f;
         public float health = 100f;
         public float damage = 10f;
-        public Text textHealth;
-        public Text coinNumber;
-        public GameObject abilityScoreHeader;
-
-        public GameObject abilityTimeLeft;
-        public Text abilityTimeLeftText;
-
-        public Text abilityScoreHeaderText;
-
         public int NumberOfCollectedCoins { get; set; }
 
         public string MovementAxisName { get; set; }="Vertical";
@@ -30,12 +22,13 @@ namespace Assets.Scripts.Player
         public float TurnInputValue { get; set; }
         public string PauseButton { get; set; }="Pause";
         public string CancelButton { get; set; } = "Cancel";
-
+        public GamePlay GamePlayCanvas { get; set; }
         public bool ActivePowerUp { get; set; } = false;
         
         private void Awake()
         {
             RigidBody = GetComponent<Rigidbody>();
+            GamePlayCanvas = GameObject.FindWithTag("GamePlayCanvas").GetComponent<GamePlay>();
         }
 
         private void OnEnable()
@@ -50,7 +43,17 @@ namespace Assets.Scripts.Player
             //pause game with player
             if (Input.GetButtonDown(PauseButton))
             {
-                Time.timeScale = Time.timeScale == 1.0f ? 0.0f : 1.0f;
+
+                if (Time.timeScale == 1.0f)
+                {
+                    Time.timeScale = 0.0f;
+                    GamePlayCanvas.ShowPauseMessage();
+                }
+                else
+                {
+                    Time.timeScale = 1.0f;
+                    GamePlayCanvas.HidePauseMessage();
+                }
             }
 
             //exit to main menu
@@ -68,10 +71,11 @@ namespace Assets.Scripts.Player
             }
 
 
-            if (textHealth && coinNumber)
+            if (GamePlayCanvas.textHealth && GamePlayCanvas.coinNumber)
             {
-                textHealth.text = health.ToString(CultureInfo.CurrentCulture);
-                coinNumber.text = NumberOfCollectedCoins.ToString();
+
+                GamePlayCanvas.ShowHealthScore(health);
+                GamePlayCanvas.ShowCoinScore(NumberOfCollectedCoins);
             }
 
             MovementInputValue = Input.GetAxis(MovementAxisName);

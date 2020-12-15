@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.PowerUps.Strategy
@@ -16,15 +17,17 @@ namespace Assets.Scripts.PowerUps.Strategy
         public Rigidbody RigidBody { get; set; }
         private float IncreasedSpeed { get; set; }
         public PowerUpsSpawner Spawner { get; set; }
+        public GamePlay GamePlayCanvas { get; set; }
+        public string PowerUpType { get; set; } = "Increased speed";
         public float powerUpEffect = 0.25f;
         public AudioClip collisionSound;
-
 
         private void Awake()
         {
             Spawner = GameObject.FindWithTag("PowerUpSpawner").GetComponent<PowerUpsSpawner>();
             Player = GameObject.FindWithTag("Player");
             RigidBody = GetComponent<Rigidbody>();
+            GamePlayCanvas = GameObject.FindWithTag("GamePlayCanvas").GetComponent<GamePlay>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -41,9 +44,6 @@ namespace Assets.Scripts.PowerUps.Strategy
 
                 IncreasedSpeed = player.speed * powerUpEffect;
                 player.speed += IncreasedSpeed;
-                player.abilityScoreHeader.SetActive(true);
-                player.abilityTimeLeft.SetActive(true);
-                player.abilityScoreHeaderText.text = "Increased speed";
                 IsPowerUpActive = true;
                 player.ActivePowerUp = true;
                 gameObject.SetActive(false);
@@ -64,23 +64,22 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (IsPowerUpActive)
             {
-                if (!Player.GetComponent<Player.Player>()) return;
-                Player.GetComponent<Player.Player>().abilityTimeLeftText.text =
-                    Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
+                if (GamePlayCanvas)
+                    GamePlayCanvas.ShowPowerUpLefTime(PowerUpType, powerUpDuration - Timer);
                 Timer += Time.deltaTime;
 
                 if (Timer > powerUpDuration)
                 {
                     var player = Player.GetComponent<Player.Player>();
                     if (!player) return;
-                    player.abilityTimeLeftText.text =
+                    GamePlayCanvas.abilityTimeLeftText.text =
                         Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                     IsPowerUpActive = false;
                     Destroy(gameObject);
                     Spawner.spawnAreas[ReservedArea].isActive = false;
                     IsAlive = false;
-                    player.abilityScoreHeader.SetActive(false);
-                    player.abilityTimeLeft.SetActive(false);
+                    if (GamePlayCanvas)
+                        GamePlayCanvas.HidePowerUpLefTime(powerUpDuration - Timer);
                     player.speed -= IncreasedSpeed;
                     player.ActivePowerUp = false;
                 }

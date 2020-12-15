@@ -24,6 +24,8 @@ TagManager:
   - Mine
   - SmallExplosion
   - EnemySoldierShell
+  - PauseMessage
+  - GamePlayCanvas
   layers:
   - Default
   - TransparentFX
