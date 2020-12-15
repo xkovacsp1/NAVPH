@@ -8,8 +8,9 @@ namespace Assets.Scripts.Player
         public float minLaunchForce = 15f;
         public float maxLaunchForce = 30f;
         public float maxChargeTime = 0.75f;
-
         public float nextFire = 5.0f;
+        public GameObject playerShell;
+        public GameObject fireExplosion;
 
         public float FireTimer { get; set; }
         public string FireButton { get; set; } = "Fire";
@@ -17,8 +18,6 @@ namespace Assets.Scripts.Player
         public float ChargeSpeed { get; set; }
         public bool Fired { get; set; }
 
-        public GameObject playerShell;
-        public GameObject fireExplosion;
         private void OnEnable()
         {
             CurrentLaunchForce = minLaunchForce;

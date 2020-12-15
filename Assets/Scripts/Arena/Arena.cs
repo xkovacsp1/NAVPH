@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using Assets.Scripts.Shared;
-using Assets.Scripts.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Random = System.Random;
 
 namespace Assets.Scripts.Arena
@@ -14,14 +10,8 @@ namespace Assets.Scripts.Arena
     public class Arena : MonoBehaviour
     {
         public float timeForArena = 60f;
-        public Player.Player Player { get; set; }
         public GameObject coinPrefab;
         public int coinNumber = 15;
-        public Random Random { get; } = new Random();
-        public Renderer Plane { get; private set; }
-        public float YPos { get; set; } = 0f;
-        public GamePlay GamePlayCanvas { get; set; }
-
         public List<SpawnPoint> coinSpawnAreas = new List<SpawnPoint>()
         {
             {new SpawnPoint(14.39f, false)},
@@ -36,13 +26,18 @@ namespace Assets.Scripts.Arena
         public float spawnIntervalLength = 2f;
 
 
+        public Player.Player Player { get; set; }
+        public Random Random { get; } = new Random();
+        public Renderer Plane { get; private set; }
+        public float YPos { get; set; } = 0f;
+
+      
+
+
         private void Awake()
         {
             Plane = GameObject.FindWithTag("Plane").GetComponent<Renderer>();
             Player = GameObject.FindWithTag("Player").GetComponent<Player.Player>();
-            GamePlayCanvas = GameObject.FindWithTag("GamePlayCanvas").GetComponent<GamePlay>();
-            if(GamePlayCanvas.timeLeftText)
-                GamePlayCanvas.timeLeftText.text = Math.Round(timeForArena).ToString(CultureInfo.CurrentCulture);
         }
 
 
@@ -91,10 +86,8 @@ namespace Assets.Scripts.Arena
         public void Update()
         {
             timeForArena -= Time.deltaTime;
-            if(GamePlayCanvas.timeLeftText)
-                GamePlayCanvas.timeLeftText.text = Math.Round(timeForArena).ToString(CultureInfo.CurrentCulture);
 
-            if (timeForArena <= 0f)
+            if (timeForArena <= 0.0f)
             {
                 PlayerPrefs.SetInt("CollectedCoins", Player.NumberOfCollectedCoins);
                 SceneManager.LoadScene(sceneBuildIndex: 3);

@@ -8,29 +8,25 @@ namespace Assets.Scripts.Enemy.Strategy
     {
         public float launchForce = 20f;
         public float nextFire = 3.0f;
+        public float fireRange = 15f; //Range within target will be attacked
+        public float startHealth = 100f;
+        public float fireDamage = 5f;
+        public GameObject enemySoldierShellPrefab;
+        public AudioClip collisionSound;
+        public GameObject fireExplosion;
+
+
         public float FireTimer { get; set; }
         public bool IsAlive { get; set; } = true;
         public int ReservedArea { get; set; }
         public Transform Target { get; private set; }
         private Transform FireTransform { get; set; }
         public Rigidbody RigidBody { get; set; }
-
-        public float fireRange = 15f; //Range within target will be attacked
-
         public NavMeshAgent Agent { get; private set; }
-
         public UnityEngine.UI.Image HealthBar { get; set; }
         public float ActualHealth { get; private set; }
-        public float startHealth = 100f;
-        public float fireDamage = 5f;
         public EnemySpawner Spawner { get; set; }
-        public GameObject enemySoldierShellPrefab;
-
-        public AudioClip collisionSound;
-        public GameObject fireExplosion;
-
-
-
+        
         private void Awake()
         {
             Spawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();

@@ -18,13 +18,13 @@ namespace Assets.Scripts.Obstacles
         };
 
         public float spawnAreasOffset = 5f;
-
-        public float YPos { get; } = 0;
-        public Renderer Plane { get; private set; }
-
         public GameObject barrierPrefab;
         public GameObject rockPrefab;
         public GameObject minePrefab;
+
+
+        public float YPos { get; } = 0;
+        public Renderer Plane { get; private set; }
 
         public enum ObstacleTypes
         {

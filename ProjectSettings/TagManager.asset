@@ -26,6 +26,8 @@ TagManager:
   - EnemySoldierShell
   - PauseMessage
   - GamePlayCanvas
+  - AmmoBox
+  - Barrel
   layers:
   - Default
   - TransparentFX

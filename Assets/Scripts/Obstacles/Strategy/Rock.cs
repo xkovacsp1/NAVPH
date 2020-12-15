@@ -5,6 +5,7 @@ namespace Assets.Scripts.Obstacles.Strategy
     public class Rock : MonoBehaviour
     {
         public float collisionDamage = 10f;
+
         public AudioSource CollisionSound { get; set; }
 
         private void Awake()

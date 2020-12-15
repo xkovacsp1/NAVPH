@@ -22,21 +22,18 @@ namespace Assets.Scripts.Enemy
         };
 
         public float spawnIntervalLength = 2f;
-
         public float zPos = 45f;
-        public float YPos { get; set; } = 0f;
         public int enemyNumber = 10;
-        public Random Random { get; } = new Random();
-
         public GameObject enemyTigerPrefab;
         public GameObject enemySoldierPrefab;
         public GameObject enemyTruckPrefab;
 
+
+        public float YPos { get; set; } = 0f;
+        public Random Random { get; } = new Random();
         public enum EnemyTypes
         {
-            EnemyTiger,
-            EnemySoldier,
-            EnemyTruck
+            EnemyTiger
         }
 
         public void Start()
@@ -63,15 +60,11 @@ namespace Assets.Scripts.Enemy
 
                             context = new EnemyBehaviourContext(GenerateEnemyTiger(spawnPoint, index));
                             break;
+
                         //generate soldier
-                        //case EnemyTypes.EnemySoldier:
                         default:
                             context = new EnemyBehaviourContext(GenerateEnemySoldier(spawnPoint, index));
                             break;
-                        //generate enemy truck
-                        //default:
-                        //    context = new EnemyBehaviourContext(GenerateEnemyTruck(spawnPoint));
-                        //    break;
                     }
 
                     spawnAreas[index].isActive = true;
@@ -113,13 +106,6 @@ namespace Assets.Scripts.Enemy
             return enemySoldier.GetComponent<EnemySoldier>();
         }
 
-        //public IEnemyBehaviour GenerateEnemyTruck(EnemySpawnPoint spawnPoint, int index)
-        //{
-        //    var enemySoldier = Instantiate(Resources.Load(enemyTruckPrefab);
-        //    enemySoldier.transform.rotation = gameObject.transform.rotation;
-        //    enemySoldier.transform.position = new Vector3(spawnPoint.xPos, yPos, zPos);
-        //    return enemySoldier.AddComponent<EnemyTruck>();
-        //}
         public void FixedUpdate()
         {
             foreach (var enemy in EnemyBehaviors)

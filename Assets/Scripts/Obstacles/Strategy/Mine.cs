@@ -6,6 +6,7 @@ namespace Assets.Scripts.Obstacles.Strategy
     {
         public float collisionDamage = 20f;
         public GameObject smallExplosion;
+
         public Rigidbody ShellRigidBody { get; set; }
 
 

@@ -7,6 +7,7 @@ namespace Assets.Scripts.Shell
     {
 
         public GameObject smallExplosion;
+
         public Rigidbody ShellRigidBody { get; set; }
 
         private void Awake()

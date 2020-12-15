@@ -7,20 +7,21 @@ namespace Assets.Scripts.PowerUps.Strategy
 {
     public class Barrel : MonoBehaviour, IPowerUpsBehaviour
     {
-        public bool IsAlive { get; private set; } = true;
         public float rotationSpeed = 60f;
+        public float powerUpDuration = 15.0f;
+        public float powerUpEffect = 0.25f;
+        public AudioClip collisionSound;
+
+        public bool IsAlive { get; private set; } = true;
         public int ReservedArea { get; set; }
         public bool IsPowerUpActive { get; private set; }
         public float Timer { get; set; }
-        public float powerUpDuration = 15.0f;
         public GameObject Player { get; set; }
         public Rigidbody RigidBody { get; set; }
         private float IncreasedSpeed { get; set; }
         public PowerUpsSpawner Spawner { get; set; }
         public GamePlay GamePlayCanvas { get; set; }
         public string PowerUpType { get; set; } = "Increased speed";
-        public float powerUpEffect = 0.25f;
-        public AudioClip collisionSound;
 
         private void Awake()
         {

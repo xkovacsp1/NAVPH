@@ -8,25 +8,25 @@ namespace Assets.Scripts.Enemy.Strategy
     {
         public float launchForce = 30f; //30f
         public float nextFire = 5.0f;
+        public float fireRange = 25f; //Range within target will be atacked
+        public float collisionDamage = 30f;
+        public float fireDamage = 10f;
+        public float startHealth = 100f;
+        public GameObject enemyTigerShellPrefab;
+        public GameObject fireExplosion;
+        public AudioClip collisionSound;
+
         public float FireTimer { get; set; }
         public bool IsAlive { get; private set; } = true;
         public Transform Target { get; private set; }
         public int ReservedArea { get; set; }
-        public float fireRange = 25f; //Range within target will be atacked
-        public float collisionDamage = 30f;
-        public float fireDamage = 10f;
         public NavMeshAgent Agent { get; private set; }
 
         private Transform FireTransform { get; set; }
         public Rigidbody RigidBody { get; set; }
         public UnityEngine.UI.Image HealthBar { get; set; }
         public float ActualHealth { get; private set; }
-        public float startHealth = 100f;
         public EnemySpawner Spawner { get; set; }
-
-        public GameObject enemyTigerShellPrefab;
-        public GameObject fireExplosion;
-        public AudioClip collisionSound;
 
         private void Awake()
         {

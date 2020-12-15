@@ -6,6 +6,7 @@ namespace Assets.Scripts.Shell
     public class PlayerShellCollision : MonoBehaviour
     {
         public GameObject smallExplosion;
+
         public Rigidbody ShellRigidBody { get; set; }
         
         private void Awake()

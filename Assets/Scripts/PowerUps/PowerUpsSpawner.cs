@@ -9,8 +9,6 @@ namespace Assets.Scripts.PowerUps
 {
     public class PowerUpsSpawner : MonoBehaviour
     {
-        public List<PowerUpsBehaviourContext> PowerUpsBehaviors { get; } = new List<PowerUpsBehaviourContext>();
-
         public List<SpawnPoint> spawnAreas = new List<SpawnPoint>()
         {
             {new SpawnPoint(14.39f, false)},
@@ -20,17 +18,16 @@ namespace Assets.Scripts.PowerUps
             {new SpawnPoint(-5.53f, false)},
             {new SpawnPoint(-10.32f, false)}
         };
-
         public float spawnAreasOffset = 5f;
         public float spawnIntervalLength = 2f;
-
-        public float YPos { get; } = 0;
         public int powerUpsNumber = 15;
-        public Random Random { get; } = new Random();
-
         public GameObject ammoBoxPrefab;
         public GameObject barrelPrefab;
         public GameObject drillPrefab;
+
+        public List<PowerUpsBehaviourContext> PowerUpsBehaviors { get; } = new List<PowerUpsBehaviourContext>();
+        public float YPos { get; } = 0;
+        public Random Random { get; } = new Random();
         public Renderer Plane { get; private set; }
 
         private void Awake()
