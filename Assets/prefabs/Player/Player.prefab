@@ -1695,12 +1695,6 @@ MonoBehaviour:
   turnSpeed: 100
   health: 100
   damage: 10
-  textHealth: {fileID: 0}
-  coinNumber: {fileID: 0}
-  abilityScoreHeader: {fileID: 0}
-  abilityTimeLeft: {fileID: 0}
-  abilityTimeLeftText: {fileID: 0}
-  abilityScoreHeaderText: {fileID: 0}
 --- !u!54 &5675031825545566028
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1746,7 +1740,9 @@ MonoBehaviour:
   minLaunchForce: 15
   maxLaunchForce: 30
   maxChargeTime: 0.75
+  nextFire: 2
   playerShell: {fileID: 9152627324826179341, guid: 70bf1b24b44c5854380489555c0172b8, type: 3}
+  fireExplosion: {fileID: 7277902209380964897, guid: 4bff2e13378a5eb4f8976fecd56fb61d, type: 3}
 --- !u!1 &5675031825613747547
 GameObject:
   m_ObjectHideFlags: 0

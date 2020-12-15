@@ -1980,7 +1980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchForce: 20
-  nextFire: 3
+  nextFire: 2
   fireRange: 15
   startHealth: 100
   fireDamage: 5

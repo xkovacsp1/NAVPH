@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Shell;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Enemy.Strategy
 {
@@ -9,6 +8,7 @@ namespace Assets.Scripts.Enemy.Strategy
     {
         public float launchForce = 30f; //30f
         public float nextFire = 5.0f;
+        public float FireTimer { get; set; }
         public bool IsAlive { get; private set; } = true;
         public Transform Target { get; private set; }
         public int ReservedArea { get; set; }
@@ -34,9 +34,10 @@ namespace Assets.Scripts.Enemy.Strategy
             HealthBar = GetComponentsInChildren<UnityEngine.UI.Image>()[0];
             RigidBody = GetComponent<Rigidbody>();
             Agent = GetComponent<NavMeshAgent>();
-            Target = GameObject.FindWithTag("Player").transform; //target the player
+            Target = GameObject.FindWithTag("Player").transform;
             FireTransform = GetComponentsInChildren<Transform>()[2];
             ActualHealth = startHealth;
+            FireTimer = nextFire;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -74,10 +75,12 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void Attack()
         {
+            FireTimer += Time.deltaTime;
             var distance = Vector3.Distance(RigidBody.position, Target.position);
-            if (distance <= fireRange && Time.time > nextFire)
+            if (distance <= fireRange && FireTimer > nextFire)
             {
-                nextFire = Time.time + Random.Range(1f, 3f);
+
+                FireTimer = 0;
                 var enemyTigerShellObject =
                     Instantiate(enemyTigerShellPrefab);
                 var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();

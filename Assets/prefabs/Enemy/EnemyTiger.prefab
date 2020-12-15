@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchForce: 30
-  nextFire: 5
+  nextFire: 3
   fireRange: 25
   collisionDamage: 30
   fireDamage: 10

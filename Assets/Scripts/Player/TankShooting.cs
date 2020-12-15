@@ -9,7 +9,10 @@ namespace Assets.Scripts.Player
         public float maxLaunchForce = 30f;
         public float maxChargeTime = 0.75f;
 
-        public string FireButton { get; set; }
+        public float nextFire = 5.0f;
+
+        public float FireTimer { get; set; }
+        public string FireButton { get; set; } = "Fire";
         public float CurrentLaunchForce { get; set; }
         public float ChargeSpeed { get; set; }
         public bool Fired { get; set; }
@@ -23,12 +26,13 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
-            FireButton = "Fire";
+            FireTimer = nextFire;
             ChargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
         }
 
         private void Update()
         {
+            FireTimer += Time.deltaTime;
             if (CurrentLaunchForce >= maxLaunchForce && !Fired)
             {
                 CurrentLaunchForce = maxLaunchForce;
@@ -48,14 +52,15 @@ namespace Assets.Scripts.Player
 
             else if (Input.GetButtonUp(FireButton) && !Fired)
             {
-                Fire();
+                if(FireTimer > nextFire)
+                    Fire();
             }
         }
 
         private void Fire()
         {
             Fired = true;
-
+            FireTimer = 0;
             var shellInstance = Instantiate(playerShell);
             var shellRigidBody = shellInstance.GetComponent<Rigidbody>();
             if (!shellRigidBody) return;
@@ -67,7 +72,6 @@ namespace Assets.Scripts.Player
             ShowFireExplosion();
 
             CurrentLaunchForce = minLaunchForce;
-            //shellInstance.AddComponent<PlayerShellCollision>();
         }
 
 

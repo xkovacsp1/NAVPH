@@ -2598,7 +2598,7 @@ PrefabInstance:
       objectReference: {fileID: 612772058}
     - target: {fileID: 5675031825545566029, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
       propertyPath: speed
-      value: 500
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5675031825545566030, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
       propertyPath: playerShell
@@ -2608,5 +2608,13 @@ PrefabInstance:
       propertyPath: fireExplosion
       value: 
       objectReference: {fileID: 7277902209380964897, guid: 4bff2e13378a5eb4f8976fecd56fb61d, type: 3}
+    - target: {fileID: 5675031825545566030, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
+      propertyPath: maxChargeTime
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675031825545566030, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
+      propertyPath: nextFire
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
