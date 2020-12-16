@@ -9,14 +9,15 @@ namespace Assets.Scripts.Player
         public float turnSpeed = 180f;
         public float health = 100f;
         public float damage = 10f;
+        public float collisionDamage = 10f;
 
         public int NumberOfCollectedCoins { get; set; }
-        public string MovementAxisName { get; set; }="Vertical";
+        public string MovementAxisName { get; set; } = "Vertical";
         public string TurnAxisName { get; set; } = "Horizontal";
         public Rigidbody RigidBody { get; set; }
         public float MovementInputValue { get; set; }
         public float TurnInputValue { get; set; }
-        public string PauseButton { get; set; }="Pause";
+        public string PauseButton { get; set; } = "Pause";
         public string CancelButton { get; set; } = "Cancel";
         public bool ActivePowerUp { get; set; } = false;
         public bool GamePaused { get; set; }
@@ -34,11 +35,9 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
-
             //pause game with player
             if (Input.GetButtonDown(PauseButton))
             {
-
                 if (Time.timeScale == 1.0f)
                 {
                     Time.timeScale = 0.0f;
@@ -77,14 +76,16 @@ namespace Assets.Scripts.Player
 
         private void Move()
         {
-            RigidBody.velocity = transform.forward * MovementInputValue * speed * Time.deltaTime;
+            if (RigidBody)
+                RigidBody.velocity = transform.forward * MovementInputValue * speed * Time.deltaTime;
         }
 
         private void Turn()
         {
             float playerTurn = TurnInputValue * turnSpeed * Time.deltaTime;
             Quaternion turnRotation = Quaternion.Euler(0f, playerTurn, 0f);
-            RigidBody.MoveRotation(RigidBody.rotation * turnRotation);
+            if (RigidBody)
+                RigidBody.MoveRotation(RigidBody.rotation * turnRotation);
         }
     }
 }

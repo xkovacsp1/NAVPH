@@ -44,7 +44,7 @@ namespace Assets.Scripts.PowerUps
 
         public void Start()
         {
-            if (spawnAreas.Count > 0)
+            if (spawnAreas.Count > 0 && Plane)
                 StartCoroutine(MakeEnemies());
         }
 

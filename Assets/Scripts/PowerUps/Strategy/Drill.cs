@@ -23,7 +23,7 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (!other.gameObject.CompareTag($"Player")) return;
 
-            if (collisionSound)
+            if (collisionSound && RigidBody)
             {
                 AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
             }
@@ -31,7 +31,8 @@ namespace Assets.Scripts.PowerUps.Strategy
 
             other.GetComponent<Player.Player>().health += powerUpEffect;
             Destroy(gameObject);
-            Spawner.spawnAreas[ReservedArea].isActive = false;
+            if(Spawner)
+                Spawner.spawnAreas[ReservedArea].isActive = false;
             IsAlive = false;
         }
 

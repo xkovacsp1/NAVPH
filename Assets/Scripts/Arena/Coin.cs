@@ -18,12 +18,14 @@ namespace Assets.Scripts.Arena
         {
             if (!other.gameObject.CompareTag($"Player")) return;
 
-            if (collisionSound)
+            if (collisionSound && RigidBody)
             {
                 AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
             }
-            if (!other.GetComponent<Player.Player>()) return;
-            other.GetComponent<Player.Player>().NumberOfCollectedCoins += coinEffect;
+
+            var player = other.GetComponent<Player.Player>();
+            if (!player) return;
+            player.NumberOfCollectedCoins += coinEffect;
             Destroy(gameObject);
         }
 

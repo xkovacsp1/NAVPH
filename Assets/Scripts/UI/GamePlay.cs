@@ -2,6 +2,7 @@
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
+
 namespace Assets.Scripts.UI
 {
     public class GamePlay : MonoBehaviour
@@ -20,7 +21,6 @@ namespace Assets.Scripts.UI
 
         private void Awake()
         {
-
             Player = GameObject.FindWithTag("Player").GetComponent<Player.Player>();
             Arena = GameObject.FindWithTag("Plane").GetComponent<Arena.Arena>();
             if (Arena)
@@ -43,12 +43,12 @@ namespace Assets.Scripts.UI
             ShowTimeLeftForArena();
             ShowHealthScore();
             ShowCoinScore();
-
         }
 
         private void ShowPauseMessage()
         {
-            pauseMessage.SetActive(true);
+            if (pauseMessage)
+                pauseMessage.SetActive(true);
         }
 
         private void ShowHealthScore()
@@ -61,38 +61,42 @@ namespace Assets.Scripts.UI
 
         private void ShowCoinScore()
         {
-            coinNumber.text = Player.NumberOfCollectedCoins.ToString(CultureInfo.CurrentCulture);
+            if (coinNumber)
+                coinNumber.text = Player.NumberOfCollectedCoins.ToString(CultureInfo.CurrentCulture);
         }
 
         private void ShowTimeLeftForArena()
         {
-            timeLeftText.text = Math.Round(Arena.timeForArena).ToString(CultureInfo.CurrentCulture);
+            if (timeLeftText)
+                timeLeftText.text = Math.Round(Arena.timeForArena).ToString(CultureInfo.CurrentCulture);
         }
 
 
         private void HidePauseMessage()
         {
-            pauseMessage.SetActive(false);
+            if (pauseMessage)
+                pauseMessage.SetActive(false);
         }
 
-       public void ShowPowerUpLefTime(string powerUpType, float timeLeft)
+        public void ShowPowerUpLefTime(string powerUpType, float timeLeft)
         {
+            if (!abilityScoreHeader || !abilityTimeLeft || !abilityScoreHeaderText || !abilityTimeLeftText) return;
+
             abilityScoreHeader.SetActive(true);
             abilityTimeLeft.SetActive(true);
             abilityScoreHeaderText.text = powerUpType;
             abilityTimeLeftText.text =
-            Math.Round(timeLeft).ToString(CultureInfo.CurrentCulture);
+                Math.Round(timeLeft).ToString(CultureInfo.CurrentCulture);
         }
 
-       public void HidePowerUpLefTime(float timeLeft)
-       {
-           abilityTimeLeftText.text =
-               Math.Round(timeLeft).ToString(CultureInfo.CurrentCulture);
-           abilityScoreHeader.SetActive(false);
-           abilityTimeLeft.SetActive(false);
+        public void HidePowerUpLefTime(float timeLeft)
+        {
+            if (!abilityScoreHeader || !abilityTimeLeft || !abilityTimeLeftText) return;
+
+            abilityTimeLeftText.text =
+                Math.Round(timeLeft).ToString(CultureInfo.CurrentCulture);
+            abilityScoreHeader.SetActive(false);
+            abilityTimeLeft.SetActive(false);
         }
-
-
-
     }
 }

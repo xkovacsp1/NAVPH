@@ -7,12 +7,12 @@ namespace Assets.Scripts.Obstacles.Strategy
         public float collisionDamage = 20f;
         public GameObject smallExplosion;
 
-        public Rigidbody ShellRigidBody { get; set; }
+        public Rigidbody MineRigidBody { get; set; }
 
 
         private void Awake()
         {
-            ShellRigidBody = gameObject.GetComponent<Rigidbody>();
+            MineRigidBody = gameObject.GetComponent<Rigidbody>();
         }
 
 
@@ -20,8 +20,9 @@ namespace Assets.Scripts.Obstacles.Strategy
         {
             if (other.gameObject.CompareTag($"Player"))
             {
-                if (!other.GetComponent<Player.Player>()) return;
-                other.GetComponent<Player.Player>().health -= collisionDamage;
+                var player = other.GetComponent<Player.Player>();
+                if (!player) return;
+                player.health -= collisionDamage;
                 ShowExplosion();
                 Destroy(gameObject);
             }
@@ -29,16 +30,13 @@ namespace Assets.Scripts.Obstacles.Strategy
 
         private void ShowExplosion()
         {
-            if (!smallExplosion) return;
+            if (!smallExplosion && !MineRigidBody) return;
             var explosion = Instantiate(smallExplosion);
             var explosionRigidBody = explosion.GetComponent<Rigidbody>();
-            explosionRigidBody.position = ShellRigidBody.position;
-            explosionRigidBody.rotation = ShellRigidBody.rotation;
+            explosionRigidBody.position = MineRigidBody.position;
+            explosionRigidBody.rotation = MineRigidBody.rotation;
             explosion.GetComponent<ParticleSystem>().Play();
             Destroy(explosion.gameObject, explosion.GetComponent<ParticleSystem>().main.duration);
         }
-
-
-
     }
 }

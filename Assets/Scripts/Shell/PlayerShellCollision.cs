@@ -2,38 +2,38 @@
 
 namespace Assets.Scripts.Shell
 {
-
     public class PlayerShellCollision : MonoBehaviour
     {
         public GameObject smallExplosion;
 
         public Rigidbody ShellRigidBody { get; set; }
-        
+
         private void Awake()
         {
-            ShellRigidBody= gameObject.GetComponent<Rigidbody>();
+            ShellRigidBody = gameObject.GetComponent<Rigidbody>();
         }
 
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag($"EnemyTiger"))
+            if (other.gameObject.CompareTag($"EnemyTigerCollider"))
             {
-                if (!other.GetComponent<Enemy.Strategy.EnemyTiger>()) return;
-                other.GetComponent<Enemy.Strategy.EnemyTiger>()
-                    .TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
+                var enemyTiger = GameObject.FindWithTag("EnemyTiger").GetComponent<Enemy.Strategy.EnemyTiger>();
+                if (!enemyTiger) return;
+                enemyTiger.TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
                 ShowExplosion();
                 Destroy(gameObject);
             }
             else if (other.gameObject.CompareTag($"EnemySoldier"))
             {
-                if (!other.GetComponent<Enemy.Strategy.EnemySoldier>()) return;
-                other.GetComponent<Enemy.Strategy.EnemySoldier>()
-                    .TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
+                var enemySoldier = other.GetComponent<Enemy.Strategy.EnemySoldier>();
+                if (!enemySoldier) return;
+                enemySoldier.TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
                 ShowExplosion();
                 Destroy(gameObject);
             }
-            else if (other.gameObject.CompareTag($"Plane") || other.gameObject.CompareTag($"LeftWall") || other.gameObject.CompareTag($"RightWall"))
+            else if (other.gameObject.CompareTag($"Plane") || other.gameObject.CompareTag($"LeftWall") ||
+                     other.gameObject.CompareTag($"RightWall"))
             {
                 ShowExplosion();
                 Destroy(gameObject);
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Shell
 
         private void ShowExplosion()
         {
-            if (!smallExplosion) return;
+            if (!smallExplosion || !ShellRigidBody) return;
             var explosion = Instantiate(smallExplosion);
             var explosionRigidBody = explosion.GetComponent<Rigidbody>();
             explosionRigidBody.position = ShellRigidBody.position;
@@ -50,8 +50,5 @@ namespace Assets.Scripts.Shell
             explosion.GetComponent<ParticleSystem>().Play();
             Destroy(explosion.gameObject, explosion.GetComponent<ParticleSystem>().main.duration);
         }
-
-
     }
 }
-

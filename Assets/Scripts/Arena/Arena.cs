@@ -12,6 +12,7 @@ namespace Assets.Scripts.Arena
         public float timeForArena = 60f;
         public GameObject coinPrefab;
         public int coinNumber = 15;
+
         public List<SpawnPoint> coinSpawnAreas = new List<SpawnPoint>()
         {
             {new SpawnPoint(14.39f, false)},
@@ -31,8 +32,6 @@ namespace Assets.Scripts.Arena
         public Renderer Plane { get; private set; }
         public float YPos { get; set; } = 0f;
 
-      
-
 
         private void Awake()
         {
@@ -43,7 +42,7 @@ namespace Assets.Scripts.Arena
 
         private void Start()
         {
-            if (coinSpawnAreas.Count > 0)
+            if (coinSpawnAreas.Count > 0 && Plane)
                 StartCoroutine(GenerateCoins());
         }
 
@@ -56,7 +55,8 @@ namespace Assets.Scripts.Arena
                 var index = Random.Next(coinSpawnAreas.Count);
                 var spawnPoint = coinSpawnAreas[index];
                 var bounds = Plane.bounds;
-                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + spawnAreasOffset, bounds.extents.z - spawnAreasOffset);
+                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + spawnAreasOffset,
+                    bounds.extents.z - spawnAreasOffset);
                 if (!spawnPoint.isActive)
                 {
                     if (GenerateCoin(spawnPoint))
@@ -89,7 +89,8 @@ namespace Assets.Scripts.Arena
 
             if (timeForArena <= 0.0f)
             {
-                PlayerPrefs.SetInt("CollectedCoins", Player.NumberOfCollectedCoins);
+                if (Player)
+                    PlayerPrefs.SetInt("CollectedCoins", Player.NumberOfCollectedCoins);
                 SceneManager.LoadScene(sceneBuildIndex: 3);
             }
         }

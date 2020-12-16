@@ -28,6 +28,9 @@ TagManager:
   - GamePlayCanvas
   - AmmoBox
   - Barrel
+  - schutzstaffel_a
+  - EnemyTigerCollider
+  - PlayerCollider
   layers:
   - Default
   - TransparentFX

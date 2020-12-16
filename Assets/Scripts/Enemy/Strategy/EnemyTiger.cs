@@ -6,9 +6,9 @@ namespace Assets.Scripts.Enemy.Strategy
 {
     public class EnemyTiger : MonoBehaviour, IEnemyBehaviour
     {
-        public float launchForce = 30f; //30f
+        public float launchForce = 30f;
         public float nextFire = 5.0f;
-        public float fireRange = 25f; //Range within target will be atacked
+        public float fireRange = 25f;
         public float collisionDamage = 30f;
         public float fireDamage = 10f;
         public float startHealth = 100f;
@@ -45,46 +45,47 @@ namespace Assets.Scripts.Enemy.Strategy
             if (!other.gameObject.CompareTag($"Player")) return;
 
 
-
-            if (collisionSound)
+            if (collisionSound && RigidBody)
             {
                 AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
             }
 
 
-            ActualHealth = ActualHealth - 10.0f;
-            HealthBar.fillAmount = ActualHealth / startHealth;
+            if (HealthBar)
+                HealthBar.fillAmount = ActualHealth / startHealth;
 
-
-            // decrease player health
-            if (!other.GetComponent<Player.Player>()) return;
-            other.GetComponent<Player.Player>().health -= collisionDamage;
+            var player = other.GetComponent<Player.Player>();
+            if (!player) return;
+            ActualHealth -= player.collisionDamage;
+            player.health -= collisionDamage;
 
             if (ActualHealth <= 0.0)
             {
                 IsAlive = false;
-                Spawner.spawnAreas[ReservedArea].isActive = false;
+                if (Spawner)
+                    Spawner.spawnAreas[ReservedArea].isActive = false;
                 Destroy(gameObject);
             }
         }
 
         public void Move()
         {
-            Agent.destination = Target.position;
+            if (Target && Agent)
+                Agent.destination = Target.position;
         }
 
         public void Attack()
         {
+            if (!enemyTigerShellPrefab && !RigidBody) return;
+
             FireTimer += Time.deltaTime;
             var distance = Vector3.Distance(RigidBody.position, Target.position);
             if (distance <= fireRange && FireTimer > nextFire)
             {
-
                 FireTimer = 0;
-                var enemyTigerShellObject =
-                    Instantiate(enemyTigerShellPrefab);
+                var enemyTigerShellObject = Instantiate(enemyTigerShellPrefab);
                 var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
-                if (!enemyTigerShellRigidBody) return;
+                if (!enemyTigerShellRigidBody || !FireTransform) return;
                 var transformShell = enemyTigerShellRigidBody.transform;
                 transformShell.rotation = FireTransform.rotation;
                 transformShell.position = FireTransform.position;
@@ -103,13 +104,17 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void TakeDamage(float damage)
         {
-            ActualHealth = ActualHealth - damage;
-            HealthBar.fillAmount = ActualHealth / startHealth;
+            ActualHealth -= damage;
+            if (HealthBar)
+                HealthBar.fillAmount = ActualHealth / startHealth;
 
             if (ActualHealth <= 0.0)
             {
                 IsAlive = false;
-                Spawner.spawnAreas[ReservedArea].isActive = false;
+
+                if (Spawner)
+                    Spawner.spawnAreas[ReservedArea].isActive = false;
+
                 Destroy(gameObject);
             }
         }
@@ -119,12 +124,12 @@ namespace Assets.Scripts.Enemy.Strategy
             if (!fireExplosion) return;
             var explosion = Instantiate(fireExplosion);
             var explosionRigidBody = explosion.GetComponent<Rigidbody>();
+            if (!explosionRigidBody || !FireTransform) return;
             explosionRigidBody.position = FireTransform.position;
             explosionRigidBody.rotation = FireTransform.rotation;
             explosion.GetComponentInChildren<ParticleSystem>().Play();
-            Destroy(explosion.GetComponentInChildren<ParticleSystem>(), explosion.GetComponentInChildren<ParticleSystem>().main.duration);
+            Destroy(explosion.GetComponentInChildren<ParticleSystem>(),
+                explosion.GetComponentInChildren<ParticleSystem>().main.duration);
         }
-
-
     }
 }

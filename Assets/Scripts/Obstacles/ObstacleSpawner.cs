@@ -40,7 +40,7 @@ namespace Assets.Scripts.Obstacles
 
         public void Start()
         {
-            if (spawnAreas.Count > 0)
+            if (spawnAreas.Count > 0 && Plane)
                 MakeObstacles();
         }
 
@@ -50,7 +50,8 @@ namespace Assets.Scripts.Obstacles
             {
                 ObstacleTypes randomObstacleType = (ObstacleTypes) Random.Range(0, 3);
                 var bounds = Plane.bounds;
-                spawnPoint.ZPos = Random.Range((-bounds.extents.x) + spawnAreasOffset, bounds.extents.z - spawnAreasOffset);
+                spawnPoint.ZPos = Random.Range((-bounds.extents.x) + spawnAreasOffset,
+                    bounds.extents.z - spawnAreasOffset);
                 switch (randomObstacleType)
                 {
                     //generate Barrel

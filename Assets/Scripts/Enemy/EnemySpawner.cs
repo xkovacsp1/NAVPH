@@ -26,11 +26,10 @@ namespace Assets.Scripts.Enemy
         public int enemyNumber = 10;
         public GameObject enemyTigerPrefab;
         public GameObject enemySoldierPrefab;
-        public GameObject enemyTruckPrefab;
-
 
         public float YPos { get; set; } = 0f;
         public Random Random { get; } = new Random();
+
         public enum EnemyTypes
         {
             EnemyTiger
@@ -97,11 +96,9 @@ namespace Assets.Scripts.Enemy
                 return null;
             }
 
-
             var enemySoldier = Instantiate(enemySoldierPrefab);
             enemySoldier.transform.rotation = gameObject.transform.rotation;
             enemySoldier.transform.position = new Vector3(spawnPoint.xPos, YPos, zPos);
-            enemySoldier.AddComponent<EnemySoldier>();
             enemySoldier.GetComponent<EnemySoldier>().ReservedArea = index;
             return enemySoldier.GetComponent<EnemySoldier>();
         }

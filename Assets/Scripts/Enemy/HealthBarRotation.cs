@@ -11,11 +11,13 @@ namespace Assets.Scripts.Enemy
             CameraToLookAt = GameObject.FindWithTag("Player").transform.GetChild(7).GetComponent<Camera>();
         }
 
-        void Update()
+        public void Update()
         {
-            var v = CameraToLookAt.transform.position - transform.position;
-            v.x = v.z = 0.0f;
-            transform.LookAt(CameraToLookAt.transform.position - v);
+            if (!CameraToLookAt) return;
+            var cameraPosition = CameraToLookAt.transform.position;
+            var movementOffset = cameraPosition - transform.position;
+            movementOffset.x = movementOffset.z = 0.0f;
+            transform.LookAt(cameraPosition - movementOffset);
             transform.Rotate(0, 180, 0);
         }
     }

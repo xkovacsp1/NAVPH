@@ -8,7 +8,7 @@ namespace Assets.Scripts.Enemy.Strategy
     {
         public float launchForce = 20f;
         public float nextFire = 3.0f;
-        public float fireRange = 15f; //Range within target will be attacked
+        public float fireRange = 15f;
         public float startHealth = 100f;
         public float fireDamage = 5f;
         public GameObject enemySoldierShellPrefab;
@@ -26,7 +26,8 @@ namespace Assets.Scripts.Enemy.Strategy
         public UnityEngine.UI.Image HealthBar { get; set; }
         public float ActualHealth { get; private set; }
         public EnemySpawner Spawner { get; set; }
-        
+        public Animator Animator { get; set; }
+
         private void Awake()
         {
             Spawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
@@ -35,6 +36,9 @@ namespace Assets.Scripts.Enemy.Strategy
             Agent = GetComponent<NavMeshAgent>();
             Target = GameObject.FindWithTag("Player").transform;
             FireTransform = GetComponentsInChildren<Transform>()[51];
+            Animator = GetComponentsInChildren<Animator>()[0];
+            if (Animator)
+                Animator.SetInteger($"Status_walk", 1);
             ActualHealth = startHealth;
             FireTimer = nextFire;
         }
@@ -43,23 +47,27 @@ namespace Assets.Scripts.Enemy.Strategy
         {
             if (!other.gameObject.CompareTag($"Player")) return;
 
-            if (collisionSound)
+            if (collisionSound && RigidBody)
             {
                 AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
             }
 
             Destroy(gameObject);
-            Spawner.spawnAreas[ReservedArea].isActive = false;
+            if (Spawner)
+                Spawner.spawnAreas[ReservedArea].isActive = false;
             IsAlive = false;
         }
 
         public void Move()
         {
-            Agent.destination = Target.position;
+            if (Target && Agent)
+                Agent.destination = Target.position;
         }
 
         public void Attack()
         {
+            if (!enemySoldierShellPrefab && !RigidBody) return;
+
             FireTimer += Time.deltaTime;
             var distance = Vector3.Distance(RigidBody.position, Target.position);
             if (distance <= fireRange && FireTimer > nextFire)
@@ -69,7 +77,7 @@ namespace Assets.Scripts.Enemy.Strategy
                 var enemyTigerShellObject =
                     Instantiate(enemySoldierShellPrefab);
                 var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
-                if (!enemyTigerShellRigidBody) return;
+                if (!enemyTigerShellRigidBody || !FireTransform) return;
                 var transformShell = enemyTigerShellRigidBody.transform;
                 transformShell.rotation = FireTransform.rotation;
                 transformShell.position = FireTransform.position;
@@ -88,13 +96,15 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void TakeDamage(float damage)
         {
-            ActualHealth = ActualHealth - damage;
-            HealthBar.fillAmount = ActualHealth / startHealth;
+            ActualHealth -= damage;
+            if (HealthBar)
+                HealthBar.fillAmount = ActualHealth / startHealth;
 
             if (ActualHealth <= 0.0)
             {
                 IsAlive = false;
-                Spawner.spawnAreas[ReservedArea].isActive = false;
+                if (Spawner)
+                    Spawner.spawnAreas[ReservedArea].isActive = false;
                 Destroy(gameObject);
             }
         }
@@ -105,12 +115,12 @@ namespace Assets.Scripts.Enemy.Strategy
             if (!fireExplosion) return;
             var explosion = Instantiate(fireExplosion);
             var explosionRigidBody = explosion.GetComponent<Rigidbody>();
+            if (!explosionRigidBody || !FireTransform) return;
             explosionRigidBody.position = FireTransform.position;
             explosionRigidBody.rotation = FireTransform.rotation;
             explosion.GetComponentInChildren<ParticleSystem>().Play();
-            Destroy(explosion.GetComponentInChildren<ParticleSystem>(), explosion.GetComponentInChildren<ParticleSystem>().main.duration);
+            Destroy(explosion.GetComponentInChildren<ParticleSystem>(),
+                explosion.GetComponentInChildren<ParticleSystem>().main.duration);
         }
-
-
     }
 }

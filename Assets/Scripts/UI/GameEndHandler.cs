@@ -12,13 +12,15 @@ namespace Assets.Scripts.UI
 
         private void Start()
         {
-            collectedCoins.text += PlayerPrefs.GetInt("CollectedCoins").ToString();
+            if (collectedCoins)
+                collectedCoins.text += PlayerPrefs.GetInt("CollectedCoins").ToString();
             if (PlayerPrefs.GetInt("CollectedCoins") > PlayerPrefs.GetInt("HighestNumberOfCollectedCoins"))
             {
                 PlayerPrefs.SetInt("HighestNumberOfCollectedCoins", PlayerPrefs.GetInt("CollectedCoins"));
             }
 
-            highestNUmberOfCollectedCoins.text += PlayerPrefs.GetInt("HighestNumberOfCollectedCoins").ToString();
+            if (highestNUmberOfCollectedCoins)
+                highestNUmberOfCollectedCoins.text += PlayerPrefs.GetInt("HighestNumberOfCollectedCoins").ToString();
         }
 
 

@@ -20,7 +20,7 @@ namespace Assets.Scripts.PowerUps.Strategy
         public PowerUpsSpawner Spawner { get; set; }
         public GamePlay GamePlayCanvas { get; set; }
         public string PowerUpType { get; set; } = "Increased damage";
-        
+
         private void Awake()
         {
             Spawner = GameObject.FindWithTag("PowerUpSpawner").GetComponent<PowerUpsSpawner>();
@@ -33,7 +33,7 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (other.gameObject.CompareTag($"Player") && !other.GetComponent<Player.Player>().ActivePowerUp)
             {
-                if (collisionSound)
+                if (collisionSound && RigidBody)
                 {
                     AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
                 }
@@ -46,7 +46,6 @@ namespace Assets.Scripts.PowerUps.Strategy
                 IsPowerUpActive = true;
                 player.ActivePowerUp = true;
                 gameObject.SetActive(false);
-
             }
         }
 
@@ -66,7 +65,7 @@ namespace Assets.Scripts.PowerUps.Strategy
             {
                 if (GamePlayCanvas)
                     GamePlayCanvas.ShowPowerUpLefTime(PowerUpType, powerUpDuration - Timer);
-             
+
                 Timer += Time.deltaTime;
 
                 if (Timer > powerUpDuration)
@@ -76,9 +75,10 @@ namespace Assets.Scripts.PowerUps.Strategy
 
                     IsPowerUpActive = false;
                     Destroy(gameObject);
-                    Spawner.spawnAreas[ReservedArea].isActive = false;
+                    if (Spawner)
+                        Spawner.spawnAreas[ReservedArea].isActive = false;
                     IsAlive = false;
-                  
+
                     if (GamePlayCanvas)
                         GamePlayCanvas.HidePowerUpLefTime(powerUpDuration - Timer);
                     player.damage -= IncreasedDamage;

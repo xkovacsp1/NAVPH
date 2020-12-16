@@ -60,9 +60,10 @@ namespace Assets.Scripts.Player
         {
             Fired = true;
             FireTimer = 0;
+            if (!playerShell) return;
             var shellInstance = Instantiate(playerShell);
             var shellRigidBody = shellInstance.GetComponent<Rigidbody>();
-            if (!shellRigidBody) return;
+            if (!shellRigidBody || !fireTransform) return;
             shellRigidBody.position = fireTransform.position;
             shellRigidBody.rotation = fireTransform.rotation;
 

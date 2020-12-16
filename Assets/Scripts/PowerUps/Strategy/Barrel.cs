@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using Assets.Scripts.UI;
+﻿using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.PowerUps.Strategy
@@ -35,11 +33,11 @@ namespace Assets.Scripts.PowerUps.Strategy
         {
             if (other.gameObject.CompareTag($"Player") && !other.GetComponent<Player.Player>().ActivePowerUp)
             {
-             
-                if (collisionSound)
+                if (collisionSound && RigidBody)
                 {
                     AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
                 }
+
                 var player = other.GetComponent<Player.Player>();
                 if (!player) return;
 
@@ -73,11 +71,10 @@ namespace Assets.Scripts.PowerUps.Strategy
                 {
                     var player = Player.GetComponent<Player.Player>();
                     if (!player) return;
-                    GamePlayCanvas.abilityTimeLeftText.text =
-                        Math.Round((powerUpDuration - Timer)).ToString(CultureInfo.CurrentCulture);
                     IsPowerUpActive = false;
                     Destroy(gameObject);
-                    Spawner.spawnAreas[ReservedArea].isActive = false;
+                    if (Spawner)
+                        Spawner.spawnAreas[ReservedArea].isActive = false;
                     IsAlive = false;
                     if (GamePlayCanvas)
                         GamePlayCanvas.HidePowerUpLefTime(powerUpDuration - Timer);

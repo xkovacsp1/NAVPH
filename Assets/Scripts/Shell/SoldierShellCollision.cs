@@ -5,7 +5,6 @@ namespace Assets.Scripts.Shell
 {
     public class SoldierShellCollision : MonoBehaviour
     {
-
         public GameObject smallExplosion;
 
         public Rigidbody ShellRigidBody { get; set; }
@@ -19,13 +18,14 @@ namespace Assets.Scripts.Shell
         {
             if (other.gameObject.CompareTag($"Player"))
             {
-                if (!other.GetComponent<Player.Player>()) return;
-                other.GetComponent<Player.Player>().health -=
-                    GameObject.FindWithTag("EnemySoldier").GetComponent<EnemySoldier>().fireDamage;
+                var player = other.GetComponent<Player.Player>();
+                if (!player) return;
+                player.health -= GameObject.FindWithTag("EnemySoldier").GetComponent<EnemySoldier>().fireDamage;
                 ShowExplosion();
                 Destroy(gameObject);
             }
-            else if (other.gameObject.CompareTag($"Plane") || other.gameObject.CompareTag($"LeftWall") || other.gameObject.CompareTag($"RightWall"))
+            else if (other.gameObject.CompareTag($"Plane") || other.gameObject.CompareTag($"LeftWall") ||
+                     other.gameObject.CompareTag($"RightWall"))
             {
                 ShowExplosion();
                 Destroy(gameObject);
@@ -35,13 +35,12 @@ namespace Assets.Scripts.Shell
 
         private void ShowExplosion()
         {
-            if (!smallExplosion) return;
+            if (!smallExplosion || !ShellRigidBody) return;
             var explosion = Instantiate(smallExplosion);
             var explosionRigidBody = explosion.GetComponent<Rigidbody>();
             explosionRigidBody.position = ShellRigidBody.position;
             explosionRigidBody.rotation = ShellRigidBody.rotation;
             explosion.GetComponent<ParticleSystem>().Play();
-
             Destroy(explosion.gameObject, explosion.GetComponent<ParticleSystem>().main.duration);
         }
     }
