@@ -14,6 +14,7 @@ namespace Assets.Scripts.Enemy.Strategy
         public float startHealth = 100f;
         public GameObject enemyTigerShellPrefab;
         public GameObject fireExplosion;
+        public GameObject smallExplosion;
         public AudioClip collisionSound;
 
         public float FireTimer { get; set; }
@@ -50,7 +51,6 @@ namespace Assets.Scripts.Enemy.Strategy
                 AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
             }
 
-
             if (HealthBar)
                 HealthBar.fillAmount = ActualHealth / startHealth;
 
@@ -82,6 +82,7 @@ namespace Assets.Scripts.Enemy.Strategy
             var distance = Vector3.Distance(RigidBody.position, Target.position);
             if (distance <= fireRange && FireTimer > nextFire)
             {
+                Debug.Log($"distrance {distance}");
                 FireTimer = 0;
                 var enemyTigerShellObject = Instantiate(enemyTigerShellPrefab);
                 var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
@@ -113,7 +114,7 @@ namespace Assets.Scripts.Enemy.Strategy
 
                 if (Spawner)
                     Spawner.spawnAreas[ReservedArea].isActive = false;
-
+                ShowExplosion();
                 Destroy(gameObject);
             }
         }
@@ -130,5 +131,19 @@ namespace Assets.Scripts.Enemy.Strategy
             Destroy(explosion.GetComponentInChildren<ParticleSystem>(),
                 explosion.GetComponentInChildren<ParticleSystem>().main.duration);
         }
+
+
+        private void ShowExplosion()
+        {
+            if (!smallExplosion || !RigidBody) return;
+            var explosion = Instantiate(smallExplosion);
+            var explosionRigidBody = explosion.GetComponent<Rigidbody>();
+            explosionRigidBody.position = RigidBody.position;
+            explosionRigidBody.rotation = RigidBody.rotation;
+            explosion.GetComponent<ParticleSystem>().Play();
+            Destroy(explosion.gameObject, explosion.GetComponent<ParticleSystem>().main.duration);
+        }
+
+
     }
 }

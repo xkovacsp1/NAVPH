@@ -73,7 +73,6 @@ namespace Assets.Scripts.Enemy.Strategy
             if (distance <= fireRange && FireTimer > nextFire)
             {
                 FireTimer = 0;
-                nextFire = Time.time + Random.Range(1f, 3f);
                 var enemyTigerShellObject =
                     Instantiate(enemySoldierShellPrefab);
                 var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
