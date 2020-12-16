@@ -93,7 +93,6 @@ namespace Assets.Scripts.Enemy.Strategy
                 ShowFireExplosion();
 
                 enemyTigerShellRigidBody.velocity = launchForce * FireTransform.forward;
-                enemyTigerShellObject.AddComponent<TigerShellCollision>();
             }
         }
 

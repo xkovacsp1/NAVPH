@@ -6,7 +6,6 @@ namespace Assets.Scripts.Shell
     public class TigerShellCollision : MonoBehaviour
     {
         public GameObject smallExplosion;
-
         public Rigidbody ShellRigidBody { get; set; }
 
         private void Awake()
@@ -16,10 +15,9 @@ namespace Assets.Scripts.Shell
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag($"PlayerCollider"))
+            if (other.gameObject.CompareTag($"Player"))
             {
-                Debug.Log("player hit");
-                var player = GameObject.FindWithTag("Player").GetComponent<Player.Player>();
+                var player = other.GetComponent<Player.Player>();
                 if (!player) return;
                 player.health -= GameObject.FindWithTag("EnemyTiger").GetComponent<EnemyTiger>().fireDamage;
                 ShowExplosion();

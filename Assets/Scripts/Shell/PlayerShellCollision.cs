@@ -16,9 +16,9 @@ namespace Assets.Scripts.Shell
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag($"EnemyTigerCollider"))
+            if (other.gameObject.CompareTag($"EnemyTiger"))
             {
-                var enemyTiger = GameObject.FindWithTag("EnemyTiger").GetComponent<Enemy.Strategy.EnemyTiger>();
+                var enemyTiger = other.GetComponent<Enemy.Strategy.EnemyTiger>();
                 if (!enemyTiger) return;
                 enemyTiger.TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
                 ShowExplosion();
