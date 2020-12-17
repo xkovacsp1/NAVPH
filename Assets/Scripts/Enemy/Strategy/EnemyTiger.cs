@@ -71,13 +71,14 @@ namespace Assets.Scripts.Enemy.Strategy
         public void Move()
         {
             if (!Target || !Agent) return;
-            var distance = Vector3.Distance(RigidBody.position, Target.position);
+            var distanceFromTarget = Vector3.Distance(RigidBody.position, Target.position);
 
-            if (distance > fireRange)
+            if (distanceFromTarget > fireRange)
             {
                 Agent.enabled = true;
                 Agent.destination = Target.position;
             }
+            // do not walk only rotate to target
             else
             {
                 Agent.enabled = false;
@@ -92,8 +93,8 @@ namespace Assets.Scripts.Enemy.Strategy
             if (!enemyTigerShellPrefab && !RigidBody) return;
 
             FireTimer += Time.deltaTime;
-            var distance = Vector3.Distance(RigidBody.position, Target.position);
-            if (distance <= fireRange && FireTimer > nextFire)
+            var distanceFromTarget = Vector3.Distance(RigidBody.position, Target.position);
+            if (distanceFromTarget <= fireRange && FireTimer > nextFire)
             {
                 FireTimer = 0;
                 var enemyTigerShellObject = Instantiate(enemyTigerShellPrefab);
