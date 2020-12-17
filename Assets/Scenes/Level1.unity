@@ -2221,7 +2221,7 @@ MonoBehaviour:
     isActive: 0
   spawnIntervalLength: 4
   startZPos: 45
-  enemyNumber: 15
+  enemyNumber: 20
   enemyTigerPrefab: {fileID: 8707066839897533035, guid: ddec54a4bb142764ea48c9d2036eeb3c, type: 3}
   enemySoldierPrefab: {fileID: 8562448540609540937, guid: 084a60667e8774740aa7e73459cd2e89, type: 3}
 --- !u!1 &1777740948

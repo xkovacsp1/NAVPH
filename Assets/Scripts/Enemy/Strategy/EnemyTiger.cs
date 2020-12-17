@@ -11,6 +11,7 @@ namespace Assets.Scripts.Enemy.Strategy
         public float collisionDamage = 30f;
         public float fireDamage = 10f;
         public float startHealth = 100f;
+        public float rotationSpeed = 10f;
         public GameObject enemyTigerShellPrefab;
         public GameObject fireExplosion;
         public GameObject smallExplosion;
@@ -69,8 +70,21 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void Move()
         {
-            if (Target && Agent)
+            if (!Target || !Agent) return;
+            var distance = Vector3.Distance(RigidBody.position, Target.position);
+
+            if (distance > fireRange)
+            {
+                Agent.enabled = true;
                 Agent.destination = Target.position;
+            }
+            else
+            {
+                Agent.enabled = false;
+                Vector3 direction = (Target.position - transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+            }
         }
 
         public void Attack()
@@ -141,7 +155,5 @@ namespace Assets.Scripts.Enemy.Strategy
             explosion.GetComponent<ParticleSystem>().Play();
             Destroy(explosion.gameObject, explosion.GetComponent<ParticleSystem>().main.duration);
         }
-
-
     }
 }

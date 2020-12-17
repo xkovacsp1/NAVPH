@@ -7,13 +7,13 @@ namespace Assets.Scripts.Enemy.Strategy
     {
         public float launchForce = 20f;
         public float nextFire = 3.0f;
-        public float fireRange = 15f;
+        public float fireRange = 12f;
         public float startHealth = 100f;
         public float fireDamage = 5f;
         public GameObject enemySoldierShellPrefab;
         public AudioClip collisionSound;
         public GameObject fireExplosion;
-
+        public float rotationSpeed = 10f;
 
         public float FireTimer { get; set; }
         public bool IsAlive { get; set; } = true;
@@ -36,8 +36,6 @@ namespace Assets.Scripts.Enemy.Strategy
             Target = GameObject.FindWithTag("Player").transform;
             FireTransform = GetComponentsInChildren<Transform>()[51];
             Animator = GetComponentsInChildren<Animator>()[0];
-            if (Animator)
-                Animator.SetInteger($"Status_walk", 1);
             ActualHealth = startHealth;
             FireTimer = nextFire;
         }
@@ -59,8 +57,25 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void Move()
         {
-            if (Target && Agent)
+            if (!Target || !Agent) return;
+            var distance = Vector3.Distance(RigidBody.position, Target.position);
+
+            if (distance > fireRange)
+            {
+                if (Animator)
+                    Animator.SetInteger($"Status_walk", 1);
+                Agent.enabled = true;
                 Agent.destination = Target.position;
+            }
+            else
+            {
+                if (Animator)
+                    Animator.SetInteger($"Status_walk", 0);
+                Agent.enabled = false;
+                Vector3 direction = (Target.position - transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+            }
         }
 
         public void Attack()
