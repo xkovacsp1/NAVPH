@@ -59,6 +59,8 @@ namespace Assets.Scripts.PowerUps.Strategy
             return IsAlive;
         }
 
+        /* this function is called every frame and checks the actual state of powerup
+           if time for powerup expires then powerup effect is disabled */
         public void TakeEffect()
         {
             if (IsPowerUpActive)
@@ -74,7 +76,6 @@ namespace Assets.Scripts.PowerUps.Strategy
                     if (!player) return;
 
                     IsPowerUpActive = false;
-                    Destroy(gameObject);
                     if (Spawner)
                         Spawner.spawnAreas[ReservedArea].isActive = false;
                     IsAlive = false;
@@ -83,6 +84,7 @@ namespace Assets.Scripts.PowerUps.Strategy
                         GamePlayCanvas.HidePowerUpLefTime(powerUpDuration - Timer);
                     player.damage -= IncreasedDamage;
                     player.ActivePowerUp = false;
+                    Destroy(gameObject);
                 }
             }
         }

@@ -45,10 +45,10 @@ namespace Assets.Scripts.PowerUps
         public void Start()
         {
             if (spawnAreas.Count > 0 && Plane)
-                StartCoroutine(MakeEnemies());
+                StartCoroutine(MakePowerUps());
         }
 
-        private IEnumerator MakeEnemies()
+        private IEnumerator MakePowerUps()
         {
             var powerUpCount = 0;
             while (powerUpCount < powerUpsNumber)
@@ -56,11 +56,11 @@ namespace Assets.Scripts.PowerUps
                 var index = Random.Next(spawnAreas.Count);
                 var spawnPoint = spawnAreas[index];
                 var bounds = Plane.bounds;
-                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + spawnAreasOffset, bounds.extents.z - spawnAreasOffset);
-                PowerUpsBehaviourContext context;
+                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + spawnAreasOffset, bounds.extents.x - spawnAreasOffset);
                 if (!spawnPoint.isActive)
                 {
                     PowerUpTypes randomEnemyType = (PowerUpTypes) Random.Next(0, 3);
+                    PowerUpsBehaviourContext context;
                     switch (randomEnemyType)
                     {
                         case PowerUpTypes.Drill:
@@ -125,14 +125,14 @@ namespace Assets.Scripts.PowerUps
 
         public void FixedUpdate()
         {
-            foreach (var powerup in PowerUpsBehaviors)
+            foreach (var powerUp in PowerUpsBehaviors)
             {
-                if (powerup.PowerUpBehavior == null)
+                if (powerUp.PowerUpBehavior == null)
                 {
                     continue;
                 }
 
-                powerup.Act();
+                powerUp.Act();
             }
         }
     }

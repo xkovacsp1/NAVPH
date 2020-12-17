@@ -30,10 +30,10 @@ namespace Assets.Scripts.PowerUps.Strategy
             if (!other.GetComponent<Player.Player>()) return;
 
             other.GetComponent<Player.Player>().health += powerUpEffect;
-            Destroy(gameObject);
             if(Spawner)
                 Spawner.spawnAreas[ReservedArea].isActive = false;
             IsAlive = false;
+            Destroy(gameObject);
         }
 
         public void Move()

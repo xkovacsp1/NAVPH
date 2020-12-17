@@ -22,7 +22,7 @@ namespace Assets.Scripts.Enemy
         };
 
         public float spawnIntervalLength = 2f;
-        public float zPos = 45f;
+        public float startZPos = 45f;
         public int enemyNumber = 10;
         public GameObject enemyTigerPrefab;
         public GameObject enemySoldierPrefab;
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Enemy
 
             var enemyTiger = Instantiate(enemyTigerPrefab);
             enemyTiger.transform.rotation = gameObject.transform.rotation;
-            enemyTiger.transform.position = new Vector3(spawnPoint.xPos, YPos, zPos);
+            enemyTiger.transform.position = new Vector3(spawnPoint.xPos, YPos, startZPos);
             enemyTiger.GetComponent<EnemyTiger>().ReservedArea = index;
             return enemyTiger.GetComponent<EnemyTiger>();
         }
@@ -98,7 +98,7 @@ namespace Assets.Scripts.Enemy
 
             var enemySoldier = Instantiate(enemySoldierPrefab);
             enemySoldier.transform.rotation = gameObject.transform.rotation;
-            enemySoldier.transform.position = new Vector3(spawnPoint.xPos, YPos, zPos);
+            enemySoldier.transform.position = new Vector3(spawnPoint.xPos, YPos, startZPos);
             enemySoldier.GetComponent<EnemySoldier>().ReservedArea = index;
             return enemySoldier.GetComponent<EnemySoldier>();
         }

@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Shell;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Assets.Scripts.Enemy.Strategy

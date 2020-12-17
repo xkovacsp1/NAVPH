@@ -56,7 +56,7 @@ namespace Assets.Scripts.Arena
                 var spawnPoint = coinSpawnAreas[index];
                 var bounds = Plane.bounds;
                 spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + spawnAreasOffset,
-                    bounds.extents.z - spawnAreasOffset);
+                    bounds.extents.x - spawnAreasOffset);
                 if (!spawnPoint.isActive)
                 {
                     if (GenerateCoin(spawnPoint))

@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Shell;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Assets.Scripts.Enemy.Strategy
@@ -82,7 +81,6 @@ namespace Assets.Scripts.Enemy.Strategy
             var distance = Vector3.Distance(RigidBody.position, Target.position);
             if (distance <= fireRange && FireTimer > nextFire)
             {
-                Debug.Log($"distrance {distance}");
                 FireTimer = 0;
                 var enemyTigerShellObject = Instantiate(enemyTigerShellPrefab);
                 var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
