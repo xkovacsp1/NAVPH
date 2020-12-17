@@ -14,6 +14,7 @@ namespace Assets.Scripts.UI
 
         public void QuitButton()
         {
+            PlayerPrefs.DeleteAll();
             Application.Quit();
         }
 

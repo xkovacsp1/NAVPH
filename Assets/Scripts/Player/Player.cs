@@ -11,7 +11,7 @@ namespace Assets.Scripts.Player
         public float damage = 10f;
         public float collisionDamage = 10f;
 
-        public int NumberOfCollectedCoins { get; set; }
+        public int NumberOfCollectedCoins { get; set; } = 0;
         public string MovementAxisName { get; set; } = "Vertical";
         public string TurnAxisName { get; set; } = "Horizontal";
         public Rigidbody RigidBody { get; set; }
