@@ -7,10 +7,12 @@ namespace Assets.Scripts.Shell
     {
         public GameObject smallExplosion;
         public Rigidbody ShellRigidBody { get; set; }
+        public float TigerDamage { get; set; }
 
         private void Awake()
         {
             ShellRigidBody = gameObject.GetComponent<Rigidbody>();
+            TigerDamage = GameObject.FindWithTag("EnemyTiger").GetComponent<EnemyTiger>().fireDamage;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -19,7 +21,7 @@ namespace Assets.Scripts.Shell
             {
                 var player = other.GetComponent<Player.Player>();
                 if (!player) return;
-                player.health -= GameObject.FindWithTag("EnemyTiger").GetComponent<EnemyTiger>().fireDamage;
+                player.health -= TigerDamage;
                 ShowExplosion();
                 Destroy(gameObject);
             }

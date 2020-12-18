@@ -651,21 +651,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnAreas:
-  - xPos: 14.39
+  - xPos: 12.39
     isActive: 0
-  - xPos: 9.27
+  - xPos: 7.27
     isActive: 0
-  - xPos: 4.5
+  - xPos: 2.5
     isActive: 0
-  - xPos: -0.45
+  - xPos: -2.45
     isActive: 0
-  - xPos: -5.53
+  - xPos: -7.53
     isActive: 0
-  - xPos: -10.32
+  - xPos: -12.32
     isActive: 0
   spawnAreasOffset: 3
-  spawnIntervalLength: 7
-  powerUpsNumber: 25
+  spawnIntervalLength: 11
+  powerUpsNumber: 10
   ammoBoxPrefab: {fileID: 391081111845221762, guid: 8f1bc50ff14e0bb4f9f7a6dcb298284b, type: 3}
   barrelPrefab: {fileID: 1984084043255329447, guid: 0b81359c00c5dc848a7268072656941d, type: 3}
   drillPrefab: {fileID: 1000012695253110, guid: f5a2d19d564785d45a6207078113bcaa, type: 3}
@@ -1974,20 +1974,20 @@ MonoBehaviour:
   coinPrefab: {fileID: 254767797730731415, guid: a6c4426cf68e42846a005f814a152556, type: 3}
   coinNumber: 15
   coinSpawnAreas:
-  - xPos: 14.39
+  - xPos: 13.39
     isActive: 0
-  - xPos: 9.27
+  - xPos: 8.27
     isActive: 0
-  - xPos: 4.5
+  - xPos: 3.5
     isActive: 0
-  - xPos: -0.45
+  - xPos: -1.45
     isActive: 0
-  - xPos: -5.53
+  - xPos: -6.53
     isActive: 0
-  - xPos: -10.32
+  - xPos: -11.32
     isActive: 0
   spawnAreasOffset: 3
-  spawnIntervalLength: 8
+  spawnIntervalLength: 10
 --- !u!82 &1642452673
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2219,7 +2219,7 @@ MonoBehaviour:
     isActive: 0
   - xPos: -10.32
     isActive: 0
-  spawnIntervalLength: 4
+  spawnIntervalLength: 6
   startZPos: 45
   enemyNumber: 20
   enemyTigerPrefab: {fileID: 8707066839897533035, guid: ddec54a4bb142764ea48c9d2036eeb3c, type: 3}

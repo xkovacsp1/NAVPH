@@ -8,10 +8,13 @@ namespace Assets.Scripts.Shell
         public GameObject smallExplosion;
 
         public Rigidbody ShellRigidBody { get; set; }
+        public float SoldierDamage { get; set; }
+
 
         private void Awake()
         {
             ShellRigidBody = gameObject.GetComponent<Rigidbody>();
+            SoldierDamage = GameObject.FindWithTag("EnemySoldier").GetComponent<EnemySoldier>().fireDamage;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -20,7 +23,7 @@ namespace Assets.Scripts.Shell
             {
                 var player = other.GetComponent<Player.Player>();
                 if (!player) return;
-                player.health -= GameObject.FindWithTag("EnemySoldier").GetComponent<EnemySoldier>().fireDamage;
+                player.health -= SoldierDamage;
                 ShowExplosion();
                 Destroy(gameObject);
             }

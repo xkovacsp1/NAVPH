@@ -7,10 +7,12 @@ namespace Assets.Scripts.Shell
         public GameObject smallExplosion;
 
         public Rigidbody ShellRigidBody { get; set; }
+        public float PlayerDamage { get; set; }
 
         private void Awake()
         {
             ShellRigidBody = gameObject.GetComponent<Rigidbody>();
+            PlayerDamage = GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage;
         }
 
 
@@ -20,7 +22,7 @@ namespace Assets.Scripts.Shell
             {
                 var enemyTiger = other.GetComponent<Enemy.Strategy.EnemyTiger>();
                 if (!enemyTiger) return;
-                enemyTiger.TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
+                enemyTiger.TakeDamage(PlayerDamage);
                 ShowExplosion();
                 Destroy(gameObject);
             }
@@ -28,7 +30,7 @@ namespace Assets.Scripts.Shell
             {
                 var enemySoldier = other.GetComponent<Enemy.Strategy.EnemySoldier>();
                 if (!enemySoldier) return;
-                enemySoldier.TakeDamage(GameObject.FindWithTag("Player").GetComponent<Player.Player>().damage);
+                enemySoldier.TakeDamage(PlayerDamage);
                 ShowExplosion();
                 Destroy(gameObject);
             }
