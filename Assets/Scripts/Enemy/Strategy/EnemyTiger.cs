@@ -90,13 +90,12 @@ namespace Assets.Scripts.Enemy.Strategy
 
         public void Attack()
         {
-            if (!enemyTigerShellPrefab && !RigidBody) return;
+            if (!enemyTigerShellPrefab || !RigidBody || !FireTransform) return;
 
             FireTimer += Time.deltaTime;
             var distanceFromTarget = Vector3.Distance(RigidBody.position, Target.position);
             if (distanceFromTarget <= fireRange && FireTimer > nextFire)
             {
-                if (!FireTransform) return;
                 FireTimer = 0;
                 var enemyTigerShellObject = Instantiate(enemyTigerShellPrefab, FireTransform.position, FireTransform.rotation);
                 ShowFireExplosion();
