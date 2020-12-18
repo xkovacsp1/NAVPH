@@ -651,17 +651,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnAreas:
-  - xPos: 12.39
+  - xPos: 10.39
     isActive: 0
-  - xPos: 7.27
+  - xPos: 5.27
     isActive: 0
-  - xPos: 2.5
+  - xPos: 0.5
     isActive: 0
   - xPos: -2.45
     isActive: 0
-  - xPos: -7.53
+  - xPos: -9.53
     isActive: 0
-  - xPos: -12.32
+  - xPos: -14.32
     isActive: 0
   spawnAreasOffset: 3
   spawnIntervalLength: 11
@@ -1974,17 +1974,17 @@ MonoBehaviour:
   coinPrefab: {fileID: 254767797730731415, guid: a6c4426cf68e42846a005f814a152556, type: 3}
   coinNumber: 15
   coinSpawnAreas:
-  - xPos: 13.39
+  - xPos: 12.39
     isActive: 0
-  - xPos: 8.27
+  - xPos: 7.27
     isActive: 0
-  - xPos: 3.5
+  - xPos: 2.5
     isActive: 0
-  - xPos: -1.45
+  - xPos: -2.45
     isActive: 0
-  - xPos: -6.53
+  - xPos: -7.53
     isActive: 0
-  - xPos: -11.32
+  - xPos: -12.32
     isActive: 0
   spawnAreasOffset: 3
   spawnIntervalLength: 10
