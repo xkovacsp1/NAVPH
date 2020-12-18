@@ -27,12 +27,6 @@ namespace Assets.Scripts.Player
             RigidBody = GetComponent<Rigidbody>();
         }
 
-        private void OnEnable()
-        {
-            MovementInputValue = 0f;
-            TurnInputValue = 0f;
-        }
-
         private void Update()
         {
             //pause game with player
@@ -41,12 +35,12 @@ namespace Assets.Scripts.Player
                 if (Time.timeScale == 1.0f)
                 {
                     Time.timeScale = 0.0f;
-                    GamePaused = true;
+                    GamePaused = !GamePaused;
                 }
                 else
                 {
                     Time.timeScale = 1.0f;
-                    GamePaused = false;
+                    GamePaused = !GamePaused;
                 }
             }
 

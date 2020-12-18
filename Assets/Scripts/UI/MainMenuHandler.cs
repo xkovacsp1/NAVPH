@@ -11,7 +11,6 @@ namespace Assets.Scripts.UI
             SceneManager.LoadScene(sceneBuildIndex: 1);
         }
 
-
         public void QuitButton()
         {
             PlayerPrefs.DeleteAll();

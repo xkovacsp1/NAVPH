@@ -18,15 +18,11 @@ namespace Assets.Scripts.Player
         public float ChargeSpeed { get; set; }
         public bool Fired { get; set; }
 
-        private void OnEnable()
-        {
-            CurrentLaunchForce = minLaunchForce;
-        }
-
         private void Start()
         {
             FireTimer = nextFire;
             ChargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
+            CurrentLaunchForce = minLaunchForce;
         }
 
         private void Update()

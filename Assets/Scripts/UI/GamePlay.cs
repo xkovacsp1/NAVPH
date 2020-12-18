@@ -74,7 +74,7 @@ namespace Assets.Scripts.UI
 
         private void HidePauseMessage()
         {
-            if (pauseMessage)
+            if (pauseMessage && pauseMessage.activeSelf)
                 pauseMessage.SetActive(false);
         }
 
