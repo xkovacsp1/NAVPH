@@ -25,8 +25,7 @@ namespace Assets.Scripts.Shell
                 ShowExplosion();
                 Destroy(gameObject);
             }
-            else if (other.gameObject.CompareTag($"Plane") || other.gameObject.CompareTag($"LeftWall") ||
-                     other.gameObject.CompareTag($"RightWall"))
+            else
             {
                 ShowExplosion();
                 Destroy(gameObject);
