@@ -10,7 +10,7 @@ namespace Assets.Scripts.Enemy.Strategy
         public float fireRange = 12f;
         public float startHealth = 100f;
         public float fireDamage = 5f;
-        public GameObject enemySoldierShellPrefab;
+        public Rigidbody enemySoldierShellPrefab;
         public AudioClip collisionSound;
         public GameObject fireExplosion;
         public float rotationSpeed = 10f;
@@ -87,18 +87,11 @@ namespace Assets.Scripts.Enemy.Strategy
             var distanceFromTarget = Vector3.Distance(RigidBody.position, Target.position);
             if (distanceFromTarget <= fireRange && FireTimer > nextFire)
             {
+                if (!FireTransform) return;
                 FireTimer = 0;
-                var enemyTigerShellObject =
-                    Instantiate(enemySoldierShellPrefab);
-                var enemyTigerShellRigidBody = enemyTigerShellObject.GetComponent<Rigidbody>();
-                if (!enemyTigerShellRigidBody || !FireTransform) return;
-                var transformShell = enemyTigerShellRigidBody.transform;
-                transformShell.rotation = FireTransform.rotation;
-                transformShell.position = FireTransform.position;
-
+                Rigidbody enemyTigerShellObject = Instantiate(enemySoldierShellPrefab, FireTransform.position, FireTransform.rotation);
                 ShowFireExplosion();
-
-                enemyTigerShellRigidBody.velocity = launchForce * FireTransform.forward;
+                enemyTigerShellObject.velocity = launchForce * FireTransform.forward;
             }
         }
 
@@ -125,12 +118,8 @@ namespace Assets.Scripts.Enemy.Strategy
 
         private void ShowFireExplosion()
         {
-            if (!fireExplosion) return;
-            var explosion = Instantiate(fireExplosion);
-            var explosionRigidBody = explosion.GetComponent<Rigidbody>();
-            if (!explosionRigidBody || !FireTransform) return;
-            explosionRigidBody.position = FireTransform.position;
-            explosionRigidBody.rotation = FireTransform.rotation;
+            if (!fireExplosion || !FireTransform) return;
+            var explosion = Instantiate(fireExplosion, FireTransform.position, FireTransform.rotation);
             explosion.GetComponentInChildren<ParticleSystem>().Play();
             Destroy(explosion.GetComponentInChildren<ParticleSystem>(),
                 explosion.GetComponentInChildren<ParticleSystem>().main.duration);

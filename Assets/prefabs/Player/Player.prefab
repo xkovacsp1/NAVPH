@@ -1742,7 +1742,7 @@ MonoBehaviour:
   maxLaunchForce: 30
   maxChargeTime: 0.75
   nextFire: 1
-  playerShell: {fileID: 9152627324826179341, guid: 70bf1b24b44c5854380489555c0172b8, type: 3}
+  playerShell: {fileID: 4978834802598242278, guid: 70bf1b24b44c5854380489555c0172b8, type: 3}
   fireExplosion: {fileID: 7277902209380964897, guid: 4bff2e13378a5eb4f8976fecd56fb61d, type: 3}
 --- !u!1 &5675031825613747547
 GameObject:

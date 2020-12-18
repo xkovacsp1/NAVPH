@@ -44,10 +44,7 @@ namespace Assets.Scripts.Shell
         private void ShowExplosion()
         {
             if (!smallExplosion || !ShellRigidBody) return;
-            var explosion = Instantiate(smallExplosion);
-            var explosionRigidBody = explosion.GetComponent<Rigidbody>();
-            explosionRigidBody.position = ShellRigidBody.position;
-            explosionRigidBody.rotation = ShellRigidBody.rotation;
+            var explosion = Instantiate(smallExplosion, ShellRigidBody.position, ShellRigidBody.rotation);
             explosion.GetComponent<ParticleSystem>().Play();
             Destroy(explosion.gameObject, explosion.GetComponent<ParticleSystem>().main.duration);
         }

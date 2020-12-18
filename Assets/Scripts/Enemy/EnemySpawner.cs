@@ -82,9 +82,8 @@ namespace Assets.Scripts.Enemy
                 return null;
             }
 
-            var enemyTiger = Instantiate(enemyTigerPrefab);
-            enemyTiger.transform.rotation = gameObject.transform.rotation;
-            enemyTiger.transform.position = new Vector3(spawnPoint.xPos, YPos, startZPos);
+            var enemyTiger = Instantiate(enemyTigerPrefab, new Vector3(spawnPoint.xPos, YPos, startZPos),
+                gameObject.transform.rotation);
             enemyTiger.GetComponent<EnemyTiger>().ReservedArea = index;
             return enemyTiger.GetComponent<EnemyTiger>();
         }
@@ -96,9 +95,8 @@ namespace Assets.Scripts.Enemy
                 return null;
             }
 
-            var enemySoldier = Instantiate(enemySoldierPrefab);
-            enemySoldier.transform.rotation = gameObject.transform.rotation;
-            enemySoldier.transform.position = new Vector3(spawnPoint.xPos, YPos, startZPos);
+            var enemySoldier = Instantiate(enemySoldierPrefab, new Vector3(spawnPoint.xPos, YPos, startZPos),
+                gameObject.transform.rotation);
             enemySoldier.GetComponent<EnemySoldier>().ReservedArea = index;
             return enemySoldier.GetComponent<EnemySoldier>();
         }

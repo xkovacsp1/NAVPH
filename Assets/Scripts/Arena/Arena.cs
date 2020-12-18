@@ -77,9 +77,8 @@ namespace Assets.Scripts.Arena
                 return false;
             }
 
-            var coin = Instantiate(coinPrefab);
-            coin.transform.rotation = gameObject.transform.rotation;
-            coin.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
+            Instantiate(coinPrefab, new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos),
+                gameObject.transform.rotation);
             return true;
         }
 

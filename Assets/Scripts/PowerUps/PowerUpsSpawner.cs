@@ -18,6 +18,7 @@ namespace Assets.Scripts.PowerUps
             {new SpawnPoint(-5.53f, false)},
             {new SpawnPoint(-10.32f, false)}
         };
+
         public float spawnAreasOffset = 5f;
         public float spawnIntervalLength = 2f;
         public int powerUpsNumber = 15;
@@ -56,7 +57,8 @@ namespace Assets.Scripts.PowerUps
                 var index = Random.Next(spawnAreas.Count);
                 var spawnPoint = spawnAreas[index];
                 var bounds = Plane.bounds;
-                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + spawnAreasOffset, bounds.extents.x - spawnAreasOffset);
+                spawnPoint.ZPos = UnityEngine.Random.Range((-bounds.extents.x) + spawnAreasOffset,
+                    bounds.extents.x - spawnAreasOffset);
                 if (!spawnPoint.isActive)
                 {
                     PowerUpTypes randomEnemyType = (PowerUpTypes) Random.Next(0, 3);
@@ -90,10 +92,8 @@ namespace Assets.Scripts.PowerUps
                 return null;
             }
 
-            var drill = Instantiate(drillPrefab);
-            drill.transform.rotation = gameObject.transform.rotation;
-            // increase y position of drill
-            drill.transform.position = new Vector3(spawnPoint.xPos, YPos + 0.5f, spawnPoint.ZPos);
+            var drill = Instantiate(drillPrefab, new Vector3(spawnPoint.xPos, YPos + 0.5f, spawnPoint.ZPos),
+                gameObject.transform.rotation);
             return drill.GetComponent<Drill>();
         }
 
@@ -104,9 +104,8 @@ namespace Assets.Scripts.PowerUps
                 return null;
             }
 
-            var ammoBox = Instantiate(ammoBoxPrefab);
-            ammoBox.transform.rotation = gameObject.transform.rotation;
-            ammoBox.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
+            var ammoBox = Instantiate(ammoBoxPrefab, new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos),
+                gameObject.transform.rotation);
             return ammoBox.GetComponent<AmmoBox>();
         }
 
@@ -117,9 +116,8 @@ namespace Assets.Scripts.PowerUps
                 return null;
             }
 
-            var barrel = Instantiate(barrelPrefab);
-            barrel.transform.rotation = gameObject.transform.rotation;
-            barrel.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
+            var barrel = Instantiate(barrelPrefab, new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos),
+                gameObject.transform.rotation);
             return barrel.GetComponent<Barrel>();
         }
 

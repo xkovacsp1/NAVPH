@@ -78,9 +78,8 @@ namespace Assets.Scripts.Obstacles
                 return;
             }
 
-            var barrier = Instantiate(barrierPrefab);
-            barrier.transform.rotation = gameObject.transform.rotation;
-            barrier.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
+            Instantiate(barrierPrefab, new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos),
+                gameObject.transform.rotation);
         }
 
         private void GenerateRock(SpawnPoint spawnPoint)
@@ -90,9 +89,7 @@ namespace Assets.Scripts.Obstacles
                 return;
             }
 
-            var rock = Instantiate(rockPrefab);
-            rock.transform.rotation = gameObject.transform.rotation;
-            rock.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
+            Instantiate(rockPrefab, new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos), gameObject.transform.rotation);
         }
 
         private void GenerateMine(SpawnPoint spawnPoint)
@@ -102,9 +99,7 @@ namespace Assets.Scripts.Obstacles
                 return;
             }
 
-            var mine = Instantiate(minePrefab);
-            mine.transform.rotation = gameObject.transform.rotation;
-            mine.transform.position = new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos);
+            Instantiate(minePrefab, new Vector3(spawnPoint.xPos, YPos, spawnPoint.ZPos), gameObject.transform.rotation);
         }
     }
 }

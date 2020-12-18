@@ -1984,7 +1984,7 @@ MonoBehaviour:
   fireRange: 12
   startHealth: 50
   fireDamage: 5
-  enemySoldierShellPrefab: {fileID: 7438506155107229631, guid: 7344385ce3882bd48b8a3e645f6436f2, type: 3}
+  enemySoldierShellPrefab: {fileID: 1152307790792247993, guid: 7344385ce3882bd48b8a3e645f6436f2, type: 3}
   collisionSound: {fileID: 8300000, guid: 4b4a8793b8ba95e459dd09718f856151, type: 3}
   fireExplosion: {fileID: 7277902209380964897, guid: 4bff2e13378a5eb4f8976fecd56fb61d, type: 3}
   rotationSpeed: 10

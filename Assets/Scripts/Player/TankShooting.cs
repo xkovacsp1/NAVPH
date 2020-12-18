@@ -9,7 +9,7 @@ namespace Assets.Scripts.Player
         public float maxLaunchForce = 30f;
         public float maxChargeTime = 0.75f;
         public float nextFire = 5.0f;
-        public GameObject playerShell;
+        public Rigidbody playerShell;
         public GameObject fireExplosion;
 
         public float FireTimer { get; set; }
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Player
 
             else if (Input.GetButtonUp(FireButton) && !Fired)
             {
-                if(FireTimer > nextFire)
+                if (FireTimer > nextFire)
                     Fire();
             }
         }
@@ -56,14 +56,10 @@ namespace Assets.Scripts.Player
         {
             Fired = true;
             FireTimer = 0;
-            if (!playerShell) return;
-            var shellInstance = Instantiate(playerShell);
-            var shellRigidBody = shellInstance.GetComponent<Rigidbody>();
-            if (!shellRigidBody || !fireTransform) return;
-            shellRigidBody.position = fireTransform.position;
-            shellRigidBody.rotation = fireTransform.rotation;
+            if (!playerShell || !fireTransform) return;
 
-            shellRigidBody.velocity = CurrentLaunchForce * fireTransform.forward;
+            var shellInstance = Instantiate(playerShell, fireTransform.position, fireTransform.rotation);
+            shellInstance.velocity = CurrentLaunchForce * fireTransform.forward;
 
             ShowFireExplosion();
 
@@ -73,15 +69,11 @@ namespace Assets.Scripts.Player
 
         private void ShowFireExplosion()
         {
-            if (!fireExplosion) return;
-            var explosion = Instantiate(fireExplosion);
-            var explosionRigidBody = explosion.GetComponent<Rigidbody>();
-            explosionRigidBody.position = fireTransform.position;
-            explosionRigidBody.rotation = fireTransform.rotation;
+            if (!fireExplosion || !fireTransform) return;
+            var explosion = Instantiate(fireExplosion, fireTransform.position, fireTransform.rotation);
             explosion.GetComponentInChildren<ParticleSystem>().Play();
-            Destroy(explosion.GetComponentInChildren<ParticleSystem>(), explosion.GetComponentInChildren<ParticleSystem>().main.duration);
+            Destroy(explosion.GetComponentInChildren<ParticleSystem>(),
+                explosion.GetComponentInChildren<ParticleSystem>().main.duration);
         }
-
-
     }
 }

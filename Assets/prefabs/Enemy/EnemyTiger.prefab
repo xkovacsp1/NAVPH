@@ -419,7 +419,8 @@ MonoBehaviour:
   collisionDamage: 30
   fireDamage: 10
   startHealth: 100
-  enemyTigerShellPrefab: {fileID: 8972796557947266418, guid: 9327b622273f32a4cbd00c410297ad1b, type: 3}
+  rotationSpeed: 10
+  enemyTigerShellPrefab: {fileID: 1460000630400888948, guid: 9327b622273f32a4cbd00c410297ad1b, type: 3}
   fireExplosion: {fileID: 7277902209380964897, guid: 4bff2e13378a5eb4f8976fecd56fb61d, type: 3}
   smallExplosion: {fileID: 6174598575264138488, guid: 0793772e26c61154eba742949775f5b6, type: 3}
   collisionSound: {fileID: 8300000, guid: 7b69beceabbd8f24e8bc62d77ac7ca1c, type: 3}

@@ -31,10 +31,7 @@ namespace Assets.Scripts.Obstacles.Strategy
         private void ShowExplosion()
         {
             if (!smallExplosion && !MineRigidBody) return;
-            var explosion = Instantiate(smallExplosion);
-            var explosionRigidBody = explosion.GetComponent<Rigidbody>();
-            explosionRigidBody.position = MineRigidBody.position;
-            explosionRigidBody.rotation = MineRigidBody.rotation;
+            var explosion = Instantiate(smallExplosion, MineRigidBody.position, MineRigidBody.rotation);
             explosion.GetComponent<ParticleSystem>().Play();
             Destroy(explosion.gameObject, explosion.GetComponent<ParticleSystem>().main.duration);
         }
