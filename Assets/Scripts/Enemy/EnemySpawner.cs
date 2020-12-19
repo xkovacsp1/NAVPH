@@ -21,7 +21,7 @@ namespace Assets.Scripts.Enemy
             {new SpawnPoint(-10.32f, false)}
         };
 
-        public float spawnIntervalLength = 2f;
+        public float spawnIntervalLength = 6f;
         public float startZPos = 45f;
         public int enemyNumber = 10;
         public GameObject enemyTigerPrefab;

@@ -2557,11 +2557,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5675031825545566029, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
       propertyPath: turnSpeed
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5675031825545566029, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
       propertyPath: damage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675031825545566029, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}
+      propertyPath: speed
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c74ab93a59a2a25498f2d03eb05de926, type: 3}

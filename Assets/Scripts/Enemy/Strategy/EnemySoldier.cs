@@ -5,10 +5,10 @@ namespace Assets.Scripts.Enemy.Strategy
 {
     public class EnemySoldier : MonoBehaviour, IEnemyBehaviour
     {
-        public float launchForce = 20f;
-        public float nextFire = 3.0f;
+        public float launchForce = 23f;
+        public float nextFire = 2.0f;
         public float fireRange = 12f;
-        public float startHealth = 100f;
+        public float startHealth = 50f;
         public float fireDamage = 5f;
         public Rigidbody enemySoldierShellPrefab;
         public AudioClip collisionSound;

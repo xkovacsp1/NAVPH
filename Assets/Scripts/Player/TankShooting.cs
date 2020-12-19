@@ -8,7 +8,7 @@ namespace Assets.Scripts.Player
         public float minLaunchForce = 15f;
         public float maxLaunchForce = 30f;
         public float maxChargeTime = 0.75f;
-        public float nextFire = 5.0f;
+        public float nextFire = 1.0f;
         public Rigidbody playerShell;
         public GameObject fireExplosion;
 

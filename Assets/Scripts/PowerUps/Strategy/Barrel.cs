@@ -6,7 +6,7 @@ namespace Assets.Scripts.PowerUps.Strategy
     public class Barrel : MonoBehaviour, IPowerUpsBehaviour
     {
         public float rotationSpeed = 60f;
-        public float powerUpDuration = 15.0f;
+        public float powerUpDuration = 10.0f;
         public float powerUpEffect = 0.25f;
         public AudioClip collisionSound;
 

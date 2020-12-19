@@ -17,7 +17,7 @@ namespace Assets.Scripts.Obstacles
             {new SpawnPoint(-10.32f, true)}
         };
 
-        public float spawnAreasOffset = 5f;
+        public float spawnAreasOffset = 3f;
         public GameObject barrierPrefab;
         public GameObject rockPrefab;
         public GameObject minePrefab;

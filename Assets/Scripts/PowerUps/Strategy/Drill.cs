@@ -27,10 +27,12 @@ namespace Assets.Scripts.PowerUps.Strategy
             {
                 AudioSource.PlayClipAtPoint(collisionSound, RigidBody.position);
             }
-            if (!other.GetComponent<Player.Player>()) return;
 
-            other.GetComponent<Player.Player>().health += powerUpEffect;
-            if(Spawner)
+            var player = other.GetComponent<Player.Player>();
+            if (!player) return;
+
+            player.health += powerUpEffect;
+            if (Spawner)
                 Spawner.spawnAreas[ReservedArea].isActive = false;
             IsAlive = false;
             Destroy(gameObject);

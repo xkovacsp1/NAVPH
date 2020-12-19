@@ -23,8 +23,8 @@ namespace Assets.Scripts.Arena
             {new SpawnPoint(-10.32f, false)}
         };
 
-        public float spawnAreasOffset = 5f;
-        public float spawnIntervalLength = 2f;
+        public float spawnAreasOffset = 3f;
+        public float spawnIntervalLength = 10f;
 
 
         public Player.Player Player { get; set; }

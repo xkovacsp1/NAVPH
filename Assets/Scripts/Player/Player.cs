@@ -5,9 +5,9 @@ namespace Assets.Scripts.Player
 {
     public class Player : MonoBehaviour
     {
-        public float speed = 120f;
-        public float turnSpeed = 180f;
-        public float health = 100f;
+        public float speed = 250f;
+        public float turnSpeed = 40f;
+        public float health = 120f;
         public float damage = 10f;
         public float collisionDamage = 10f;
 

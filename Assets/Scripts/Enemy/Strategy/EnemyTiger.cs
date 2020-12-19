@@ -6,7 +6,7 @@ namespace Assets.Scripts.Enemy.Strategy
     public class EnemyTiger : MonoBehaviour, IEnemyBehaviour
     {
         public float launchForce = 30f;
-        public float nextFire = 5.0f;
+        public float nextFire = 3.0f;
         public float fireRange = 25f;
         public float collisionDamage = 30f;
         public float fireDamage = 10f;

@@ -19,9 +19,9 @@ namespace Assets.Scripts.PowerUps
             {new SpawnPoint(-10.32f, false)}
         };
 
-        public float spawnAreasOffset = 5f;
-        public float spawnIntervalLength = 2f;
-        public int powerUpsNumber = 15;
+        public float spawnAreasOffset = 3f;
+        public float spawnIntervalLength = 11f;
+        public int powerUpsNumber = 10;
         public GameObject ammoBoxPrefab;
         public GameObject barrelPrefab;
         public GameObject drillPrefab;
