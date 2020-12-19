@@ -19,7 +19,7 @@ namespace Assets.Scripts.PowerUps.Strategy
         private float IncreasedSpeed { get; set; }
         public PowerUpsSpawner Spawner { get; set; }
         public GamePlay GamePlayCanvas { get; set; }
-        public string PowerUpType { get; set; } = "Increased speed";
+        public string PowerUpType { get; set; } = "Increased Speed";
 
         private void Awake()
         {
