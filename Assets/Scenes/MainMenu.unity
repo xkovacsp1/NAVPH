@@ -1333,7 +1333,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tank wars
+  m_Text: Tank Wars
 --- !u!222 &1273439371
 CanvasRenderer:
   m_ObjectHideFlags: 0
